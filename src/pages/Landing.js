@@ -1,5 +1,7 @@
 import React from "react"
-import Header from "../components/Header"
+import Header from "../components/Header/Header"
+import Logo from "../components/Logo/Logo"
+import logo from "../images/chef.svg"
 
 export default function Landing() {
     return(
@@ -9,8 +11,10 @@ export default function Landing() {
             margin: "auto"
         }}>
             <Header color={"#e63946"}>
-                <h1>Cook it</h1>
+                <h1 style={{display: "inline", paddingRight: "0.5em"}}>CooKIT</h1>
+                <Logo logo={logo} alt="panda chef hat"/>
             </Header>
+
         </div>
     )
 }
