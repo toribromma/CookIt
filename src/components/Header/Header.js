@@ -4,10 +4,10 @@ export default function Header(props) {
     return(
         <header style={{
             backgroundColor: props.color,
-            opacity: 0.85,
-            height: 175,
+            opacity: 1,
+            height: 300,
             textAlign: "center",
-            paddingTop: 100,
+            paddingTop: 10
         }}>
             {props.children}
         </header>

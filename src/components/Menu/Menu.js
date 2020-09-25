@@ -8,7 +8,8 @@ export default function Menu(props) {
         style={{
             width: "1.5em",
             height: "2em",
-            padding: 20
+            padding: 20,
+            cursor: "pointer"
         }}
         >
         

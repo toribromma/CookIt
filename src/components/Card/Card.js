@@ -4,12 +4,13 @@ export default function Card(props) {
     return(
         <div style={{
             backgroundColor: props.color,
-            height: 375,
-            width: 300,
-            opacity: 0.45,
-            borderBottom: "1px solid",
-            boxShadow: "5px 10px",
-            borderRadius: 10
+            height: "fit-content",
+            width: 305,
+            border: props.border,
+            borderRadius: 5,
+            margin: "20px",
+            display: "inline-block",
+            padding: 10,
         }}>
             {props.children}
         </div>
