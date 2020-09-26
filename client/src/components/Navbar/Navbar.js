@@ -4,11 +4,11 @@ export default function Navbar(props) {
     return(
         <nav style={{
             backgroundColor: props.color,
-            height: "5rem",
-            opacity: 0.75,
-            borderBottom: "1px transparent",
-            boxShadow: "5px 10px",
-            paddingTop: 10,
+            height: "3rem",
+            opacity: 1,
+            borderBottom: "5px solid black",
+            // boxShadow: "5px 10px",
+            paddingTop: 5,
         }}>
             {props.children}
         </nav>

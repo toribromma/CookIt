@@ -20,9 +20,9 @@ function App() {
       margin: "auto",
       fontFamily: "Rubik, san-serif",
   }}>
-    <Navbar color={"#1d3557"}>
+    {/* <Navbar color={"#1d3557"}>
       <Menu alt={"menu button"} menu={menu}/>
-    </Navbar>
+    </Navbar> */}
       <Header color={"#e63946"}>
           <h1 style={{
               // display: "inline",

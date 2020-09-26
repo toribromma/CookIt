@@ -6,7 +6,7 @@ const recipeController = require("../../controllers/recipeController");
 router
   .route("/")
   .get(recipeController.findAll)
-  // .post(postsController.create);
+  .post(recipeController.create);
 
 // Matches with "/api/posts/:id"
 // router

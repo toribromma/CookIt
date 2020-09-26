@@ -2,8 +2,8 @@ import React from "react"
 
 export default function CardSecondHeader(props) {
     return(
-        <h3>
+        <h5>
             {props.children}
-        </h3>
+        </h5>
     )
 }

@@ -49,7 +49,7 @@ export default function CardContainer() {
             <CardContext.Provider value={clickToggleButton}>
                 {recipes.map(recipe => {
                     return (
-                        <Card border={"0.2em solid rgba(29, 53, 87, 0.4)"} color={"rgba(168, 218, 220, 1)"}>
+                        <Card border={"0.2em transparent"} color={"rgba(168, 218, 220, 1)"}>
                     <CardImage alt={recipe.title} cardImage={recipe.thumbnail}/>
                     <CardHeader>
                         {recipe.title}
@@ -76,7 +76,7 @@ export default function CardContainer() {
                     })}
                     </CardList>
                     }
-                    <CardButton>{toggleButton ? "Ingredients" : "Instructions"  }</CardButton>     
+                    <CardButton>{toggleButton ? "Instructions" : "Ingredients"  }</CardButton>     
                 </Card>
                     )
                 })}
