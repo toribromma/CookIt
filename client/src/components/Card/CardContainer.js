@@ -12,7 +12,7 @@ import API from "../../utils/API"
 
 export default function CardContainer() {
 
-    const [recipes, setRecipes] = useState([])
+    const [recipes, setRecipes] = useState()
 
     useEffect(() =>{
         loadRecipes()
@@ -21,7 +21,7 @@ export default function CardContainer() {
     function loadRecipes() {
         API.getRecipes()
             .then(res =>
-                setRecipes(...res.data)
+                setRecipes(res.data)
                 // console.log(res.data)
                 )
                 .catch(err =>console.log(err));
@@ -40,38 +40,46 @@ export default function CardContainer() {
 
         console.log("hi")
     }
-    
+
+    if(!recipes) {
+        return (<span>Loading...</span>)
+    }
     return(
         <div>
             <CardContext.Provider value={clickToggleButton}>
-                <Card border={"0.2em solid rgba(29, 53, 87, 0.4)"} color={"rgba(168, 218, 220, 1)"}>
-                    <CardImage alt={"shishito"} cardImage="https://www.platingsandpairings.com/wp-content/uploads/2018/10/shishito-peppers-7.jpg"/>
+                {recipes.map(recipe => {
+                    return (
+                        <Card border={"0.2em solid rgba(29, 53, 87, 0.4)"} color={"rgba(168, 218, 220, 1)"}>
+                    <CardImage alt={recipe.title} cardImage={recipe.thumbnail}/>
                     <CardHeader>
-                       {recipes.title}
+                        {recipe.title}
                     </CardHeader>
                     <CardDescription>
                     </CardDescription>
                     <CardSecondHeader>
                         {toggleButton ? "Ingredients" : "Instructions"  }
                     </CardSecondHeader>
+                    {toggleButton ? 
                     <CardList>
-                        <CardListItem>
-                            {toggleButton ? "1/2 pound shishito peppers" : "Get a job"  }
-                        </CardListItem>
-                        <CardListItem>
-                            {toggleButton ? "1 Tablespoon olive oil" : "Get a job"  }
-                        </CardListItem>
-                        <CardListItem>
-                            {toggleButton ? "1/4 teaspoon togarashi" : "Get a job"  }
-                        </CardListItem>
-                        <CardListItem>
-                            {toggleButton ? "Coarse sea salt (such as fleur de sel or Maldon)" : "Get a job"  }</CardListItem>
-                        <CardListItem>
-                        {toggleButton ? "1 lemon (cut into wedges)" : "Get a job"  }
-                        </CardListItem>
+                    {recipe.ingredients.map((ingredient, index) => {
+                        return(
+                            <CardListItem>{ingredient}</CardListItem>
+                        )
+                    })}
                     </CardList>
+                    :
+                    <CardList>
+                    {recipe.instructions.map(instruction => {
+                        return(
+                            <CardListItem>{instruction}</CardListItem>
+                        )
+                    })}
+                    </CardList>
+                    }
                     <CardButton>{toggleButton ? "Ingredients" : "Instructions"  }</CardButton>     
                 </Card>
+                    )
+                })}
             </CardContext.Provider>
         </div>     
     )

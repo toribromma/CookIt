@@ -9,9 +9,10 @@ export default function CardImage(props) {
         style={{
             width: 200,
             height: 200,
+            objectFit: "cover",
             borderRadius: "50%",
             margin: "auto",
-            display: "flex",
+            display: "block",
             opacity: 1,
             position: "relative",
             top: -25,

@@ -2,8 +2,11 @@ import React from "react"
 
 export default function CardList(props) {
     return(
-        <ul>
+        <ol style={{
+            overflow: "scroll",
+            height: "300px",
+        }}>
             {props.children}
-        </ul>
+        </ol>
     )
 }
