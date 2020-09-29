@@ -32,7 +32,6 @@ const [formObject, setFormObject] = useState({})
   let instructions = steps.map(i => i.step)
   let ingredientsArray = ingredients.map(i => i.original)
 
-
   API.saveRecipe({
     title: title,
     thumbnail: image,

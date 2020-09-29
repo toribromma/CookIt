@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() =>{
       loadRecipes()
-  }, [recipes])
+  }, [])
 
   function loadRecipes() {
       API.getRecipes()
@@ -48,7 +48,7 @@ function App() {
                }}>cookit</h1>
           <Logo logo={logo} alt="panda chef hat"/>
       </Header>
-          <ExtractRecipeContainer loadRecipes ={loadRecipes()}/>
+          <ExtractRecipeContainer loadRecipes={loadRecipes}/>
           <CardContainer recipes={recipes} />
     </div>
     
