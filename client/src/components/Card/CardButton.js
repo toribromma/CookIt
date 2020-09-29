@@ -1,12 +1,8 @@
-import React, {useContext} from "react";
-import CardContext from "../../utils/CardContext"
+import React from "react";
 
 export default function CardButton(props) {
-
-    const triggerButton = useContext(CardContext)
-
     return(
-        <button onClick={triggerButton} >
+        <button {...props} >
             {props.children}
         </button>
     )

@@ -1,17 +1,32 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import CardContainer from './components/Card/CardContainer';
 import Logo from "./components/Logo/Logo"
 import logo from "./images/chef.svg"
 import Header from "./components/Header/Header"
-import Navbar from './components/Navbar/Navbar';
-import Menu from './components/Menu/Menu';
-import menu from "./images/menu.svg"
 import ExtractRecipeContainer from './components/ExtractRecipeContainer/ExtractRecipeContainer';
-
+import API from "./utils/API"
 
 function App() {
  
+  const [recipes, setRecipes] = useState([])
+
+  useEffect(() =>{
+      loadRecipes()
+  }, [recipes])
+
+  function loadRecipes() {
+      API.getRecipes()
+          .then(res =>
+              setRecipes(res.data)
+              )
+              .catch(err =>console.log(err));
+  }
+
+      if(!recipes) {
+        return (<span>Loading...</span>)
+    }
+
 
   return (
     <div style={{
@@ -33,8 +48,8 @@ function App() {
                }}>cookit</h1>
           <Logo logo={logo} alt="panda chef hat"/>
       </Header>
-          <ExtractRecipeContainer/>
-          <CardContainer/>
+          <ExtractRecipeContainer loadRecipes ={loadRecipes()}/>
+          <CardContainer recipes={recipes} />
     </div>
     
   );

@@ -4,7 +4,7 @@ import ExtractRecipeForm from "./ExtractRecipeForm"
 import API from "../../utils/API";
 import axios from "axios"
 
-export default function ExtractRecipeContainer() {
+export default function ExtractRecipeContainer({loadRecipes}) {
 
 const [formObject, setFormObject] = useState({})
 
@@ -27,18 +27,24 @@ const [formObject, setFormObject] = useState({})
 	}
 })
 .then(response => {
-	console.log(response.data);
+  console.log(response.data)
+  const {sourceUrl, title, image, analyzedInstructions:[{steps:[...steps]}], extendedIngredients:[...ingredients]} = response.data
+  let instructions = steps.map(i => i.step)
+  let ingredientsArray = ingredients.map(i => i.original)
+
+
+  API.saveRecipe({
+    title: title,
+    thumbnail: image,
+    href: sourceUrl,
+    instructions: instructions,
+    ingredients: ingredientsArray
+  })
+    .then(loadRecipes)
 })
 .catch(err => {
 	console.log(err);
 });
-    //   API.saveRecipe({
-    //     title: formObject.title,
-    //     author: formObject.author,
-    //     synopsis: formObject.synopsis
-    //   })
-    //     .then(res => loadBooks())
-    //     .catch(err => console.log(err));
     }
   };
 

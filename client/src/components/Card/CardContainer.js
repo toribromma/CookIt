@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, {useState } from "react"
 import Card from "./Card"
 import CardImage from "./CardImage"
 import CardHeader from "./CardHeader"
@@ -7,25 +7,9 @@ import CardDescription from "./CardDescription"
 import CardList from "./CardList"
 import CardListItem from "./CardListItem"
 import CardButton from "./CardButton"
-import CardContext from "../../utils/CardContext"
-import API from "../../utils/API"
+// import API from "../../utils/API"
 
-export default function CardContainer() {
-
-    const [recipes, setRecipes] = useState()
-
-    useEffect(() =>{
-        loadRecipes()
-    }, [])
-
-    function loadRecipes() {
-        API.getRecipes()
-            .then(res =>
-                setRecipes(res.data)
-                // console.log(res.data)
-                )
-                .catch(err =>console.log(err));
-    }
+export default function CardContainer({recipes}) {
 
     const [toggleButton, setToggleButton] = useState(true)
 
@@ -46,7 +30,6 @@ export default function CardContainer() {
     }
     return(
         <div>
-            <CardContext.Provider value={clickToggleButton}>
                 {recipes.map(recipe => {
                     return (
                         <Card border={"0.2em transparent"} color={"rgba(168, 218, 220, 1)"}>
@@ -61,7 +44,7 @@ export default function CardContainer() {
                     </CardSecondHeader>
                     {toggleButton ? 
                     <CardList>
-                    {recipe.ingredients.map((ingredient, index) => {
+                    {recipe.ingredients.map(ingredient => {
                         return(
                             <CardListItem>{ingredient}</CardListItem>
                         )
@@ -76,11 +59,10 @@ export default function CardContainer() {
                     })}
                     </CardList>
                     }
-                    <CardButton>{toggleButton ? "Instructions" : "Ingredients"  }</CardButton>     
+                    <CardButton onClick={clickToggleButton}>{toggleButton ? "Instructions" : "Ingredients"  }</CardButton>  
                 </Card>
                     )
                 })}
-            </CardContext.Provider>
         </div>     
     )
 }
