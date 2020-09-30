@@ -7,7 +7,9 @@ export default function ExtractRecipeForm(props) {
                     style={{
                     width: "300px",
                     height: "25px",
-                    margin: 20
+                    margin: 20,
+                    borderRadius: 5,
+                    padding: 5
                             }}
                     {...props}
                     ></input>
