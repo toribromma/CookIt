@@ -7,6 +7,8 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
+const uri = process.env.REACT_APP_MONGO_URI
+
 // Define middleware here
 app.use(express.urlencoded({
   extended: true
@@ -20,7 +22,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.REACT_APP_MONGO_URI, {
+mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
