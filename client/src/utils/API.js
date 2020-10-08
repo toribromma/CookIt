@@ -2,8 +2,10 @@ import axios from "axios";
 
 export default {
   // Gets all books
-  getRecipes: function() {
-    return axios.get("/api/recipe");
+  getRecipes: function(user) {
+    return axios.get("/api/recipe", {
+      params: {
+        id: user}});
   },
 //   // Gets the book with the given id
 //   getBook: function(id) {
@@ -16,5 +18,12 @@ export default {
 //   // Saves a book to the database
   saveRecipe: function(recipeData) {
     return axios.post("/api/recipe", recipeData);
+  },
+  registerUser: function(userData) {
+    return axios.post("/api/users/register", userData);
+  },
+  loginUser: function(userData) {
+    return axios.post("/api/users/login", userData);
   }
+
 };

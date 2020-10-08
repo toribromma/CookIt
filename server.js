@@ -4,7 +4,7 @@ const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
 const dotenv = require("dotenv");
-
+const passport = require("passport")
 dotenv.config();
 
 const uri = process.env.REACT_APP_MONGO_URI
@@ -18,6 +18,12 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
+
+// Passport middleware
+app.use(passport.initialize());
+// Passport config
+// require("./config/passport")(passport);
+// Routes
 // Add routes, both API and view
 app.use(routes);
 

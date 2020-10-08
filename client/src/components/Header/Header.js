@@ -9,6 +9,13 @@ export default function Header(props) {
             textAlign: "center",
             paddingTop: 10
         }}>
+            <h1 style={{
+              // display: "inline",
+               fontSize: "6em",
+               fontWeight: 700,
+               overflowWrap: "break-word",
+               paddingRight: 10
+               }}>cookit</h1>
             {props.children}
         </header>
     )

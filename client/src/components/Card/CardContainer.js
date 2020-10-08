@@ -1,4 +1,4 @@
-import React, {useState } from "react"
+import React, {useState, useEffect, useContext} from "react"
 import Card from "./Card"
 import CardImage from "./CardImage"
 import CardHeader from "./CardHeader"
@@ -7,9 +7,14 @@ import CardDescription from "./CardDescription"
 import CardList from "./CardList"
 import CardListItem from "./CardListItem"
 import CardButton from "./CardButton"
+import Context from "../../utils/Context"
 // import API from "../../utils/API"
 
-export default function CardContainer({recipes}) {
+export default function CardContainer({recipes, loadRecipes}) {
+    const [user, setUser] = useContext(Context)
+    useEffect(() =>{
+        loadRecipes(user)
+    }, [recipes])
 
     const [toggleButton, setToggleButton] = useState(true)
 
@@ -28,6 +33,8 @@ export default function CardContainer({recipes}) {
     if(!recipes) {
         return (<span>Loading...</span>)
     }
+
+    else {
     return(
         <div>
                 {recipes.map(recipe => {
@@ -65,4 +72,5 @@ export default function CardContainer({recipes}) {
                 })}
         </div>     
     )
+            }
 }

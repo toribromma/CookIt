@@ -1,11 +1,16 @@
-import React, {useState} from "react"
+import React, {useState, useContext} from "react"
 import ExtractButton from "./ExtractButton"
 import ExtractRecipeForm from "./ExtractRecipeForm"
 import API from "../../utils/API";
 import axios from "axios"
+import Context from "../../utils/Context.js"
 
 export default function ExtractRecipeContainer({loadRecipes}) {
-
+const [user, setUser] = useContext(Context)
+// const {value, value2} = useContext(Context);
+// const [user, setUser] = value;
+// const [recipes, setRecipes] = value2;
+// // const {loadRecipes} = value3
 const [formObject, setFormObject] = useState({})
 
   // Handles updating component state when the user types into the input field
@@ -13,6 +18,11 @@ const [formObject, setFormObject] = useState({})
     const { name, value } = event.target;
     setFormObject({...formObject, [name]: value})
   };
+
+  // function clickMe(event) {
+  //   event.preventDefault();
+  //   console.log(user)
+  // }
 
     // When the form is submitted, use the API.saveBook method to save the book data
   // Then reload books from the database
@@ -37,9 +47,9 @@ const [formObject, setFormObject] = useState({})
     thumbnail: image,
     href: sourceUrl,
     instructions: instructions,
-    ingredients: ingredientsArray
+    ingredients: ingredientsArray,
   })
-    .then(loadRecipes)
+    .then(loadRecipes(user))
 })
 .catch(err => {
 	console.log(err);
@@ -63,6 +73,7 @@ const [formObject, setFormObject] = useState({})
             <ExtractButton
                 disabled={!(formObject.url)}
                 onClick={handleFormSubmit}
+                // onClick={clickMe}
             >
             Extract
             </ExtractButton>

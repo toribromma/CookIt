@@ -1,5 +1,5 @@
 import React from "react";
 
-const CardContext = React.createContext(undefined)
+const Context = React.createContext(null)
 
-export default CardContext;
+export default Context;
