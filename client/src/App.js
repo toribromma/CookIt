@@ -53,6 +53,10 @@ function App() {
 
   }
 
+  const Logout = () => {
+    setUser("")
+  }
+
     if(!user && !toggleLandingScreen) {
       return (
         <div>
@@ -106,6 +110,7 @@ function App() {
           <Context.Provider value={{value:[user,setUser], value2:[recipes,setRecipes]}}>
           <ExtractRecipeContainer loadRecipes={loadRecipes}/>
           <CardContainer  loadRecipes={loadRecipes}/>
+          <button onClick={Logout}>Log Out</button>
           </Context.Provider>
     </div>
     
