@@ -52,7 +52,8 @@ function Register({setUser}) {
                     <input name="password2" onChange={handleInputChange} type="password"/>
                     <button type="submit"
                     style={{
-                        display: "block",
+                        display: "flex",
+                        margin: "10px auto auto auto"
                     }}>
                         Submit
                     </button>

@@ -18,9 +18,16 @@ module.exports = {
   //     .then(dbModel => res.json(dbModel))
   //     .catch(err => res.status(422).json(err));
   // },
-  create: function({body}, res) {
-    db.Recipe.create(body)
-    .then(({ _id}) => db.Users.findOneAndUpdate({}, { $push: { recipes: _id } }, { new: true }))
+  create: function(req, res) {
+    console.log(req.body)
+    db.Recipe.create({
+      title: req.body.title,
+      thumbnail: req.body.thumbnail,
+      href: req.body.href,
+      instructions: req.body.instructions,
+      ingredients: req.body.ingredients
+    })
+    .then(({ _id}) => db.Users.findOneAndUpdate({_id:req.body.user}, { $push: { recipes: _id } }, { new: true }))
     .then(dbUser => {
       res.json(dbUser);
     })

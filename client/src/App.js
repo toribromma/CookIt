@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import CardContainer from './components/Card/CardContainer';
 import Logo from "./components/Logo/Logo"
@@ -33,8 +33,9 @@ function App() {
   
   const [recipes, setRecipes] = useState([]);
   const [user, setUser] = useState("");
+  const [toggleLandingScreen, setToggleLandingScreen] = useState(true)
 
-  function loadRecipes(user) {
+  function loadRecipes() {
       API.getRecipes(user)
           .then(res =>
               setRecipes(res.data[0].recipes),
@@ -42,14 +43,44 @@ function App() {
               .catch(err =>console.log(err));
   }
 
-    if(!user) {
+  const toggleLandingScreenClick = () => {
+    if(toggleLandingScreen === true){
+      setToggleLandingScreen(false)
+    }
+    else {
+      setToggleLandingScreen(true)
+    }
+
+  }
+
+    if(!user && !toggleLandingScreen) {
       return (
         <div>
           <Header color={"#e63946"}>
             <Logo logo={logo} alt="panda chef hat"/>
           </Header>
           <Register setUser={setUser}/>
+          <button style={{
+            display: "flex",
+            margin: "auto",
+          }} onClick={toggleLandingScreenClick}>Login here</button>
+        </div>
+      )
+    }
+
+    if(!user && toggleLandingScreen) {
+      return (
+        <div>
+          <Header color={"#e63946"}>
+            <Logo logo={logo} alt="panda chef hat"/>
+          </Header>
           <Login user={user} setUser={setUser}/>
+          <button 
+            style={{
+              display: "flex",
+              margin: "20px auto 10px auto",
+            }}
+          onClick={toggleLandingScreenClick}>Register here</button>
         </div>
       )
     }
@@ -62,7 +93,7 @@ function App() {
     <div style={{
       width: "100vw",
       height: "50vw",
-      margin: "auto",
+      margin: "20px auto 10px auto",
       fontFamily: "Rubik, san-serif",
   }}>
     {/* <Navbar color={"#1d3557"}>
@@ -71,10 +102,10 @@ function App() {
       <Header color={"#e63946"}>
           <Logo logo={logo} alt="panda chef hat"/>
       </Header>
-          <Context.Provider value={[user,setUser]}>
-          {/* <Context.Provider value={{value:[user,setUser], value2:[recipes,setRecipes]}}> */}
-          <ExtractRecipeContainer recipes={recipes} loadRecipes={loadRecipes}/>
-          <CardContainer recipes={recipes} loadRecipes={loadRecipes}/>
+          {/* <Context.Provider value={[user,setUser]}> */}
+          <Context.Provider value={{value:[user,setUser], value2:[recipes,setRecipes]}}>
+          <ExtractRecipeContainer loadRecipes={loadRecipes}/>
+          <CardContainer  loadRecipes={loadRecipes}/>
           </Context.Provider>
     </div>
     

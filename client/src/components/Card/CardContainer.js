@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from "react"
+import React, {useState, useEffect, useContext, useCallback} from "react"
 import Card from "./Card"
 import CardImage from "./CardImage"
 import CardHeader from "./CardHeader"
@@ -10,11 +10,15 @@ import CardButton from "./CardButton"
 import Context from "../../utils/Context"
 // import API from "../../utils/API"
 
-export default function CardContainer({recipes, loadRecipes}) {
-    const [user, setUser] = useContext(Context)
-    useEffect(() =>{
+export default function CardContainer({loadRecipes}) {
+    const {value, value2} = useContext(Context)
+    const [user, setUser] = value
+    const [recipes, setRecipes] = value2
+    // const [user, setUser] = useContext(Context)
+
+    useEffect(() => {
         loadRecipes(user)
-    }, [recipes])
+    }, [setRecipes])
 
     const [toggleButton, setToggleButton] = useState(true)
 

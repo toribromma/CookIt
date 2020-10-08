@@ -6,11 +6,9 @@ import axios from "axios"
 import Context from "../../utils/Context.js"
 
 export default function ExtractRecipeContainer({loadRecipes}) {
-const [user, setUser] = useContext(Context)
-// const {value, value2} = useContext(Context);
-// const [user, setUser] = value;
-// const [recipes, setRecipes] = value2;
-// // const {loadRecipes} = value3
+// const [user, setUser] = useContext(Context)
+const {value, value2} = useContext(Context)
+const [user, setUser] = value
 const [formObject, setFormObject] = useState({})
 
   // Handles updating component state when the user types into the input field
@@ -37,7 +35,6 @@ const [formObject, setFormObject] = useState({})
 	}
 })
 .then(response => {
-  console.log(response.data)
   const {sourceUrl, title, image, analyzedInstructions:[{steps:[...steps]}], extendedIngredients:[...ingredients]} = response.data
   let instructions = steps.map(i => i.step)
   let ingredientsArray = ingredients.map(i => i.original)
@@ -48,8 +45,9 @@ const [formObject, setFormObject] = useState({})
     href: sourceUrl,
     instructions: instructions,
     ingredients: ingredientsArray,
+    user:user
   })
-    .then(loadRecipes(user))
+    .then(() => loadRecipes(user))
 })
 .catch(err => {
 	console.log(err);

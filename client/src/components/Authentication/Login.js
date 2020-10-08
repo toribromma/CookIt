@@ -44,7 +44,8 @@ function Login({setUser}) {
                     <input name="password" onChange={handleInputChange} type="password"/>
                     <button type="submit"
                     style={{
-                        display: "block",
+                        display: "flex",
+                        margin: "20px auto auto auto"
                     }}>
                         Submit
                     </button>
