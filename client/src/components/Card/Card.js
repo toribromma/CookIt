@@ -8,9 +8,9 @@ export default function Card(props) {
             width: 355,
             border: props.border,
             borderRadius: 5,
-            display: "inline-block",
             padding: 10,
-            margin: "5px 5px 10px 0px"
+            // margin: "5px 5px 10px 0px",
+            margin: "10px"
         }}>
             {props.children}
         </div>

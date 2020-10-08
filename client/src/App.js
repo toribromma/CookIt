@@ -110,7 +110,16 @@ function App() {
           <Context.Provider value={{value:[user,setUser], value2:[recipes,setRecipes]}}>
           <ExtractRecipeContainer loadRecipes={loadRecipes}/>
           <CardContainer  loadRecipes={loadRecipes}/>
-          <button onClick={Logout}>Log Out</button>
+          <button style={{
+              padding:"1.2em",
+              backgroundColor: "#e63946",
+              color: "#f1faee",
+              border: "transparent",
+              fontWeight: 700,
+              borderRadius: 5,
+              cursor: "pointer",
+              marginLeft: 10
+          }} onClick={Logout}>Log Out</button>
           </Context.Provider>
     </div>
     

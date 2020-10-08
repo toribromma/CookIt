@@ -5,11 +5,12 @@ export default function ExtractRecipeForm(props) {
 
                 <input
                     style={{
+                    display: "flex",
                     width: "300px",
                     height: "25px",
-                    margin: 20,
+                    margin: "30px auto 30px auto",
                     borderRadius: 5,
-                    padding: 5
+                    padding: 10
                             }}
                     {...props}
                     ></input>

@@ -40,37 +40,46 @@ export default function CardContainer({loadRecipes}) {
 
     else {
     return(
-        <div>
+        <div
+        style={{
+            display: "flex",
+            flexFlow: "row wrap",
+            justifyContent: "center",
+            margin: 0,
+            padding: 0,
+            // alignItems: "stretch"
+
+        }}>
                 {recipes.map(recipe => {
                     return (
-                        <Card border={"0.2em transparent"} color={"rgba(168, 218, 220, 1)"}>
-                    <CardImage alt={recipe.title} cardImage={recipe.thumbnail}/>
-                    <CardHeader>
-                        {recipe.title}
-                    </CardHeader>
-                    <CardDescription>
-                    </CardDescription>
-                    <CardSecondHeader>
-                        {toggleButton ? "Ingredients" : "Instructions"  }
-                    </CardSecondHeader>
-                    {toggleButton ? 
-                    <CardList>
-                    {recipe.ingredients.map(ingredient => {
-                        return(
-                            <CardListItem>{ingredient}</CardListItem>
-                        )
-                    })}
-                    </CardList>
-                    :
-                    <CardList>
-                    {recipe.instructions.map(instruction => {
-                        return(
-                            <CardListItem>{instruction}</CardListItem>
-                        )
-                    })}
-                    </CardList>
-                    }
-                    <CardButton onClick={clickToggleButton}>{toggleButton ? "Instructions" : "Ingredients"  }</CardButton>  
+                        <Card border={"0.2em transparent"} color={"#39e6d9"}>
+                            <CardImage alt={recipe.title} cardImage={recipe.thumbnail}/>
+                            <CardHeader>
+                                {recipe.title}
+                            </CardHeader>
+                            <CardDescription>
+                            </CardDescription>
+                            <CardSecondHeader>
+                                {toggleButton ? "Ingredients" : "Instructions"  }
+                            </CardSecondHeader>
+                            {toggleButton ? 
+                            <CardList>
+                            {recipe.ingredients.map(ingredient => {
+                                return(
+                                    <CardListItem>{ingredient}</CardListItem>
+                                )
+                            })}
+                            </CardList>
+                            :
+                            <CardList>
+                            {recipe.instructions.map(instruction => {
+                                return(
+                                    <CardListItem>{instruction}</CardListItem>
+                                )
+                            })}
+                            </CardList>
+                            }
+                        <CardButton onClick={clickToggleButton}>{toggleButton ? "Instructions" : "Ingredients"  }</CardButton>  
                 </Card>
                     )
                 })}

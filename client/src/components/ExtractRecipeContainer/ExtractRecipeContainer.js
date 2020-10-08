@@ -63,7 +63,7 @@ const [formObject, setFormObject] = useState({})
         }}>
             <ExtractRecipeForm
                 type="text" 
-                placeholder="Extract Recipe from Website"
+                placeholder="Copy and Paste URL of Recipe here"
                 name="url"
                 onChange={handleInputChange}
             >
@@ -73,7 +73,7 @@ const [formObject, setFormObject] = useState({})
                 onClick={handleFormSubmit}
                 // onClick={clickMe}
             >
-            Extract
+            Click here to Extract
             </ExtractButton>
         </form>
     )

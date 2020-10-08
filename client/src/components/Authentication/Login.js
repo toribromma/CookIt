@@ -30,11 +30,12 @@ function Login({setUser}) {
 
     return(
         <div style={{
-            height: 325,
+            height: 425,
             width: 375,
             margin: "50px auto 10px auto",
-            backgroundColor: "#AAF4EF",
+            backgroundColor: "#39e6d9",
             textAlign: "center",
+            borderRadius: 10
         }}>
             <h2>Login</h2>
             <form onSubmit={onSubmit}>
@@ -42,11 +43,7 @@ function Login({setUser}) {
                     <input name="email" onChange={handleInputChange} type="email"/>
                     <label htmlFor="password">Password: </label>
                     <input name="password" onChange={handleInputChange} type="password"/>
-                    <button type="submit"
-                    style={{
-                        display: "flex",
-                        margin: "20px auto auto auto"
-                    }}>
+                    <button type="submit">
                         Submit
                     </button>
             </form>

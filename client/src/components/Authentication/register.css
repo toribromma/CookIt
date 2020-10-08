@@ -1,4 +1,23 @@
 label {
     padding: 10px;
-    display: block
+    display: block;
+}
+
+h2 {
+    padding: 1em;
+}
+
+button {
+    padding: 0.6em;
+    background-color: #e63946;
+    color: #f1faee;
+    border: transparent;
+    font-weight: 700;
+    border-radius: 5;
+    cursor: pointer;
+    display: flex;
+    margin: 30px auto 10px auto
+}
+input {
+    padding: 5px;
 }

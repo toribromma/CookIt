@@ -34,10 +34,10 @@ function Register({setUser}) {
 
     return(
         <div style={{
-            height: 325,
+            height: 525,
             width: 375,
             margin: "50px auto 10px auto",
-            backgroundColor: "#AAF4EF",
+            backgroundColor: "#39e6d9",
             textAlign: "center",
         }}>
             <h2>Register</h2>
