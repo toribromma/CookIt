@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext, useCallback} from "react"
+import React, {useState, useEffect, useContext} from "react"
 import Card from "./Card"
 import CardImage from "./CardImage"
 import CardHeader from "./CardHeader"
@@ -8,6 +8,7 @@ import CardList from "./CardList"
 import CardListItem from "./CardListItem"
 import CardButton from "./CardButton"
 import Context from "../../utils/Context"
+import API from "../../utils/API"
 // import API from "../../utils/API"
 
 export default function CardContainer({loadRecipes}) {
@@ -21,6 +22,14 @@ export default function CardContainer({loadRecipes}) {
     }, [setRecipes])
 
     const [toggleButton, setToggleButton] = useState(true)
+
+    function deleteRecipe(id) {
+        API.deleteRecipe(id)
+            .then(res => loadRecipes())
+            .catch(err => console.log(err));
+        console.log(user)
+        console.log(id)
+    }
 
     const clickToggleButton  = () => {
 
@@ -52,11 +61,12 @@ export default function CardContainer({loadRecipes}) {
         }}>
                 {recipes.map(recipe => {
                     return (
-                        <Card border={"0.2em transparent"} color={"#39e6d9"}>
+                        <Card key={recipe._id} border={"0.2em transparent"} color={"#39e6d9"}>
                             <CardImage alt={recipe.title} cardImage={recipe.thumbnail}/>
                             <CardHeader>
                                 {recipe.title}
                             </CardHeader>
+                            <a target="_blank" href={recipe.href}>Link to Recipe</a>
                             <CardDescription>
                             </CardDescription>
                             <CardSecondHeader>
@@ -79,7 +89,8 @@ export default function CardContainer({loadRecipes}) {
                             })}
                             </CardList>
                             }
-                        <CardButton onClick={clickToggleButton}>{toggleButton ? "Instructions" : "Ingredients"  }</CardButton>  
+                        <CardButton onClick={clickToggleButton}>{toggleButton ? "Instructions" : "Ingredients"  }</CardButton>
+                        <button onClick={() => deleteRecipe(recipe._id)} style={{fontWeight: 700}}>Delete Me</button>  
                 </Card>
                     )
                 })}

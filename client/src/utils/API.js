@@ -24,6 +24,9 @@ export default {
   },
   loginUser: function(userData) {
     return axios.post("/api/users/login", userData);
+  },
+  deleteRecipe: function(id) {
+    return axios.delete("/api/recipe/" + id)
   }
 
 };

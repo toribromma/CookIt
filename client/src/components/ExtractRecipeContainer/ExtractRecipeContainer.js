@@ -6,28 +6,21 @@ import axios from "axios"
 import Context from "../../utils/Context.js"
 
 export default function ExtractRecipeContainer({loadRecipes}) {
-// const [user, setUser] = useContext(Context)
-const {value, value2} = useContext(Context)
-const [user, setUser] = value
-const [formObject, setFormObject] = useState({})
 
-  // Handles updating component state when the user types into the input field
+  const {value, value2} = useContext(Context)
+  const [user, setUser] = value
+  const [formObject, setFormObject] = useState({})
+
+
   function handleInputChange(event) {
     const { name, value } = event.target;
     setFormObject({...formObject, [name]: value})
   };
 
-  // function clickMe(event) {
-  //   event.preventDefault();
-  //   console.log(user)
-  // }
-
-    // When the form is submitted, use the API.saveBook method to save the book data
-  // Then reload books from the database
   function handleFormSubmit(event) {
     event.preventDefault();
     if (formObject.url) {
-        axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/extract?url=${formObject.url}?forceExtraction=true`, {
+        axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/extract?url=${formObject.url}`, {
 	"headers": {
         "Content-Type":"application/json",
 		"X-RapidApi-Host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",

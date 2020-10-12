@@ -9,10 +9,10 @@ router
   .post(recipeController.create);
 
 // Matches with "/api/posts/:id"
-// router
-//   .route("/:id")
+router
+  .route("/:id")
 //   .get(postsController.findById)
 //   .put(postsController.update)
-//   .delete(postsController.remove);
+  .delete(recipeController.remove);
 
 module.exports = router;
