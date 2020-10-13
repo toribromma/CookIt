@@ -5,6 +5,7 @@ import "./login.css";
 function Login({setUser}) {
 
     const [formObject, setFormObject] = useState({});
+    
 // Handles updating component state when the user types into the input field
     function handleInputChange(event) {
         const { name, value } = event.target;
@@ -13,20 +14,20 @@ function Login({setUser}) {
 
     function onSubmit(event) {
         event.preventDefault();
-    const userData = {
-        email: formObject.email,
-        password: formObject.password
-    };
-    API.loginUser(userData)
-    .then(
-        res => {
-            setUser(res.data._id)
-            // console.log(res.data)
+        const userData = {
+            email: formObject.email,
+            password: formObject.password
+        };
+        API.loginUser(userData)
+        .then(
+            res => {
+                setUser(res.data._id)
+                // console.log(res.data)
+            }
+        ).catch(err => {
+            console.log(err);
+        });
         }
-    ).catch(err => {
-        console.log(err);
-    });
-    }
 
     return(
         <div style={{
