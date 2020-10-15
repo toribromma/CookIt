@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import API from "../../utils/API";
 import "./register.css";
 
-function Register({setUser}) {
+function Register({setUser, toggle}) {
     const { register, errors, handleSubmit, watch } = useForm();
     const [formObject, setFormObject] = useState({});
 
@@ -41,13 +41,13 @@ function Register({setUser}) {
             height: 525,
             width: 375,
             margin: "50px auto 10px auto",
-            backgroundColor: "transparent",
-            border: "2px solid gray",
-            borderRadius: 10,
+            // backgroundColor: "transparent",
+            // border: "2px solid gray",
+            // borderRadius: 10,
             textAlign: "center",
             fontFamily: "Rubik"
         }}>
-            <h2>Register</h2>
+            <h2>Create an Account</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                     <label htmlFor="name">Name: </label>
                     <input
@@ -86,6 +86,7 @@ function Register({setUser}) {
                     }}>
                         Submit
                     </button>
+                    <button onClick={toggle} style={{float: "right", paddingRight: 10}}>Click Here To Login</button>
             </form>
         </div>
     )

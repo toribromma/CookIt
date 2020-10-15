@@ -8,7 +8,7 @@ export default function Header(props) {
             height: 300,
             textAlign: "center",
             paddingTop: 10,
-            borderRadius: "0px 0px 20px 20px"
+            // borderRadius: "0px 0px 20px 20px"
         }}>
             <h1 style={{
               // display: "inline",

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import API from "../../utils/API";
 import "./login.css";
 
-function Login({setUser}) {
+function Login({setUser, toggle}) {
 
     const [formObject, setFormObject] = useState({});
     
@@ -34,10 +34,10 @@ function Login({setUser}) {
             height: 425,
             width: 375,
             margin: "50px auto 10px auto",
-            backgroundColor: "transparent",
-            border: "2px solid gray",
+            // backgroundColor: "transparent",
+            // border: "2px solid gray",
             textAlign: "center",
-            borderRadius: 10,
+            // borderRadius: 10,
             fontFamily: "Rubik"
         }}>
             <h2>Login</h2>
@@ -49,6 +49,7 @@ function Login({setUser}) {
                     <button type="submit">
                         Submit
                     </button>
+                    <button onClick={toggle} style={{float: "right", paddingRight: 10}}>Register?</button>
             </form>
         </div>
     )

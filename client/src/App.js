@@ -63,11 +63,11 @@ function App() {
           <Header color={"#e63946"}>
             <Logo logo={logo} alt="panda chef hat"/>
           </Header>
-          <Register setUser={setUser}/>
-          <button style={{
+          <Register toggle={toggleLandingScreenClick} setUser={setUser}/>
+          {/* <button style={{
             display: "flex",
             margin: "auto",
-          }} onClick={toggleLandingScreenClick}>Login here</button>
+          }} onClick={toggleLandingScreenClick}>Login here</button> */}
         </div>
       )
     }
@@ -78,13 +78,13 @@ function App() {
           <Header color={"#e63946"}>
             <Logo logo={logo} alt="panda chef hat"/>
           </Header>
-          <Login user={user} setUser={setUser}/>
-          <button 
+          <Login toggle={toggleLandingScreenClick} user={user} setUser={setUser}/>
+          {/* <button 
             style={{
               display: "flex",
               margin: "20px auto 10px auto",
             }}
-          onClick={toggleLandingScreenClick}>Register here</button>
+          onClick={toggleLandingScreenClick}>Register here</button> */}
         </div>
       )
     }
@@ -95,8 +95,6 @@ function App() {
 
   return (
     <div style={{
-      width: "100vw",
-      height: "50vw",
       margin: "20px auto 10px auto",
       fontFamily: "Rubik, san-serif",
   }}>
