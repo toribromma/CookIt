@@ -17,7 +17,7 @@ export default function Header(props) {
                overflowWrap: "break-word",
                paddingRight: 10,
                color: "white"
-               }}>cookit</h1>
+               }}>C00K IT</h1>
             {props.children}
         </header>
     )
