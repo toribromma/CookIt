@@ -68,7 +68,7 @@ export default function CardContainer({loadRecipes}) {
                             style={{
                                 fontWeight: 600
                             }}
-                            href={recipe.href}><p>{recipe.href}</p></a>
+                            href={recipe.href}><p>Link to Recipe</p></a>
                             {/* <CardDescription>
                             </CardDescription> */}
                             <CardSecondHeader>

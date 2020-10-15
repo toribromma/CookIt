@@ -94,10 +94,7 @@ function App() {
     }
 
   return (
-    <div style={{
-      margin: "20px auto 10px auto",
-      fontFamily: "Rubik, san-serif",
-  }}>
+    <div>
     {/* <Navbar color={"#1d3557"}>
       <Menu alt={"menu button"} menu={menu}/>
     </Navbar> */}
