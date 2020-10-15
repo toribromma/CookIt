@@ -44,7 +44,7 @@ export default function CardContainer({loadRecipes}) {
     }
 
     if(!recipes) {
-        return (<span>Loading...</span>)
+        return (<span>No recipes found</span>)
     }
 
     else {
@@ -68,9 +68,9 @@ export default function CardContainer({loadRecipes}) {
                             style={{
                                 fontWeight: 600
                             }}
-                            href={recipe.href}><p>Link to Recipe</p></a>
-                            <CardDescription>
-                            </CardDescription>
+                            href={recipe.href}><p>{recipe.href}</p></a>
+                            {/* <CardDescription>
+                            </CardDescription> */}
                             <CardSecondHeader>
                                 {toggleButton ? "Ingredients" : "Instructions"  }
                             </CardSecondHeader>

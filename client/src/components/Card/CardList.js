@@ -5,6 +5,8 @@ export default function CardList(props) {
         <ol style={{
             overflow: "scroll",
             height: "300px",
+            maxWidth: "350px",
+            margin: "auto"
         }}>
             {props.children}
         </ol>
