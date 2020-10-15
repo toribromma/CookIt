@@ -111,6 +111,8 @@ function App() {
           <ExtractRecipeContainer loadRecipes={loadRecipes}/>
           <CardContainer  loadRecipes={loadRecipes}/>
           <button style={{
+              display: "block",
+              margin: "50px auto 50px auto",
               padding:"1.2em",
               backgroundColor: "#e63946",
               color: "#f1faee",
@@ -118,7 +120,7 @@ function App() {
               fontWeight: 700,
               borderRadius: 5,
               cursor: "pointer",
-              marginLeft: 10
+              // marginLeft: 10
           }} onClick={Logout}>Log Out</button>
           </Context.Provider>
     </div>

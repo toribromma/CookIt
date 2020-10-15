@@ -15,7 +15,8 @@ export default function Header(props) {
                fontSize: "6em",
                fontWeight: 700,
                overflowWrap: "break-word",
-               paddingRight: 10
+               paddingRight: 10,
+               color: "white"
                }}>cookit</h1>
             {props.children}
         </header>

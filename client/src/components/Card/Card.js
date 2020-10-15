@@ -5,12 +5,11 @@ export default function Card(props) {
         <div style={{
             backgroundColor: props.color,
             height: "fit-content",
-            width: 355,
+            width: "max-width",
             border: props.border,
             borderRadius: 5,
             padding: 10,
-            // margin: "5px 5px 10px 0px",
-            margin: "10px"
+            margin: "2px"
         }}>
             {props.children}
         </div>

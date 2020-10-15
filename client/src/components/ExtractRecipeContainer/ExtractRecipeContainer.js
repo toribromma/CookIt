@@ -10,6 +10,7 @@ export default function ExtractRecipeContainer({loadRecipes}) {
   const {value, value2} = useContext(Context)
   const [user, setUser] = value
   const [formObject, setFormObject] = useState({})
+  const [error, setError] = useState()
 
 
   function handleInputChange(event) {
@@ -28,6 +29,7 @@ export default function ExtractRecipeContainer({loadRecipes}) {
 	}
 })
 .then(response => {
+  console.log(response.data)
   const {sourceUrl, title, image, analyzedInstructions:[{steps:[...steps]}], extendedIngredients:[...ingredients]} = response.data
   let instructions = steps.map(i => i.step)
   let ingredientsArray = ingredients.map(i => i.original)
@@ -41,9 +43,12 @@ export default function ExtractRecipeContainer({loadRecipes}) {
     user:user
   })
     .then(() => loadRecipes(user))
+    .then(() => setError(""))
 })
 .catch(err => {
-	console.log(err);
+  console.log(err);
+  setError("Unable to save")
+  
 });
     }
   };
@@ -61,6 +66,12 @@ export default function ExtractRecipeContainer({loadRecipes}) {
                 onChange={handleInputChange}
             >
             </ExtractRecipeForm>
+            <div style={{
+              display: "block",
+              margin: "auto",
+              textAlign: "center",
+              fontWeight: 700
+            }}>{error}</div>
             <ExtractButton
                 disabled={!(formObject.url)}
                 onClick={handleFormSubmit}

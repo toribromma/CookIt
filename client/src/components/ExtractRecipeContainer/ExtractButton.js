@@ -8,9 +8,10 @@ export default function ExtractButton(props) {
                 color: "#f1faee",
                 border: "transparent",
                 padding: 10,
-                fontWeight: 700,
+                fontWeight: 500,
                 borderRadius: 5,
-                cursor: "pointer"
+                cursor: "pointer",
+                margin: "50px auto 50px auto"
             }}
             
             {...props}

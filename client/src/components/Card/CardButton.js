@@ -8,7 +8,7 @@ export default function CardButton(props) {
             color: "#f1faee",
             border: "transparent",
             padding: 10,
-            fontWeight: 700,
+            fontWeight: 500,
             borderRadius: 5
         }}
         {...props} >

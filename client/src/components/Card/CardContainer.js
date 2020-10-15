@@ -56,17 +56,19 @@ export default function CardContainer({loadRecipes}) {
             justifyContent: "center",
             margin: 0,
             padding: 0,
-            // alignItems: "stretch"
-
         }}>
                 {recipes.map(recipe => {
                     return (
-                        <Card key={recipe._id} border={"0.2em transparent"} color={"#39e6d9"}>
+                        <Card key={recipe._id} border={"2px solid gray"} color={"transparent"}>
                             <CardImage alt={recipe.title} cardImage={recipe.thumbnail}/>
                             <CardHeader>
                                 {recipe.title}
                             </CardHeader>
-                            <a target="_blank" href={recipe.href}>Link to Recipe</a>
+                            <a target="_blank"
+                            style={{
+                                fontWeight: 600
+                            }}
+                            href={recipe.href}><p>Link to Recipe</p></a>
                             <CardDescription>
                             </CardDescription>
                             <CardSecondHeader>
@@ -90,7 +92,7 @@ export default function CardContainer({loadRecipes}) {
                             </CardList>
                             }
                         <CardButton onClick={clickToggleButton}>{toggleButton ? "Instructions" : "Ingredients"  }</CardButton>
-                        <button onClick={() => deleteRecipe(recipe._id)} style={{fontWeight: 700}}>Delete Me</button>  
+                        <button onClick={() => deleteRecipe(recipe._id)} style={{fontWeight: 500}}>Delete Me</button>  
                 </Card>
                     )
                 })}

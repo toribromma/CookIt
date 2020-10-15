@@ -34,9 +34,11 @@ function Login({setUser}) {
             height: 425,
             width: 375,
             margin: "50px auto 10px auto",
-            backgroundColor: "#39e6d9",
+            backgroundColor: "transparent",
+            border: "2px solid gray",
             textAlign: "center",
-            borderRadius: 10
+            borderRadius: 10,
+            fontFamily: "Rubik"
         }}>
             <h2>Login</h2>
             <form onSubmit={onSubmit}>

@@ -2,12 +2,13 @@ body {
     background-color: #f1faee;
 }
 
-h1 {
-    color: #f1faee
+h1, h2, p, h3 {
+    text-align: center;
 }
 
 
-html body {
-    font-family: "Rubik, sans-serif";
+html, body, h1, h2, h3, h4, h5, button {
+    font-family: "Rubik";
 }
+
 

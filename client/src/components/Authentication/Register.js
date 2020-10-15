@@ -41,8 +41,11 @@ function Register({setUser}) {
             height: 525,
             width: 375,
             margin: "50px auto 10px auto",
-            backgroundColor: "#39e6d9",
+            backgroundColor: "transparent",
+            border: "2px solid gray",
+            borderRadius: 10,
             textAlign: "center",
+            fontFamily: "Rubik"
         }}>
             <h2>Register</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -79,7 +82,7 @@ function Register({setUser}) {
                     <button type="submit"
                     style={{
                         display: "flex",
-                        margin: "10px auto auto auto"
+                        margin: "30px auto auto auto"
                     }}>
                         Submit
                     </button>
