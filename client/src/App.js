@@ -11,6 +11,7 @@ import Register from "./components/Authentication/Register"
 // import setAuthToken from "./utils/setAuthToken"
 import Login from './components/Authentication/Login';
 import Context from "./utils/Context"
+import FilterRecipesContainer from './components/FilterRecipes/FilterRecipesContainer';
 
   //  // Check for token to keep user logged in
   // if (localStorage.jwtToken) {
@@ -104,6 +105,7 @@ function App() {
           {/* <Context.Provider value={[user,setUser]}> */}
           <Context.Provider value={{value:[user,setUser], value2:[recipes,setRecipes]}}>
           <ExtractRecipeContainer loadRecipes={loadRecipes}/>
+          <FilterRecipesContainer loadRecipes={loadRecipes}/>
           <CardContainer  loadRecipes={loadRecipes}/>
           <button style={{
               display: "block",

@@ -13,7 +13,7 @@ import API from "../../utils/API"
 
 export default function CardContainer({loadRecipes}) {
     const {value, value2} = useContext(Context)
-    const [user, setUser] = value
+    const [user] = value
     const [recipes, setRecipes] = value2
     // const [user, setUser] = useContext(Context)
 

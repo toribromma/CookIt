@@ -7,8 +7,8 @@ import Context from "../../utils/Context.js"
 
 export default function ExtractRecipeContainer({loadRecipes}) {
 
-  const {value, value2} = useContext(Context)
-  const [user, setUser] = value
+  const {value} = useContext(Context)
+  const [user] = value
   const [formObject, setFormObject] = useState({})
   const [error, setError] = useState()
 
@@ -59,6 +59,7 @@ export default function ExtractRecipeContainer({loadRecipes}) {
         style={{
             margin: "auto",
         }}>
+          <h2>Extract Recipe</h2>
             <ExtractRecipeForm
                 type="text" 
                 placeholder="Copy and Paste URL of Recipe here"
