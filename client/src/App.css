@@ -1,5 +1,6 @@
 body {
     background-color: #f1faee;
+    font-size: 16px;
 }
 
 h1, h2, p, h3 {
@@ -9,6 +10,10 @@ h1, h2, p, h3 {
 
 html, body, h1, h2, h3, h4, h5, button {
     font-family: "Rubik";
+}
+
+input, select {
+    font-size: 1em;
 }
 
 
