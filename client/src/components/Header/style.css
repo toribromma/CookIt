@@ -1,0 +1,12 @@
+.nameOfApp {
+    font-size: 6rem;
+    font-weight: 700;
+    overflow-wrap: break-word;
+    color: white;
+}
+
+@media screen and (max-width: 600px) {
+    .nameOfApp {
+        font-size: 80px;
+    }
+}

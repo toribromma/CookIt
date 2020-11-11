@@ -5,7 +5,7 @@ export default function Card(props) {
         <div style={{
             backgroundColor: props.color,
             height: "fit-content",
-            width: "max-width",
+            // width: "max-width",
             border: props.border,
             borderRadius: 5,
             padding: 10,

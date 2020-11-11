@@ -9,6 +9,7 @@ import CardListItem from "./CardListItem"
 import CardButton from "./CardButton"
 import Context from "../../utils/Context"
 import API from "../../utils/API"
+
 // import API from "../../utils/API"
 
 export default function CardContainer({loadRecipes}) {
@@ -17,9 +18,9 @@ export default function CardContainer({loadRecipes}) {
     const [recipes, setRecipes] = value2
     // const [user, setUser] = useContext(Context)
 
-    useEffect(() => {
-        loadRecipes(user)
-    }, [setRecipes])
+    // useEffect(() => {
+    //     loadRecipes(user)
+    // }, [setRecipes])
 
     const [toggleButton, setToggleButton] = useState(true)
 
@@ -53,14 +54,20 @@ export default function CardContainer({loadRecipes}) {
         style={{
             display: "flex",
             flexFlow: "row wrap",
-            justifyContent: "center",
-            margin: 0,
-            padding: 0,
+            justifyContent: "center"
+            // margin: 0,
+            // padding: 0,
         }}>
                 {recipes.map(recipe => {
                     return (
                         <Card key={recipe._id} border={"2px solid gray"} color={"transparent"}>
-                            <CardImage alt={recipe.title} cardImage={recipe.thumbnail}/>
+                            {!recipe.thumbnail ? <div style={{
+                                width: 200,
+                                height: 200
+                            }}>No picture found</div> :
+                             <CardImage alt={recipe.title} cardImage={recipe.thumbnail}/>
+                            }
+                           
                             <CardHeader>
                                 {recipe.title}
                             </CardHeader>

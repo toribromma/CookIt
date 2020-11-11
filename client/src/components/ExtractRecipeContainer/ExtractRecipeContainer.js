@@ -40,7 +40,7 @@ export default function ExtractRecipeContainer({loadRecipes}) {
     href: sourceUrl,
     instructions: instructions,
     ingredients: ingredientsArray,
-    user:user
+    user:user.id
   })
     .then(() => loadRecipes(user))
     .then(() => setError(""))
@@ -57,7 +57,9 @@ export default function ExtractRecipeContainer({loadRecipes}) {
     return(
         <form
         style={{
-            margin: "auto",
+            display: "flex",
+            flexFlow: "column wrap",
+            alignItems: "center"
         }}>
           <h2>Extract Recipe</h2>
             <ExtractRecipeForm

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import API from "../../utils/API";
+import setAuthToken from "../../utils/setAuthToken";
 import "./login.css";
+import jwt_decode from "jwt-decode";
 
 function Login({setUser, toggle}) {
 
@@ -21,7 +23,11 @@ function Login({setUser, toggle}) {
         API.loginUser(userData)
         .then(
             res => {
-                setUser(res.data._id)
+                const {token} = res.data;
+                localStorage.setItem("jwtToken", token);
+                setAuthToken(token)
+                const decoded = jwt_decode(token);
+                setUser(decoded)
                 // console.log(res.data)
             }
         ).catch(err => {

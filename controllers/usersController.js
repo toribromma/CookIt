@@ -1,7 +1,7 @@
 const db = require("../models");
 const bcrypt = require("bcryptjs");
-// const jwt = require("jsonwebtoken");
-// const keys = require("../../config/keys");
+const jwt = require("jsonwebtoken");
+const keys = require("../config/keys");
 // Load input validation
 const validateRegisterInput = require("../validation/register");
 const validateLoginInput = require("../validation/login");
@@ -55,10 +55,31 @@ module.exports = {
       }
       bcrypt.compare(password, user.password).then(isMatch => {
         if (isMatch) {
-          return res.json(user)
-        }
+                  // User matched
+          // Create JWT Payload
+          const payload = {
+            id: user.id,
+            name: user.name
+          };
+  // Sign token
+          jwt.sign(
+            payload,
+            keys.secretOrKey,
+            {
+              expiresIn: 1800 // 30 minutes
+            },
+            (err, token) => {
+              res.json({
+                success: true,
+                token: "Bearer " + token
+              });
+            }
+          );
+        } 
         else {
-          
+          return res
+            .status(400)
+            .json({ passwordincorrect: "Password incorrect" });
         }
       })
     })

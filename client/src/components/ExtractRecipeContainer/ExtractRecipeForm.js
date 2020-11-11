@@ -8,7 +8,7 @@ export default function ExtractRecipeForm(props) {
                     display: "flex",
                     width: "300px",
                     height: "25px",
-                    margin: "10px auto 50px auto",
+                    alignItems: "center",
                     borderRadius: 5,
                     padding: 10
                             }}
