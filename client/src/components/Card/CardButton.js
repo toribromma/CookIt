@@ -4,10 +4,12 @@ export default function CardButton(props) {
     return(
         <button
         style={{
+            display: "inline-block",
             backgroundColor: "#e63946",
             color: "#f1faee",
             border: "transparent",
-            padding: 10,
+            padding: 5,
+            margin: 5,
             fontWeight: 500,
             borderRadius: 5
         }}

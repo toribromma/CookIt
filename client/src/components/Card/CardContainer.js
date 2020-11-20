@@ -3,7 +3,7 @@ import Card from "./Card"
 import CardImage from "./CardImage"
 import CardHeader from "./CardHeader"
 import CardSecondHeader from "./CardSecondHeader"
-import CardDescription from "./CardDescription"
+// import CardDescription from "./CardDescription"
 import CardList from "./CardList"
 import CardListItem from "./CardListItem"
 import CardButton from "./CardButton"
@@ -60,7 +60,7 @@ export default function CardContainer({loadRecipes}) {
         }}>
                 {recipes.map(recipe => {
                     return (
-                        <Card key={recipe._id} border={"2px solid gray"} color={"transparent"}>
+                        <Card className="card" key={recipe._id} border={"4px solid black"} color={"transparent"}>
                             {!recipe.thumbnail ? <div style={{
                                 width: 200,
                                 height: 200
@@ -99,7 +99,7 @@ export default function CardContainer({loadRecipes}) {
                             </CardList>
                             }
                         <CardButton onClick={clickToggleButton}>{toggleButton ? "Instructions" : "Ingredients"  }</CardButton>
-                        <button onClick={() => deleteRecipe(recipe._id)} style={{fontWeight: 500}}>Delete Me</button>  
+                        <CardButton onClick={() => deleteRecipe(recipe._id)}>Delete Me</CardButton>  
                 </Card>
                     )
                 })}

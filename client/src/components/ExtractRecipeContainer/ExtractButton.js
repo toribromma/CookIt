@@ -11,7 +11,7 @@ export default function ExtractButton(props) {
                 fontWeight: 500,
                 borderRadius: 5,
                 cursor: "pointer",
-                margin: "50px auto 50px auto"
+                margin: "20px auto 10px auto"
             }}
             
             {...props}

@@ -7,6 +7,7 @@ import jwt_decode from "jwt-decode";
 function Login({setUser, toggle}) {
 
     const [formObject, setFormObject] = useState({});
+    const [error, setError] = useState("")
     
 // Handles updating component state when the user types into the input field
     function handleInputChange(event) {
@@ -28,10 +29,12 @@ function Login({setUser, toggle}) {
                 setAuthToken(token)
                 const decoded = jwt_decode(token);
                 setUser(decoded)
+                setError("")
                 // console.log(res.data)
             }
         ).catch(err => {
             console.log(err);
+            setError("Email or password is incorrect!")
         });
         }
 
@@ -52,6 +55,7 @@ function Login({setUser, toggle}) {
                     <input name="email" onChange={handleInputChange} type="email"/>
                     <label htmlFor="password">Password: </label>
                     <input name="password" onChange={handleInputChange} type="password"/>
+                    {error ? <p>{error}</p> : "" }
                     <button type="submit">
                         Submit
                     </button>

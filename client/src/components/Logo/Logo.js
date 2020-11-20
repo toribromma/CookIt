@@ -7,8 +7,9 @@ export default function Logo(props) {
         src={props.logo} 
         alt={props.alt}
         style={{
-            width: "2em",
-            height: "2em",
+            width: "4em",
+            height: "4em",
+            borderRadius: 5
         }}
         ></img>
     )
