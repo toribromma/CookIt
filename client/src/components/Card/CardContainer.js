@@ -16,13 +16,14 @@ export default function CardContainer({loadRecipes}) {
     const {value, value2} = useContext(Context)
     const [user] = value
     const [recipes, setRecipes] = value2
-    // const [user, setUser] = useContext(Context)
-
-    // useEffect(() => {
-    //     loadRecipes(user)
-    // }, [setRecipes])
-
     const [toggleButton, setToggleButton] = useState(true)
+    const [edit, setEdit] = useState(false)
+    const [currentTitle, setCurrentTitle] = useState({})
+
+    function handleInputChange(event) {
+        const { name, value } = event.target;
+        setCurrentTitle({...currentTitle, [name]: value})
+      };
 
     function deleteRecipe(id) {
         API.deleteRecipe(id)
@@ -44,6 +45,23 @@ export default function CardContainer({loadRecipes}) {
         console.log("hi")
     }
 
+    const updateRecipeTitle = (id,title) => {
+    //    e.preventDefault();
+        // var selectedTitle = document.getElementById(id)
+        console.log(id)
+        setEdit(true)
+        setCurrentTitle({id: id, title: title})
+        
+    }
+
+    const submitUpdate = (e) => {
+        e.preventDefault();
+        API.updateRecipeTitle({id: currentTitle.id, title: currentTitle.title})
+        .then(res=>loadRecipes())
+        .then(setEdit(false))
+
+    }
+
     if(!recipes) {
         return (<span>No recipes found</span>)
     }
@@ -54,13 +72,13 @@ export default function CardContainer({loadRecipes}) {
         style={{
             display: "flex",
             flexFlow: "row wrap",
-            justifyContent: "center"
-            // margin: 0,
-            // padding: 0,
+            justifyContent: "center",            // margin: 0,
+            padding: 10,
+            margin: "auto"
         }}>
                 {recipes.map(recipe => {
                     return (
-                        <Card className="card" key={recipe._id} border={"4px solid black"} color={"transparent"}>
+                        <Card className="card" key={recipe._id} border={"1.5px solid black"} color={"transparent"}>
                             {!recipe.thumbnail ? <div style={{
                                 width: 200,
                                 height: 200
@@ -68,9 +86,18 @@ export default function CardContainer({loadRecipes}) {
                              <CardImage alt={recipe.title} cardImage={recipe.thumbnail}/>
                             }
                            
-                            <CardHeader>
+                            <CardHeader id={recipe._id} key={recipe.title} >
                                 {recipe.title}
+                                {!edit ? <span onClick={() => updateRecipeTitle(recipe._id, recipe.title)} style={{paddingLeft: 10, fontSize: 10, color: "red", cursor: "pointer"}}>Edit</span> : "" }
                             </CardHeader>
+                            {edit && currentTitle.id === recipe._id ?
+                            <form onSubmit={submitUpdate}>
+                            <input style={{width: "85%", margin: 10, padding: 5}} name="title" value={currentTitle.title} onChange={handleInputChange}/> 
+                            <button style={{margin: 3, padding: 5, display: "inline"}} type="submit">Submit</button>
+                            <button style={{margin: 3, padding: 5, display: "inline"}} onClick={() => setEdit(false)}>Cancel</button>
+                            </form>
+                            : "" }
+                            
                             <a target="_blank"
                             style={{
                                 fontWeight: 600

@@ -27,6 +27,9 @@ export default {
   },
   deleteRecipe: function(id) {
     return axios.delete("/api/recipe/" + id)
+  },
+  updateRecipeTitle: function(recipeData) {
+    return axios.put("/api/recipe/", recipeData)
   }
 
 };

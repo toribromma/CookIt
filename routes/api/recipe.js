@@ -6,13 +6,13 @@ const recipeController = require("../../controllers/recipeController");
 router
   .route("/")
   .get(recipeController.findAll)
-  .post(recipeController.create);
-
+  .post(recipeController.create)
+  .put(recipeController.update)
 // Matches with "/api/posts/:id"
 router
   .route("/:id")
 //   .get(postsController.findById)
-//   .put(postsController.update)
+
   .delete(recipeController.remove);
 
 module.exports = router;

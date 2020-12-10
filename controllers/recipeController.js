@@ -35,11 +35,12 @@ module.exports = {
       res.json(err);
     });
   },
-  // update: function(req, res) {
-  //   db.Recipe.findOneAndUpdate({ _id: req.params.id }, req.body)
-  //     .then(dbModel => res.json(dbModel))
-  //     .catch(err => res.status(422).json(err));
-  // },
+  update: function(req, res) {
+    console.log(req.body.id)
+    db.Recipe.findOneAndUpdate({ _id: req.body.id }, {title: req.body.title})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   remove: function(req, res) {
     db.Recipe.findById({ _id: req.params.id })
       .then(dbModel => dbModel.remove())

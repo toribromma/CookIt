@@ -60,7 +60,7 @@ function App() {
     if (decoded.exp < currentTime) {
       localStorage.removeItem("jwtToken")
       setAuthToken(false)
-      setUser("")
+      setUser({})
     }
   }
   },[localStorage.jwtToken])
@@ -83,12 +83,12 @@ function App() {
   }
 
   const Logout = () => {
-    setUser("")
+    setUser({})
     localStorage.removeItem("jwtToken")
     setAuthToken(false)
   }
 
-    if(!user && !toggleLandingScreen) {
+    if(!user.id && !toggleLandingScreen) {
       return (
         <div>
           <Header color={"#e63946"}>
@@ -103,7 +103,7 @@ function App() {
       )
     }
 
-    if(!user && toggleLandingScreen) {
+    if(!user.id && toggleLandingScreen) {
       return (
         <div>
           <Header color={"#e63946"}>
@@ -130,7 +130,6 @@ function App() {
           <CardContainer  loadRecipes={loadRecipes}/>
           <button style={{
               display: "block",
-              margin: "50px auto 50px auto",
               padding:"1.2em",
               backgroundColor: "#e63946",
               color: "#f1faee",
