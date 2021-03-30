@@ -10,6 +10,7 @@
 @media screen and (max-width: 720px) {
     .card {
         border: none;
+        box-shadow: none;
     }
 }
 
