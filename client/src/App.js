@@ -133,11 +133,13 @@ function App() {
               padding:"1.2em",
               backgroundColor: "#e63946",
               color: "#f1faee",
-              border: "transparent",
               fontWeight: 700,
               borderRadius: 5,
               cursor: "pointer",
-              fontSize: 25
+              fontSize: 25,
+              boxShadow: "2px 2px 2px gray",
+              textShadow: "1px 1px 2px gray",
+              border: "black solid 0.4px",
           }} onClick={Logout}>Log Out</button>
           </Context.Provider>
     </div>

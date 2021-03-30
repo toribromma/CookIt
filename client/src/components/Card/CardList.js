@@ -1,13 +1,9 @@
 import React from "react"
+import "./style.css"
 
 export default function CardList(props) {
     return(
-        <ol style={{
-            overflow: "scroll",
-            height: "400px",
-            maxWidth: "500px",
-            margin: "auto"
-        }}>
+        <ol className="cardList">
             {props.children}
         </ol>
     )

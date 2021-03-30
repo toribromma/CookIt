@@ -97,12 +97,26 @@ function Register({ setUser, toggle }) {
           style={{
             display: "flex",
             margin: "30px auto auto auto",
-            fontSize: 20
+            fontSize: 20,
+            boxShadow: "2px 2px 2px gray",
+            textShadow: "1px 1px 2px gray",
+            border: "black solid 0.4px",
           }}
         >
           Submit
         </button>
-        <button onClick={toggle} style={{ float: "right", paddingRight: 10, marginRight: 10, fontSize: 20 }}>
+        <button
+          onClick={toggle}
+          style={{
+            float: "right",
+            paddingRight: 10,
+            marginRight: 10,
+            fontSize: 20,
+            boxShadow: "2px 2px 2px gray",
+            textShadow: "1px 1px 2px gray",
+            border: "black solid 0.4px",
+          }}
+        >
           Click Here To Login
         </button>
       </form>

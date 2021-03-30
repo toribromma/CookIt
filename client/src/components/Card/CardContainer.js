@@ -71,7 +71,7 @@ export default function CardContainer({ loadRecipes }) {
           display: "flex",
           flexFlow: "row wrap",
           justifyContent: "center", // margin: 0,
-          padding: 10,
+          padding: 2,
           margin: "auto",
         }}
       >
@@ -123,13 +123,13 @@ export default function CardContainer({ loadRecipes }) {
                     onChange={handleInputChange}
                   />
                   <button
-                    style={{ margin: 3, padding: 5, display: "inline" }}
+                    style={{ margin: 3, padding: 5, display: "inline", border: "black solid 0.4px"}}
                     type="submit"
                   >
                     Submit
                   </button>
                   <button
-                    style={{ margin: 3, padding: 5, display: "inline" }}
+                    style={{ margin: 3, padding: 5, display: "inline", border: "black solid 0.4px"}}
                     onClick={() => setEdit(false)}
                   >
                     Cancel
@@ -141,12 +141,15 @@ export default function CardContainer({ loadRecipes }) {
 
               <a
                 target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   fontWeight: 600,
                 }}
                 href={recipe.href}
               >
-                <p>Link to Recipe</p>
+                <div style={{ textAlign: "center", marginTop: 15 }}>
+                  Link to Recipe
+                </div>
               </a>
               {/* <CardDescription>
                             </CardDescription> */}
@@ -156,22 +159,34 @@ export default function CardContainer({ loadRecipes }) {
               {toggleButton ? (
                 <CardList>
                   {recipe.ingredients.map((ingredient, index) => {
-                    return <CardListItem key={index}>{ingredient}</CardListItem>;
+                    return (
+                      <CardListItem key={index}>{ingredient}</CardListItem>
+                    );
                   })}
                 </CardList>
               ) : (
                 <CardList>
                   {recipe.instructions.map((instruction, index) => {
-                    return <CardListItem key={index}>{instruction}</CardListItem>;
+                    return (
+                      <CardListItem key={index}>{instruction}</CardListItem>
+                    );
                   })}
                 </CardList>
               )}
-              <CardButton onClick={clickToggleButton}>
-                {toggleButton ? "Instructions" : "Ingredients"}
-              </CardButton>
-              <CardButton onClick={() => deleteRecipe(recipe._id)}>
-                Delete Me
-              </CardButton>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  flexDirection: "row",
+                }}
+              >
+                <CardButton onClick={clickToggleButton}>
+                  {toggleButton ? "Instructions" : "Ingredients"}
+                </CardButton>
+                <CardButton onClick={() => deleteRecipe(recipe._id)}>
+                  Delete Me
+                </CardButton>
+              </div>
             </Card>
           );
         })}

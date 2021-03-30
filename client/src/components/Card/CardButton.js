@@ -4,16 +4,15 @@ export default function CardButton(props, clickToggleButton) {
     return(
         <button onClick={clickToggleButton}
         style={{
-            display: "inline-block",
             backgroundColor: "#e63946",
             color: "#f1faee",
-            border: "transparent",
             padding: 10,
             margin: 10,
-            fontWeight: 600,
+            fontWeight: 500,
             borderRadius: 5,
             fontSize: 25,
-            border: "black solid 0.2px",
+            border: "black solid 0.4px",
+            boxShadow: "2px 2px 2px gray",
             textShadow: "1px 1px 2px gray"
             
         }}
