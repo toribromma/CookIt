@@ -2,7 +2,9 @@
 
 .card {
     border: black solid 2px;
-    margin: 20px 2px
+    margin: 20px 3px;
+    /* border-radius: 5%; */
+    box-shadow: 2px 2px 2px gray
 }
 
 @media screen and (max-width: 720px) {

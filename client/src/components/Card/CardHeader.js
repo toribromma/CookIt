@@ -5,7 +5,7 @@ export default function CardHeader(props) {
     <h1
       style={{
         height: "max-height",
-        width: 300,
+        width: 370,
         textAlign: "center",
         margin: "auto",
         fontSize: 50
@@ -13,5 +13,5 @@ export default function CardHeader(props) {
     >
       {props.children}
     </h1>
-  );
+  ); 
 }
