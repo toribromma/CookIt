@@ -56,10 +56,10 @@ function Login({setUser, toggle}) {
                     <label htmlFor="password">Password: </label>
                     <input name="password" onChange={handleInputChange} type="password"/>
                     {error ? <p>{error}</p> : "" }
-                    <button type="submit">
+                    <button style={{fontSize: 20}} type="submit">
                         Submit
                     </button>
-                    <button onClick={toggle} style={{float: "right", paddingRight: 10}}>Register?</button>
+                    <button onClick={toggle} style={{float: "right", paddingRight: 10, marginRight: 10, fontSize: 20}}>Register?</button>
             </form>
         </div>
     )

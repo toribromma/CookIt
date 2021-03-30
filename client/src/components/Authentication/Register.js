@@ -3,93 +3,111 @@ import { useForm } from "react-hook-form";
 import API from "../../utils/API";
 import "./register.css";
 
-function Register({setUser, toggle}) {
-    const { register, errors, handleSubmit, watch } = useForm();
-    const [formObject, setFormObject] = useState({});
+function Register({ setUser, toggle }) {
+  const { register, errors, handleSubmit, watch } = useForm();
+  const [formObject, setFormObject] = useState({});
 
- 
-// Handles updating component state when the user types into the input field
-    function handleInputChange(event) {
-        const { name, value } = event.target;
-        setFormObject({...formObject, [name]: value})
-    };
+  // Handles updating component state when the user types into the input field
+  function handleInputChange(event) {
+    const { name, value } = event.target;
+    setFormObject({ ...formObject, [name]: value });
+  }
 
-    function onSubmit() {
-        // e.preventDefault();
+  function onSubmit() {
+    // e.preventDefault();
 
-        if (formObject.name &&
-            formObject.email && 
-            formObject.password && 
-            formObject.password2) {
-        API.registerUser(formObject)
-        .then(
-            res => {
-                setUser(res.data._id)
-            }
-        ).catch(err => {
-            console.log(err);
+    if (
+      formObject.name &&
+      formObject.email &&
+      formObject.password &&
+      formObject.password2
+    ) {
+      API.registerUser(formObject)
+        .then((res) => {
+          setUser(res.data._id);
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        // console.log(formObject)
-        }
-        else {
-            console.log("fill it all out")
-        }
+      // console.log(formObject)
+    } else {
+      console.log("fill it all out");
     }
+  }
 
-    return(
-        <div style={{
-            height: 525,
-            width: 375,
-            margin: "50px auto 10px auto",
-            // backgroundColor: "transparent",
-            // border: "2px solid gray",
-            // borderRadius: 10,
-            textAlign: "center",
-            fontFamily: "Rubik"
-        }}>
-            <h2>Create an Account</h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                    <label htmlFor="name">Name: </label>
-                    <input
-                    ref={register({ required: true, maxLength: 40 })}
-                    name="name" onChange={handleInputChange} type="name"/>
-                    <div>{errors.name && "Name is required"}</div>
-                    <label htmlFor="email">Email: </label>
-                    <input
-                    ref={
-                        register({
-                          pattern: {
-                              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                              message: "Invalid email"
-                          }
-                          
-                        })
-                      }
-                    name="email" onChange={handleInputChange}/>
-                    <div>{errors.email && "Email is required"}</div>
-                    <label htmlFor="password">Password: </label>
-                    <input
-                    ref={register({ required: true, minLength: 8 })}
-                    name="password" onChange={handleInputChange} type="password"/>
-                    <div>{errors.password && "Password must be at least 8 characters!"}</div>
-                    <label htmlFor="password2">Confirm Password: </label>
-                    <input
-                    ref={register({validate: (value) => {
-                        return value === watch("password")
-                    } })}
-                    name="password2" onChange={handleInputChange} type="password"/>
-                    <div>{errors.password2 && "Passwords must match"}</div>
-                    <button type="submit"
-                    style={{
-                        display: "flex",
-                        margin: "30px auto auto auto"
-                    }}>
-                        Submit
-                    </button>
-                    <button onClick={toggle} style={{float: "right", paddingRight: 10}}>Click Here To Login</button>
-            </form>
+  return (
+    <div
+      style={{
+        height: 525,
+        width: 375,
+        margin: "50px auto 10px auto",
+        // backgroundColor: "transparent",
+        // border: "2px solid gray",
+        // borderRadius: 10,
+        textAlign: "center",
+        fontFamily: "Rubik",
+      }}
+    >
+      <h2>Create an Account</h2>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="name">Name: </label>
+        <input
+          ref={register({ required: true, maxLength: 40 })}
+          name="name"
+          onChange={handleInputChange}
+          type="name"
+        />
+        <div>{errors.name && "Name is required"}</div>
+        <label htmlFor="email">Email: </label>
+        <input
+          ref={register({
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: "Invalid email",
+            },
+          })}
+          name="email"
+          onChange={handleInputChange}
+        />
+        <div>{errors.email && "Email is required"}</div>
+        <label htmlFor="password">Password: </label>
+        <input
+          ref={register({ required: true, minLength: 8 })}
+          name="password"
+          onChange={handleInputChange}
+          type="password"
+        />
+        <div>
+          {errors.password && "Password must be at least 8 characters!"}
         </div>
-    )
+        <label htmlFor="password2">Confirm Password: </label>
+        <input
+          ref={register({
+            validate: (value) => {
+              return value === watch("password");
+            },
+          })}
+          name="password2"
+          onChange={handleInputChange}
+          type="password"
+        />
+        <div>{errors.password2 && "Passwords must match"}</div>
+        <button
+          type="submit"
+          style={{
+            display: "flex",
+            margin: "30px auto auto auto",
+            fontSize: 20
+          }}
+        >
+          Submit
+        </button>
+        <button onClick={toggle} style={{ float: "right", paddingRight: 10, marginRight: 10, fontSize: 20 }}>
+          Click Here To Login
+        </button>
+      </form>
+    </div>
+  );
 }
 
 export default Register;

@@ -7,8 +7,8 @@ export default function CardImage(props) {
         src={props.cardImage} 
         alt={props.alt}
         style={{
-            width: 150,
-            height: 150,
+            width: 250,
+            height: 250,
             objectFit: "cover",
             borderRadius: "50%",
             margin: "auto",

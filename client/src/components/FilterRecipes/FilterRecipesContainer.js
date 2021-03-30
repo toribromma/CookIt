@@ -23,7 +23,7 @@ const FilterRecipesContainer = ({loadRecipes}) => {
 
     return(
     <div>
-        <h2>Filter through Recipes</h2>
+        <h2><u>Filter through Recipes</u></h2>
         <input
         type="text"
         placeholder="Filter recipes"

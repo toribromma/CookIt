@@ -1,0 +1,13 @@
+
+
+.card {
+    border: black solid 2px;
+    margin: 10px 25px 10px 10px;
+}
+
+@media screen and (max-width: 720px) {
+    .card {
+        border: none;
+    }
+}
+

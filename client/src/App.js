@@ -137,6 +137,7 @@ function App() {
               fontWeight: 700,
               borderRadius: 5,
               cursor: "pointer",
+              fontSize: 25
           }} onClick={Logout}>Log Out</button>
           </Context.Provider>
     </div>
