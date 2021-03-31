@@ -21,3 +21,4 @@ Node.js <br>
 3. Form to create recipe to add to list
 4. Calendar function (Google API)
 5. Online user sharing recipe capability.
+6. Create a better filter for recipes.
