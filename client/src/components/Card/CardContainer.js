@@ -1,23 +1,16 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import Card from "./Card";
 import CardImage from "./CardImage";
 import CardHeader from "./CardHeader";
-import CardSecondHeader from "./CardSecondHeader";
-// import CardDescription from "./CardDescription"
-import CardList from "./CardList";
-import CardListItem from "./CardListItem";
-import CardButton from "./CardButton";
 import Context from "../../utils/Context";
 import API from "../../utils/API";
 import ToggleContainer from "./ToggleContainer";
-
-// import API from "../../utils/API"
 
 export default function CardContainer({ loadRecipes }) {
   const { value, value2 } = useContext(Context);
   const [user] = value;
   const [recipes, setRecipes] = value2;
-  // const [toggleButton, setToggleButton] = useState(true);
+
   const [edit, setEdit] = useState(false);
   const [currentTitle, setCurrentTitle] = useState({});
 
@@ -38,19 +31,7 @@ export default function CardContainer({ loadRecipes }) {
     }
   }
 
-  // const clickToggleButton = () => {
-  //   if (toggleButton === false) {
-  //     setToggleButton(true);
-  //   } else {
-  //     setToggleButton(false);
-  //   }
-
-  //   console.log("hi");
-  // };
-
   const updateRecipeTitle = (id, title) => {
-    //    e.preventDefault();
-    // var selectedTitle = document.getElementById(id)
     console.log(id);
     setEdit(true);
     setCurrentTitle({ id: id, title: title });
@@ -162,50 +143,12 @@ export default function CardContainer({ loadRecipes }) {
                   Link to Recipe
                 </div>
               </a>
-              {/* <CardDescription>
-                            </CardDescription> */}
               <ToggleContainer
                 ingredients={recipe.ingredients}
                 instructions={recipe.instructions}
                 deleteRecipe={deleteRecipe}
-                // toggleButton={toggleButton}
-                // clickToggleButton={clickToggleButton}
                 id={recipe._id}
               />
-              {/* <CardSecondHeader>
-                {toggleButton ? "Ingredients" : "Instructions"}
-              </CardSecondHeader>
-              {toggleButton ? (
-                <CardList>
-                  {recipe.ingredients.map((ingredient, index) => {
-                    return (
-                      <CardListItem key={index}>{ingredient}</CardListItem>
-                    );
-                  })}
-                </CardList>
-              ) : (
-                <CardList>
-                  {recipe.instructions.map((instruction, index) => {
-                    return (
-                      <CardListItem key={index}>{instruction}</CardListItem>
-                    );
-                  })}
-                </CardList>
-              )}
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "row",
-                }}
-              >
-                <CardButton onClick={clickToggleButton}>
-                  {toggleButton ? "Instructions" : "Ingredients"}
-                </CardButton>
-                <CardButton onClick={() => deleteRecipe(recipe._id)}>
-                  Delete Me
-                </CardButton>
-              </div> */}
             </Card>
           );
         })}

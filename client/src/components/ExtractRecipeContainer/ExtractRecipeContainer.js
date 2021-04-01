@@ -18,8 +18,8 @@ export default function ExtractRecipeContainer({ loadRecipes }) {
 
   function handleFormSubmit(event) {
     event.preventDefault();
-    
-    setError("Loading...")
+
+    setError("Loading...");
 
     if (formObject.url) {
       axios
@@ -76,7 +76,9 @@ export default function ExtractRecipeContainer({ loadRecipes }) {
         alignItems: "center",
       }}
     >
-      <h2 style={{fontSize: 30}}><u>Extract Recipe</u></h2>
+      <h2 style={{ fontSize: 30 }}>
+        <u>Extract Recipe</u>
+      </h2>
       <ExtractRecipeForm
         type="text"
         placeholder="Copy and Paste URL of Recipe here"
@@ -90,7 +92,7 @@ export default function ExtractRecipeContainer({ loadRecipes }) {
           textAlign: "center",
           fontWeight: 700,
           fontSize: 20,
-          color: "red"
+          color: "red",
         }}
       >
         {error}

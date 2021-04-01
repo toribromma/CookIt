@@ -29,10 +29,6 @@ export default function ToggleContainer({
     }, 1000);
   }, [ingredients, setIngredients]);
 
-  //   if (!recipe) {
-  //     return null;
-  //   } else {
-
   if (!ingredients) {
     return <div></div>;
   } else
