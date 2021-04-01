@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import CardSecondHeader from "./CardSecondHeader";
 import CardList from "./CardList";
 import CardListItem from "./CardListItem";
@@ -9,37 +9,32 @@ export default function ToggleContainer({
   ingredients,
   instructions,
   id,
-}
-) {
-    const [toggleButton, setToggleButton] = useState(true);
-    const [ingredients1, setIngredients] = useState(["hi"]);
+}) {
+  const [toggleButton, setToggleButton] = useState(true);
+  const [ingredients1, setIngredients] = useState(["hi"]);
 
-    const clickToggleButton = () => {
-        if (toggleButton === false) {
-          setToggleButton(true);
-        } else {
-          setToggleButton(false);
-        }
-    
-        console.log("hi");
-      };
-    
+  const clickToggleButton = () => {
+    if (toggleButton === false) {
+      setToggleButton(true);
+    } else {
+      setToggleButton(false);
+    }
+
+    console.log("hi");
+  };
+
   useEffect(() => {
-      setTimeout(()=>{
-        setIngredients(ingredients);
-      }, 1000)
-
+    setTimeout(() => {
+      setIngredients(ingredients);
+    }, 1000);
   }, [ingredients, setIngredients]);
 
-  
+  //   if (!recipe) {
+  //     return null;
+  //   } else {
 
-
-//   if (!recipe) {
-//     return null;
-//   } else {
-
-  if(!ingredients) {
-      return <div></div>
+  if (!ingredients) {
+    return <div></div>;
   } else
     return (
       <div>
@@ -69,11 +64,9 @@ export default function ToggleContainer({
           <CardButton onClick={clickToggleButton}>
             {toggleButton ? "Instructions" : "Ingredients"}
           </CardButton>
-          <CardButton onClick={() => deleteRecipe(id)}>
-            Delete Me
-          </CardButton>
+          <CardButton onClick={() => deleteRecipe(id)}>Delete Me</CardButton>
         </div>
       </div>
     );
-//   }
+  //   }
 }

@@ -1,9 +1,5 @@
-import React from "react"
+import React from "react";
 
 export default function CardListItem(props) {
-    return(
-        <li>
-            {props.children}
-        </li>
-    )
+  return <li>{props.children}</li>;
 }
