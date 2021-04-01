@@ -1,14 +1,15 @@
 import React from "react"
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 
 export default function CardImage(props) {
     return(
-        <img 
+        <LazyLoadImage 
         src={props.cardImage} 
         alt={props.alt}
+        height={250}
+        width={250}
         style={{
-            width: 250,
-            height: 250,
             objectFit: "cover",
             borderRadius: "50%",
             margin: "auto",
@@ -17,6 +18,6 @@ export default function CardImage(props) {
             position: "relative",
             top: -25,
         }}
-        ></img>
+        ></LazyLoadImage>
     )
 }

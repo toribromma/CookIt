@@ -38,6 +38,7 @@
     "mongoose": "^5.12.2",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "react-lazy-load-image-component": "^1.5.1",
     "validator": "^13.1.17"
   }
 }
