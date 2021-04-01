@@ -9,6 +9,7 @@ import CardListItem from "./CardListItem";
 import CardButton from "./CardButton";
 import Context from "../../utils/Context";
 import API from "../../utils/API";
+import ToggleContainer from "./ToggleContainer";
 
 // import API from "../../utils/API"
 
@@ -16,7 +17,7 @@ export default function CardContainer({ loadRecipes }) {
   const { value, value2 } = useContext(Context);
   const [user] = value;
   const [recipes, setRecipes] = value2;
-  const [toggleButton, setToggleButton] = useState(true);
+  // const [toggleButton, setToggleButton] = useState(true);
   const [edit, setEdit] = useState(false);
   const [currentTitle, setCurrentTitle] = useState({});
 
@@ -37,15 +38,15 @@ export default function CardContainer({ loadRecipes }) {
     }
   }
 
-  const clickToggleButton = () => {
-    if (toggleButton === false) {
-      setToggleButton(true);
-    } else {
-      setToggleButton(false);
-    }
+  // const clickToggleButton = () => {
+  //   if (toggleButton === false) {
+  //     setToggleButton(true);
+  //   } else {
+  //     setToggleButton(false);
+  //   }
 
-    console.log("hi");
-  };
+  //   console.log("hi");
+  // };
 
   const updateRecipeTitle = (id, title) => {
     //    e.preventDefault();
@@ -123,13 +124,23 @@ export default function CardContainer({ loadRecipes }) {
                     onChange={handleInputChange}
                   />
                   <button
-                    style={{ margin: 3, padding: 5, display: "inline", border: "black solid 0.4px"}}
+                    style={{
+                      margin: 3,
+                      padding: 5,
+                      display: "inline",
+                      border: "black solid 0.4px",
+                    }}
                     type="submit"
                   >
                     Submit
                   </button>
                   <button
-                    style={{ margin: 3, padding: 5, display: "inline", border: "black solid 0.4px"}}
+                    style={{
+                      margin: 3,
+                      padding: 5,
+                      display: "inline",
+                      border: "black solid 0.4px",
+                    }}
                     onClick={() => setEdit(false)}
                   >
                     Cancel
@@ -153,7 +164,15 @@ export default function CardContainer({ loadRecipes }) {
               </a>
               {/* <CardDescription>
                             </CardDescription> */}
-              <CardSecondHeader>
+              <ToggleContainer
+                ingredients={recipe.ingredients}
+                instructions={recipe.instructions}
+                deleteRecipe={deleteRecipe}
+                // toggleButton={toggleButton}
+                // clickToggleButton={clickToggleButton}
+                id={recipe._id}
+              />
+              {/* <CardSecondHeader>
                 {toggleButton ? "Ingredients" : "Instructions"}
               </CardSecondHeader>
               {toggleButton ? (
@@ -186,7 +205,7 @@ export default function CardContainer({ loadRecipes }) {
                 <CardButton onClick={() => deleteRecipe(recipe._id)}>
                   Delete Me
                 </CardButton>
-              </div>
+              </div> */}
             </Card>
           );
         })}

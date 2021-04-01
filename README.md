@@ -15,7 +15,7 @@ Express <br>
 Node.js <br>
 
 
-// areas for improvement
+## areas for improvement
 1. Reset password capabilities
 2. Lists or categories for recipes
 3. Form to create recipe to add to list

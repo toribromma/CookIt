@@ -8,7 +8,7 @@ export default function CardHeader(props) {
         width: 370,
         textAlign: "center",
         margin: "auto",
-        fontSize: 50
+        fontSize: 40,
       }}
     >
       {props.children}
