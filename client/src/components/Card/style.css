@@ -4,7 +4,8 @@
     border: black solid 2px;
     margin: 20px 3px;
     /* border-radius: 5%; */
-    box-shadow: 2px 2px 2px gray
+    box-shadow: 2px 2px 2px gray;
+    max-width: 375px;
 }
 
 @media screen and (max-width: 720px) {

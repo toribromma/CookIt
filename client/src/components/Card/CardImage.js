@@ -6,6 +6,9 @@ export default function CardImage(props) {
     return(
         <LazyLoadImage 
         src={props.cardImage} 
+        // srcset="small.jpg 480w, large.jpg 800w"
+        sizes="(max-width: 480px) 80vw, (max-width: 1024px) 50vw, 800px"
+        placeholder={<div/  >}
         alt={props.alt}
         height={250}
         width={250}
