@@ -12,7 +12,7 @@ import setAuthToken from "./utils/setAuthToken";
 import Login from "./components/Authentication/Login";
 import Context from "./utils/Context";
 import FilterRecipesContainer from "./components/FilterRecipes/FilterRecipesContainer";
-
+import Button from "./components/Button/Button"
 function App() {
   const [recipes, setRecipes] = useState([]);
   const [user, setUser] = useState({});
@@ -106,24 +106,11 @@ function App() {
         <ExtractRecipeContainer loadRecipes={loadRecipes} />
         <FilterRecipesContainer loadRecipes={loadRecipes} />
         <CardContainer loadRecipes={loadRecipes} />
-        <button
-          style={{
-            display: "block",
-            padding: "1.2em",
-            backgroundColor: "#e63946",
-            color: "#f1faee",
-            fontWeight: 700,
-            borderRadius: 5,
-            cursor: "pointer",
-            fontSize: 25,
-            boxShadow: "2px 2px 2px gray",
-            textShadow: "1px 1px 2px gray",
-            border: "black solid 0.4px",
-          }}
+        <Button
           onClick={Logout}
         >
           Log Out
-        </button>
+        </Button>
       </Context.Provider>
     </div>
   );

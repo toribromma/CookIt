@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import API from "../../utils/API";
 import "./register.css";
+import Button from "../Button/Button"
 
 function Register({ setUser, toggle }) {
   const { register, errors, handleSubmit, watch } = useForm();
@@ -92,33 +93,16 @@ function Register({ setUser, toggle }) {
           type="password"
         />
         <div>{errors.password2 && "Passwords must match"}</div>
-        <button
+        <Button
           type="submit"
-          style={{
-            display: "flex",
-            margin: "30px auto auto auto",
-            fontSize: 20,
-            boxShadow: "2px 2px 2px gray",
-            textShadow: "1px 1px 2px gray",
-            border: "black solid 0.4px",
-          }}
         >
           Submit
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={toggle}
-          style={{
-            float: "right",
-            paddingRight: 10,
-            marginRight: 10,
-            fontSize: 20,
-            boxShadow: "2px 2px 2px gray",
-            textShadow: "1px 1px 2px gray",
-            border: "black solid 0.4px",
-          }}
         >
           Click Here To Login
-        </button>
+        </Button>
       </form>
     </div>
   );

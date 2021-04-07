@@ -3,7 +3,7 @@ import API from "../../utils/API";
 import setAuthToken from "../../utils/setAuthToken";
 import "./login.css";
 import jwt_decode from "jwt-decode";
-
+import Button from "../Button/Button"
 function Login({setUser, toggle}) {
 
     const [formObject, setFormObject] = useState({});
@@ -43,10 +43,7 @@ function Login({setUser, toggle}) {
             height: 425,
             width: 375,
             margin: "50px auto 10px auto",
-            // backgroundColor: "transparent",
-            // border: "2px solid gray",
             textAlign: "center",
-            // borderRadius: 10,
             fontFamily: "Rubik"
         }}>
             <h2>Login</h2>
@@ -56,11 +53,12 @@ function Login({setUser, toggle}) {
                     <label htmlFor="password">Password: </label>
                     <input name="password" onChange={handleInputChange} type="password"/>
                     {error ? <p>{error}</p> : "" }
-                    <button style={{fontSize: 20}} type="submit">
+                    <Button float={"none"} margin={"auto"} type="submit">
                         Submit
-                    </button>
-                    <button onClick={toggle} style={{float: "right", paddingRight: 10, marginRight: 10, fontSize: 20}}>Register?</button>
+                    </Button>
+                    {/* <button onClick={toggle} style={{float: "right", paddingRight: 10, marginRight: 10, fontSize: 20}}>Register?</button> */}
             </form>
+            <Button onClick={toggle} float={"right"}>Register</Button>
         </div>
     )
 }
