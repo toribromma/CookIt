@@ -88,10 +88,10 @@ function Register({ setUser, toggle }) {
           type="password"
         />
         <div>{errors.password2 && "Passwords must match"}</div>
-        <Button type="submit" float="left">
+        <Button type="submit" float="none" margin={5}>
           Submit
         </Button>
-        <Button onClick={toggle} float="right">
+        <Button display={"block"} onClick={toggle} float="none" margin={"auto"}>
           Click Here To Login
         </Button>
       </form>

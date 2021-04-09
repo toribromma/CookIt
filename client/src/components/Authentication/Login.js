@@ -50,11 +50,11 @@ function Login({ setUser, toggle }) {
         <label htmlFor="password">Password: </label>
         <input name="password" onChange={handleInputChange} type="password" />
         {error ? <p>{error}</p> : ""}
-        <Button float={"none"} margin={"auto"} type="submit">
+        <Button display="block" float={"none"} margin={"auto"} type="submit">
           Submit
         </Button>
       </form>
-      <Button onClick={toggle} float={"right"}>
+      <Button onClick={toggle} float={"none"} margin={5}>
         Register
       </Button>
     </div>
