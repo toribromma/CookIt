@@ -20,8 +20,10 @@ const Input = (props) => {
           width: "300px",
           height: "25px",
           margin: "auto",
-          borderRadius: 5,
+          borderRadius: 10,
           padding: 10,
+          border: "black 3px solid",
+          boxShadow: "2px 2px 4px rgba(0,0,0,0.3)"
         }}
       ></input>
     </div>

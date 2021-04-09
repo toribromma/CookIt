@@ -20,7 +20,8 @@ h2,
 h3,
 h4,
 h5,
-button {
+button,
+input {
   font-family: 'Kiwi Maru', serif;
 }
 
