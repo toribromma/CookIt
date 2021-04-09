@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import CardSecondHeader from "./CardSecondHeader";
 import CardList from "./CardList";
 import CardListItem from "./CardListItem";
-import Button from "../Button/Button"
+import Button from "../Button/Button";
 
 export default function ToggleContainer({
   deleteRecipe,
@@ -11,7 +11,7 @@ export default function ToggleContainer({
   id,
 }) {
   const [toggleButton, setToggleButton] = useState(true);
-  const [ingredients1, setIngredients] = useState(["hi"]);
+  const [toggleBox, setToggleBox] = useState(true);
 
   const clickToggleButton = () => {
     if (toggleButton === false) {
@@ -23,46 +23,56 @@ export default function ToggleContainer({
     console.log("hi");
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIngredients(ingredients);
-    }, 1000);
-  }, [ingredients, setIngredients]);
+  const clickToggleBox = () => {
+    if (toggleBox === false) {
+      setToggleBox(true);
+    } else {
+      setToggleBox(false);
+    }
 
-  if (!ingredients) {
-    return <div></div>;
-  } else
-    return (
-      <div>
-        <CardSecondHeader>
-          {toggleButton ? "Ingredients" : "Instructions"}
-        </CardSecondHeader>
-        {toggleButton ? (
-          <CardList>
-            {ingredients.map((ingredient, index) => {
-              return <CardListItem key={index}>{ingredient}</CardListItem>;
-            })}
-          </CardList>
-        ) : (
-          <CardList>
-            {instructions.map((instruction, index) => {
-              return <CardListItem key={index}>{instruction}</CardListItem>;
-            })}
-          </CardList>
-        )}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "row",
-          }}
-        >
-          <Button margin={15} onClick={clickToggleButton}>
-            {toggleButton ? "Instructions" : "Ingredients"}
-          </Button>
-          <Button margin={15} onClick={() => deleteRecipe(id)}>Delete Me</Button>
+    console.log("hi");
+  };
+
+  return (
+    <div>
+      <CardSecondHeader>
+        {toggleButton ? "Ingredients" : "Instructions"}
+      </CardSecondHeader>
+      {toggleBox ? (
+        <div></div>
+      ) : (
+        <div>
+          {toggleButton ? (
+            <CardList>
+              {ingredients.map((ingredient, index) => {
+                return <CardListItem key={index}>{ingredient}</CardListItem>;
+              })}
+            </CardList>
+          ) : (
+            <CardList>
+              {instructions.map((instruction, index) => {
+                return <CardListItem key={index}>{instruction}</CardListItem>;
+              })}
+            </CardList>
+          )}
+            <Button margin={"5px auto"} display="flex" onClick={clickToggleButton}>
+              {toggleButton ? "Instructions" : "Ingredients"}
+            </Button>
+            <Button margin={"5px auto"} display="flex" onClick={() => deleteRecipe(id)}>
+              Delete Me
+            </Button>
         </div>
-      </div>
-    );
+      )}
+      {toggleBox ? (
+        <Button margin="5px auto" display="flex" onClick={clickToggleBox}>
+          <i className="fas fa-expand-alt"></i>
+        </Button>
+      ) : (
+        <Button  margin="5px auto" display="flex" onClick={clickToggleBox}>
+          <i className="far fa-times-circle"></i>
+        </Button>
+      )}
+    </div>
+  );
   //   }
 }

@@ -43,13 +43,13 @@ function App() {
         setUser({});
       }
     }
-  }, [localStorage.jwtToken]);
+  }, []);
 
   useEffect(() => {
-    if (user.id) {
+    // if (user.id) {
       loadRecipes();
-    }
-  }, [user]);
+    // }
+  }, [user.id]);
 
   const toggleLandingScreenClick = () => {
     if (toggleLandingScreen === true) {
@@ -100,13 +100,15 @@ function App() {
       <Header color={"#e63946"}>
         <Logo logo={logo} alt="panda chef hat" />
       </Header>
-      <Context.Provider
+      <Context.Provider 
         value={{ value: [user, setUser], value2: [recipes, setRecipes] }}
       >
         <ExtractRecipeContainer loadRecipes={loadRecipes} />
         <FilterRecipesContainer loadRecipes={loadRecipes} />
         <CardContainer loadRecipes={loadRecipes} />
         <Button
+          display="flex"
+          margin="auto"
           onClick={Logout}
         >
           Log Out

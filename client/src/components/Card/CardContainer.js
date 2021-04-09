@@ -9,8 +9,7 @@ import ToggleContainer from "./ToggleContainer";
 export default function CardContainer({ loadRecipes }) {
   const { value, value2 } = useContext(Context);
   const [user] = value;
-  const [recipes, setRecipes] = value2;
-
+  const [recipes] = value2;
   const [edit, setEdit] = useState(false);
   const [currentTitle, setCurrentTitle] = useState({});
 
@@ -22,7 +21,7 @@ export default function CardContainer({ loadRecipes }) {
   function deleteRecipe(id) {
     let r = window.confirm("Are you sure you want to delete?");
 
-    if (r == true) {
+    if (r === true) {
       API.deleteRecipe(id)
         .then((res) => loadRecipes())
         .catch((err) => console.log(err));
@@ -55,6 +54,7 @@ export default function CardContainer({ loadRecipes }) {
           justifyContent: "center", // margin: 0,
           padding: 2,
           margin: "auto",
+          height: "fit-content"
         }}
       >
         {recipes.map((recipe) => {

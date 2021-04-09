@@ -9,7 +9,7 @@ export default function Logo(props) {
         style={{
             maxWidth:"250px",
             height: "auto",
-            margin: 20,
+            margin: 50,
             borderRadius: "200px"
         }}
         ></LazyLoadImage>

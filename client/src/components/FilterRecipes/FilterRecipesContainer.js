@@ -7,7 +7,7 @@ const FilterRecipesContainer = ({ loadRecipes }) => {
   const [recipes, setRecipes] = value2;
 
   const handleInputChange = (event) => {
-    if (event.target.value != "") {
+    if (event.target.value !== "") {
       const filteredArray = recipes.filter((recipe) => {
         const lc = recipe.title.toLowerCase();
         const filter = event.target.value.toString().toLowerCase();

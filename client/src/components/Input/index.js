@@ -5,7 +5,7 @@ const Input = (props) => {
     <div>
       <h2
         style={{
-          textShadow: "2px 4px 3px rgba(0,0,0,0.3)",
+          // textShadow: "2px 4px 3px rgba(0,0,0,0.3)",
           color: "black"
         }}
       >{props.header}</h2>
@@ -21,9 +21,10 @@ const Input = (props) => {
           height: "25px",
           margin: "auto",
           borderRadius: 10,
-          padding: 10,
-          border: "black 3px solid",
-          boxShadow: "2px 2px 4px rgba(0,0,0,0.3)"
+          padding: 5,
+          border: "black 1.5px solid",
+          textAlign: "center"
+          // boxShadow: "2px 4px 4px rgba(0,0,0,0.3)"
         }}
       ></input>
     </div>

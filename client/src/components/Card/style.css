@@ -1,26 +1,25 @@
-
-
 .card {
-    border: black solid 2px;
-    margin: 20px 3px;
-    /* border-radius: 5%; */
-    box-shadow: 2px 2px 2px gray;
-    max-width: 375px;
+  border: rgba(0,0,0,0.4) solid 2px;
+  margin: 20px 3px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+  max-width: 375px;
+  height: fit-content;
 }
 
 @media screen and (max-width: 720px) {
-    .card {
-        border: none;
-        box-shadow: none;
-    }
+  .card {
+    border: none;
+    box-shadow: none;
+  }
+  .cardList {
+    max-height: 450px;
+  }
 }
 
 .cardList {
-        overflow: scroll;
-        height: 400px;
-        max-width: 500px;
-        margin: 0;
+  overflow: scroll;
+  /* max-height: 450px; */
+  /* max-width: 500px; */
+  margin: 0;
 }
-
-
-

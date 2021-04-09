@@ -18,7 +18,7 @@ export default function CardImage(props) {
             display: "block",
             opacity: 1,
             position: "relative",
-            top: -25,
+            top: -5,
         }}
         ></LazyLoadImage>
     )
