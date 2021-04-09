@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
-import ExtractButton from "./ExtractButton";
-import ExtractRecipeForm from "./ExtractRecipeForm";
+import Button from "../Button/Button"
+import Error from "../Error/index"
+import Input from "../Input/index"
 import API from "../../utils/API";
 import axios from "axios";
 import Context from "../../utils/Context.js";
@@ -19,6 +20,8 @@ export default function ExtractRecipeContainer({ loadRecipes }) {
   function handleFormSubmit(event) {
     event.preventDefault();
 
+    console.log("Hi")
+
     setError("Loading...");
 
     if (formObject.url) {
@@ -36,6 +39,7 @@ export default function ExtractRecipeContainer({ loadRecipes }) {
         )
         .then((response) => {
           console.log(response.data);
+
           const {
             sourceUrl,
             title,
@@ -69,41 +73,26 @@ export default function ExtractRecipeContainer({ loadRecipes }) {
   }
 
   return (
-    <form
-      style={{
-        display: "flex",
-        flexFlow: "column wrap",
-        alignItems: "center",
-      }}
-    >
-      <h2 style={{ fontSize: 30 }}>
-        <u>Extract Recipe</u>
-      </h2>
-      <ExtractRecipeForm
-        type="text"
-        placeholder="Copy and Paste URL of Recipe here"
-        name="url"
-        onChange={handleInputChange}
-      ></ExtractRecipeForm>
-      <div
-        style={{
-          display: "block",
-          margin: "auto",
-          textAlign: "center",
-          fontWeight: 700,
-          fontSize: 20,
-          color: "red",
-        }}
-      >
-        {error}
-      </div>
-      <ExtractButton
+    <form>
+    <Input
+      header="Extract a Recipe"
+      placeholder="Enter a URL"
+      name="url"
+      onChange={handleInputChange}
+    />
+    <Error error={error}/>
+    <div style={{display: "flex"}}>
+      
+    </div>
+      <Button
         disabled={!formObject.url}
         onClick={handleFormSubmit}
+        display="flex"
+        margin="auto"
         // onClick={clickMe}
       >
-        Click here to Extract
-      </ExtractButton>
+        <div>Click here to Extract</div>
+      </Button>
     </form>
   );
 }

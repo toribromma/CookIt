@@ -1,5 +1,4 @@
 import React from "react";
-import "./style.css";
 
 export default function Header(props) {
   return (
@@ -10,6 +9,9 @@ export default function Header(props) {
         height: "fit-content",
         textAlign: "center",
         paddingTop: 10,
+        borderBottom: "2px black solid",
+        marginBottom: 10,
+        boxShadow: "2px 4px 4px rgba(0,0,0,0.3)"
       }}
     >
       {props.children}

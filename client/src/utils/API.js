@@ -30,6 +30,6 @@ export default {
   },
   updateRecipeTitle: function(recipeData) {
     return axios.put("/api/recipe/", recipeData)
-  }
+  },
 
 };

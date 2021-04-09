@@ -1,8 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import Context from "../../utils/Context.js";
+import Input from "../Input/index.js";
 
 const FilterRecipesContainer = ({ loadRecipes }) => {
-  const { value, value2 } = useContext(Context);
+  const { value2 } = useContext(Context);
   const [recipes, setRecipes] = value2;
 
   const handleInputChange = (event) => {
@@ -20,25 +21,12 @@ const FilterRecipesContainer = ({ loadRecipes }) => {
   };
 
   return (
-    <div>
-      <h2>
-        <u>Filter through Recipes</u>
-      </h2>
-      <input
-        type="text"
-        placeholder="Filter recipes"
-        name="filteredArray"
-        onChange={handleInputChange}
-        style={{
-          display: "flex",
-          width: "300px",
-          height: "25px",
-          margin: "10px auto 50px auto",
-          borderRadius: 5,
-          padding: 10,
-        }}
-      ></input>
-    </div>
+    <Input
+      header="Filter through Recipes"
+      placeholder="Filter Recipes"
+      name="filteredArray"
+      onChange={handleInputChange}
+    />
   );
 };
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CardSecondHeader from "./CardSecondHeader";
 import CardList from "./CardList";
 import CardListItem from "./CardListItem";
-import CardButton from "./CardButton";
+import Button from "../Button/Button"
 
 export default function ToggleContainer({
   deleteRecipe,
@@ -57,10 +57,10 @@ export default function ToggleContainer({
             flexDirection: "row",
           }}
         >
-          <CardButton onClick={clickToggleButton}>
+          <Button margin={15} onClick={clickToggleButton}>
             {toggleButton ? "Instructions" : "Ingredients"}
-          </CardButton>
-          <CardButton onClick={() => deleteRecipe(id)}>Delete Me</CardButton>
+          </Button>
+          <Button margin={15} onClick={() => deleteRecipe(id)}>Delete Me</Button>
         </div>
       </div>
     );

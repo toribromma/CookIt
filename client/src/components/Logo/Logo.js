@@ -7,10 +7,10 @@ export default function Logo(props) {
         src={props.logo} 
         alt={props.alt}
         style={{
-            width: "250px",
-            height: "250px",
-            borderRadius: 5,
-            margin: 20
+            maxWidth:"250px",
+            height: "auto",
+            margin: 20,
+            borderRadius: "200px"
         }}
         ></LazyLoadImage>
     )

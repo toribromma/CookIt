@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import API from "../../utils/API";
-import "./register.css";
-import Button from "../Button/Button"
+import Button from "../Button/Button";
 
 function Register({ setUser, toggle }) {
   const { register, errors, handleSubmit, watch } = useForm();
@@ -42,11 +41,7 @@ function Register({ setUser, toggle }) {
         height: 525,
         width: 375,
         margin: "50px auto 10px auto",
-        // backgroundColor: "transparent",
-        // border: "2px solid gray",
-        // borderRadius: 10,
         textAlign: "center",
-        fontFamily: "Rubik",
       }}
     >
       <h2>Create an Account</h2>
@@ -93,14 +88,10 @@ function Register({ setUser, toggle }) {
           type="password"
         />
         <div>{errors.password2 && "Passwords must match"}</div>
-        <Button
-          type="submit"
-        >
+        <Button type="submit" float="left">
           Submit
         </Button>
-        <Button
-          onClick={toggle}
-        >
+        <Button onClick={toggle} float="right">
           Click Here To Login
         </Button>
       </form>
