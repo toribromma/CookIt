@@ -6,6 +6,8 @@ import API from "../../utils/API";
 import axios from "axios";
 import Context from "../../utils/Context.js";
 
+
+
 export default function ExtractRecipeContainer({ loadRecipes }) {
   const { value } = useContext(Context);
   const [user] = value;
@@ -37,7 +39,7 @@ export default function ExtractRecipeContainer({ loadRecipes }) {
             },
           }
         )
-        .then((response) => {
+        .then( async (response) => {
           console.log(response.data);
 
           const {
@@ -51,6 +53,8 @@ export default function ExtractRecipeContainer({ loadRecipes }) {
             ],
             extendedIngredients: [...ingredients],
           } = response.data;
+
+          
           let instructions = steps.map((i) => i.step);
           let ingredientsArray = ingredients.map((i) => i.original);
 

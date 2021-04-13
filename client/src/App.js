@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import CardContainer from "./components/Card/CardContainer";
 import Logo from "./components/Logo/Logo";
-import logo from "./images/logo.jpg";
+import logo from "./images/logo1.jpg";
 import Header from "./components/Header/Header";
 import ExtractRecipeContainer from "./components/ExtractRecipeContainer/ExtractRecipeContainer";
 import API from "./utils/API";
