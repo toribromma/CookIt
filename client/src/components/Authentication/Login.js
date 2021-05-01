@@ -48,15 +48,15 @@ function Login({ setUser, toggle }) {
         <label htmlFor="email">Email: </label>
         <input name="email" onChange={handleInputChange} type="email" />
         <label htmlFor="password">Password: </label>
-        <input name="password" onChange={handleInputChange} type="password" />
+        <input style={{display: "block", margin: "auto"}} name="password" onChange={handleInputChange} type="password" />
         {error ? <p>{error}</p> : ""}
-        <Button display="block" float={"none"} margin={"auto"} type="submit">
+        <Button display="inline-block" float={"none"} margin={"10px 4px"} type="submit">
           Submit
         </Button>
-      </form>
-      <Button onClick={toggle} float={"none"} margin={5}>
+        <Button display="inline-block" onClick={toggle} float={"none"} margin={"10px auto"}>
         Register
       </Button>
+      </form>
     </div>
   );
 }

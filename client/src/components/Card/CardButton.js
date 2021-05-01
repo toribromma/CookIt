@@ -11,6 +11,7 @@ export default function CardButton(props, clickToggleButton) {
             fontWeight: 500,
             borderRadius: 5,
             fontSize: 25,
+            display: "inline-block",
             border: "black solid 0.4px",
             boxShadow: "2px 2px 2px gray",
             textShadow: "1px 1px 2px gray"

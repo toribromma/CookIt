@@ -51,10 +51,11 @@ export default function CardContainer({ loadRecipes }) {
         style={{
           display: "flex",
           flexFlow: "row wrap",
-          justifyContent: "center", // margin: 0,
+          alignItems: "flex-start",
+          justifyContent: "center",
           padding: 2,
           margin: "auto",
-          height: "fit-content"
+          height: "fit-content",
         }}
       >
         {recipes.map((recipe) => {
@@ -62,8 +63,6 @@ export default function CardContainer({ loadRecipes }) {
             <Card
               className="card"
               key={recipe._id}
-              border={"1.5px solid black"}
-              color={"transparent"}
             >
               {!recipe.thumbnail ? (
                 <div

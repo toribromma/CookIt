@@ -55,20 +55,20 @@ export default function ToggleContainer({
               })}
             </CardList>
           )}
-            <Button margin={"5px auto"} display="flex" onClick={clickToggleButton}>
+            <Button margin={"5px 5px"} display="inline-block" onClick={clickToggleButton}>
               {toggleButton ? "Instructions" : "Ingredients"}
             </Button>
-            <Button margin={"5px auto"} display="flex" onClick={() => deleteRecipe(id)}>
+            <Button margin={"5px 5px"} display="inline-block" onClick={() => deleteRecipe(id)}>
               Delete Me
             </Button>
         </div>
       )}
       {toggleBox ? (
-        <Button margin="5px auto" display="flex" onClick={clickToggleBox}>
+        <Button margin="5px auto" display="inline-block" onClick={clickToggleBox}>
           <i className="fas fa-expand-alt"></i>
         </Button>
       ) : (
-        <Button  margin="5px auto" display="flex" onClick={clickToggleBox}>
+        <Button  margin="5px auto" display="inline-block" onClick={clickToggleBox}>
           <i className="far fa-times-circle"></i>
         </Button>
       )}

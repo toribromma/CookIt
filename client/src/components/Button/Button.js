@@ -9,7 +9,7 @@ export default function Button(props) {
             padding: 10,
             margin: props.margin,
             fontWeight: 500,
-            borderRadius: 5,
+            borderRadius: 50,
             fontSize: 15,
             border: "black solid 0.4px",
             boxShadow: "2px 2px 2px gray",

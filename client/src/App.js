@@ -46,10 +46,10 @@ function App() {
   // }, []);
 
   useEffect(() => {
-    // if (user.id) {
+    if (user.id) {
       loadRecipes();
-    // }
-  }, [user.id]);
+    }
+  }, [user]);
 
   const toggleLandingScreenClick = () => {
     if (toggleLandingScreen === true) {
@@ -71,7 +71,8 @@ function App() {
         <Header color={"#e63946"}>
           <Logo logo={logo} alt="panda chef hat" />
         </Header>
-        <Register toggle={toggleLandingScreenClick} setUser={setUser} />
+        <Register toggle={toggleLandingScreenClick} setUser={setUser}
+        loadRecipes={loadRecipes} user={user} />
       </div>
     );
   }
@@ -86,6 +87,8 @@ function App() {
           toggle={toggleLandingScreenClick}
           user={user}
           setUser={setUser}
+          loadRecipes={loadRecipes}
+          user={user}
         />
       </div>
     );
