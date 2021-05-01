@@ -52,7 +52,7 @@ export default function CardContainer({ loadRecipes }) {
           display: "flex",
           flexFlow: "row wrap",
           alignItems: "flex-start",
-          justifyContent: "center",
+          justifyContent: "stretch",
           padding: 2,
           margin: "auto",
           height: "fit-content",
