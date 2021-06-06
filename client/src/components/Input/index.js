@@ -21,7 +21,7 @@ const Input = (props) => {
           height: "25px",
           margin: "auto",
           borderRadius: 10,
-          padding: 5,
+          padding: 20,
           border: "black 1.5px solid",
           textAlign: "center"
           // boxShadow: "2px 4px 4px rgba(0,0,0,0.3)"

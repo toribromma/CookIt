@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import API from "../../utils/API";
-import setAuthToken from "../../utils/setAuthToken";
+import API from "../utils/API";
+import setAuthToken from "../utils/setAuthToken";
+import Button from "../components/Button/Button";
+import {Link, useHistory} from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import Button from "../Button/Button";
-function Login({ setUser, toggle }) {
+
+const Login = ({setUserId}) => {
   const [formObject, setFormObject] = useState({});
   const [error, setError] = useState("");
+  
+  let history = useHistory();
 
   // Handles updating component state when the user types into the input field
   function handleInputChange(event) {
@@ -24,17 +28,21 @@ function Login({ setUser, toggle }) {
         const { token } = res.data;
         localStorage.setItem("jwtToken", token);
         setAuthToken(token);
-        const decoded = jwt_decode(token);
-        setUser(decoded);
         setError("");
+        const decoded = jwt_decode(localStorage.jwtToken);
+        console.log(decoded.id);
+        setUserId(decoded.id);
+        history.push("/main");
       })
       .catch((err) => {
         console.log(err);
         setError("Email or password is incorrect!");
       });
   }
+  
 
   return (
+    
     <div
       style={{
         height: 425,
@@ -48,17 +56,26 @@ function Login({ setUser, toggle }) {
         <label htmlFor="email">Email: </label>
         <input name="email" onChange={handleInputChange} type="email" />
         <label htmlFor="password">Password: </label>
-        <input style={{display: "block", margin: "auto"}} name="password" onChange={handleInputChange} type="password" />
+        <input
+          style={{ display: "block", margin: "auto" }}
+          name="password"
+          onChange={handleInputChange}
+          type="password"
+        />
         {error ? <p>{error}</p> : ""}
-        <Button display="inline-block" float={"none"} margin={"10px 4px"} type="submit">
+        <Button
+          display="inline-block"
+          float={"none"}
+          margin={"10px 4px"}
+          type="submit"
+        >
           Submit
         </Button>
-        <Button display="inline-block" onClick={toggle} float={"none"} margin={"10px auto"}>
-        Register
-      </Button>
+        <br></br>
+        <Link to="/register">Register</Link>
       </form>
     </div>
   );
-}
+};
 
 export default Login;

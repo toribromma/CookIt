@@ -1,11 +1,11 @@
 .card {
   border: rgba(0,0,0,0.4) solid 2px;
-  margin: 20px 3px;
+  margin: 20px auto;
   border-radius: 10px;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
-  max-width: 375px;
+  max-width: 275px;
   height: fit-content;
-  flex: 1 auto;
+  box-sizing: border-box;
 }
 
 @media screen and (max-width: 720px) {
@@ -18,9 +18,59 @@
   }
 }
 
+@media screen and (min-width: 460px) {
+  .card {
+    min-width: 460px;
+  }
+
+}
+
+
+
+
+
+@media screen and (max-width: 600px) { 
+  ol li {
+    width: 100%;
+  }
+}
+
+
+@media screen and (min-width: 760px) {
+  .card {
+    min-width: 600px;
+  }
+}
+
 .cardList {
   overflow: scroll;
-  /* max-height: 450px; */
-  /* max-width: 500px; */
-  margin: 0;
+  /* max-height: 250px; */
+  /* min-width: 375px; */
+  padding: 25px;
+  margin: 0px auto;
+
 }
+
+ol {
+  list-style: none;
+  counter-reset: my-awesome-counter;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+ol li {
+  counter-increment: my-awesome-counter;
+  display: flex;
+  width: 50%;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+ol li::before {
+  content: "0" counter(my-awesome-counter);
+  font-weight: bold;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+  line-height: 1;
+}
+

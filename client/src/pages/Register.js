@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import API from "../../utils/API";
-import Button from "../Button/Button";
+import API from "../utils/API";
+import Button from "../components/Button/Button";
+import { Link } from "react-router-dom";
 
-function Register({ setUser, toggle }) {
+
+function Register() {
+  
   const { register, errors, handleSubmit, watch } = useForm();
   const [formObject, setFormObject] = useState({});
 
@@ -24,7 +27,7 @@ function Register({ setUser, toggle }) {
     ) {
       API.registerUser(formObject)
         .then((res) => {
-          setUser(res.data._id);
+          
         })
         .catch((err) => {
           console.log(err);
@@ -91,9 +94,8 @@ function Register({ setUser, toggle }) {
         <Button type="submit" float="none" margin={"10px 4px"}>
           Submit
         </Button>
-        <Button display={"inline-block"} onClick={toggle} float="none" margin={"10px auto"}>
-          Click Here To Login
-        </Button>
+        <br></br>
+          <Link to="/">Login</Link>
       </form>
     </div>
   );

@@ -40,3 +40,7 @@ label {
   padding: 10px;
   display: block;
 }
+
+* {
+  box-sizing: border-box;
+}

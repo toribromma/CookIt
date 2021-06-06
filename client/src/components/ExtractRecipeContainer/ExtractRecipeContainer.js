@@ -5,12 +5,10 @@ import Input from "../Input/index"
 import API from "../../utils/API";
 import axios from "axios";
 import Context from "../../utils/Context.js";
+import jwt_decode from "jwt-decode";
 
 
-
-export default function ExtractRecipeContainer({ loadRecipes }) {
-  const { value } = useContext(Context);
-  const [user] = value;
+export default function ExtractRecipeContainer({ loadRecipes, setRecipes, recipes }) {
   const [formObject, setFormObject] = useState({});
   const [error, setError] = useState();
 
@@ -20,6 +18,8 @@ export default function ExtractRecipeContainer({ loadRecipes }) {
   }
 
   function handleFormSubmit(event) {
+    const decoded = jwt_decode(localStorage.jwtToken);
+    
     event.preventDefault();
 
     console.log("Hi")
@@ -64,9 +64,9 @@ export default function ExtractRecipeContainer({ loadRecipes }) {
             href: sourceUrl,
             instructions: instructions,
             ingredients: ingredientsArray,
-            user: user.id,
+            user: decoded.id,
           })
-            .then(() => loadRecipes(user))
+            .then(() => loadRecipes(decoded.id))
             .then(() => setError(""));
         })
         .catch((err) => {
@@ -92,7 +92,7 @@ export default function ExtractRecipeContainer({ loadRecipes }) {
         disabled={!formObject.url}
         onClick={handleFormSubmit}
         display="flex"
-        margin="auto"
+        margin="20px auto"
         // onClick={clickMe}
       >
         <div>Click here to Extract</div>

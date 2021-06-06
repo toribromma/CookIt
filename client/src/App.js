@@ -1,123 +1,67 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
-import CardContainer from "./components/Card/CardContainer";
+import API from "./utils/API";
 import Logo from "./components/Logo/Logo";
 import logo from "./images/logo1.jpg";
 import Header from "./components/Header/Header";
-import ExtractRecipeContainer from "./components/ExtractRecipeContainer/ExtractRecipeContainer";
-import API from "./utils/API";
-import Register from "./components/Authentication/Register";
-import jwt_decode from "jwt-decode";
-import setAuthToken from "./utils/setAuthToken";
-import Login from "./components/Authentication/Login";
-import Context from "./utils/Context";
-import FilterRecipesContainer from "./components/FilterRecipes/FilterRecipesContainer";
-import Button from "./components/Button/Button"
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import MainPage from "./pages/main";
+
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
+
 function App() {
   const [recipes, setRecipes] = useState([]);
-  const [user, setUser] = useState({});
-  const [toggleLandingScreen, setToggleLandingScreen] = useState(true);
+  const [userId, setUserId] = useState("");
 
-  function loadRecipes() {
-    console.log(user.id);
-    API.getRecipes(user.id)
-      .then((res) => setRecipes(res.data[0].recipes))
+  function loadRecipes(id) {
+    console.log(id);
+    API.getRecipes(id)
+      .then((res) => {
+        setRecipes(res.data[0].recipes);
+      })
       .catch((err) => console.log(err));
   }
 
-  // useEffect(() => {
-  //   if (localStorage.jwtToken) {
-  //     // Set auth token header auth
-  //     const token = localStorage.jwtToken;
-  //     setAuthToken(token);
-  //     // Decode token and get user info and exp
-  //     const decoded = jwt_decode(token);
-  //     // Set user and isAuthenticated
-  //     console.log(decoded);
-  //     setUser(decoded);
-  //     // Check for expired token
-  //     const currentTime = Date.now() / 1000; // to get in milliseconds
-  //     if (decoded.exp < currentTime) {
-  //       localStorage.removeItem("jwtToken");
-  //       setAuthToken(false);
-  //       setUser({});
-  //     }
-  //   }
-  // }, []);
 
-  useEffect(() => {
-    if (user.id) {
-      loadRecipes();
-    }
-  }, [user]);
-
-  const toggleLandingScreenClick = () => {
-    if (toggleLandingScreen === true) {
-      setToggleLandingScreen(false);
-    } else {
-      setToggleLandingScreen(true);
-    }
-  };
-
-  const Logout = () => {
-    setUser({});
-    localStorage.removeItem("jwtToken");
-    setAuthToken(false);
-  };
-
-  if (!user.id && !toggleLandingScreen) {
-    return (
-      <div>
-        <Header color={"#e63946"}>
-          <Logo logo={logo} alt="panda chef hat" />
-        </Header>
-        <Register toggle={toggleLandingScreenClick} setUser={setUser}
-        loadRecipes={loadRecipes} user={user} />
-      </div>
-    );
-  }
-
-  if (!user.id && toggleLandingScreen) {
-    return (
-      <div>
-        <Header color={"#e63946"}>
-          <Logo logo={logo} alt="panda chef hat" />
-        </Header>
-        <Login
-          toggle={toggleLandingScreenClick}
-          user={user}
-          setUser={setUser}
-          loadRecipes={loadRecipes}
-          user={user}
-        />
-      </div>
-    );
-  }
-
-  if (!recipes) {
-    return <span>Loading...</span>;
-  }
 
   return (
-    <div>
+    <Router>
       <Header color={"#e63946"}>
         <Logo logo={logo} alt="panda chef hat" />
       </Header>
-      <Context.Provider 
-        value={{ value: [user, setUser], value2: [recipes, setRecipes] }}
-      >
-        <ExtractRecipeContainer loadRecipes={loadRecipes} />
-        <FilterRecipesContainer loadRecipes={loadRecipes} />
-        <CardContainer loadRecipes={loadRecipes} />
-        <Button
-          display="flex"
-          margin="auto"
-          onClick={Logout}
-        >
-          Log Out
-        </Button>
-      </Context.Provider>
-    </div>
+
+      <Switch>
+        <Route exact path="/">
+          <Login setUserId={setUserId} />
+        </Route>
+
+        <Route path="/register">
+          <Register />
+        </Route>
+
+        <Route path="/main">
+          <MainPage
+            userId={userId}
+            setUserId={setUserId}
+            loadRecipes={loadRecipes}
+            recipes={recipes}
+            setRecipes={setRecipes}
+          />
+        </Route>
+      </Switch>
+
+ 
+    </Router>
   );
 }
 

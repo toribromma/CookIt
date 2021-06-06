@@ -2,10 +2,10 @@ import axios from "axios";
 
 export default {
   // Gets all books
-  getRecipes: function(user) {
+  getRecipes: function(id) {
     return axios.get("/api/recipe", {
       params: {
-        id: user}});
+        id: id}});
   },
 //   // Gets the book with the given id
 //   getBook: function(id) {

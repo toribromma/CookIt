@@ -35,26 +35,27 @@ export default function ToggleContainer({
 
   return (
     <div>
-      {toggleBox ? (
-        <Button
-          margin="10px auto"
-          display="flex"
-          onClick={clickToggleBox}
+      <CardSecondHeader>
+        {toggleButton ? "Ingredients" : "Instructions"}
+        <button
+          style={{
+            padding: 5,
+            margin: 5,
+          }}
+          onClick={clickToggleButton}
         >
+          {toggleButton ? "Instructions" : "Ingredients"}
+        </button>
+      </CardSecondHeader>
+      {toggleBox ? (
+        <Button margin="10px auto" display="flex" onClick={clickToggleBox}>
           <i className="fas fa-expand-alt"></i>
         </Button>
       ) : (
-        <Button
-          margin="10px auto"
-          display="flex"
-          onClick={clickToggleBox}
-        >
+        <Button margin="10px auto" display="flex" onClick={clickToggleBox}>
           <i className="far fa-times-circle"></i>
         </Button>
       )}
-      <CardSecondHeader>
-        {toggleButton ? "Ingredients" : "Instructions"}
-      </CardSecondHeader>
       {toggleBox ? (
         <div></div>
       ) : (
@@ -73,15 +74,8 @@ export default function ToggleContainer({
             </CardList>
           )}
           <Button
-            margin={"5px 5px"}
-            display="inline-block"
-            onClick={clickToggleButton}
-          >
-            {toggleButton ? "Instructions" : "Ingredients"}
-          </Button>
-          <Button
-            margin={"5px 5px"}
-            display="inline-block"
+            margin={"5px auto"}
+            display="flex"
             onClick={() => deleteRecipe(id)}
           >
             Delete Me
