@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Input from "../Input/index.js";
 import {checkJwtoken} from "../../utils/hooks";
-import { load } from "dotenv";
+
 
 const FilterRecipesContainer = ({ loadRecipes, setRecipes, recipes }) => {
   const [search, setSearch] = useState('');
@@ -17,22 +17,6 @@ const FilterRecipesContainer = ({ loadRecipes, setRecipes, recipes }) => {
     }
 
   }, [search]);
-
-
-  // const handleInputChange = (event) => {
-  //   const { value } = event.target;
-  //   if (value ) {
-  //     const filteredArray = recipes.filter((recipe) => {
-  //       const lc = recipe.title.toLowerCase();
-  //       const filter = value.toString().toLowerCase();
-  //       return lc.includes(filter);
-  //     });
-  //     setRecipes(filteredArray);
-  //   } else {
-  //     checkJwtoken(loadRecipes);
-  //   }
-  // };
-  
 
   return (
     <Input
