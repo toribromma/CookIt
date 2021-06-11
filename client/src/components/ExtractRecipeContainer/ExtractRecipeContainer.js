@@ -1,14 +1,15 @@
-import React, { useState, useContext } from "react";
-import Button from "../Button/Button"
-import Error from "../Error/index"
-import Input from "../Input/index"
+import React, { useState } from "react";
+import Button from "../Button/Button";
+import Error from "../Error/index";
+import Input from "../Input/index";
 import API from "../../utils/API";
 import axios from "axios";
-import Context from "../../utils/Context.js";
 import jwt_decode from "jwt-decode";
+import {checkJwtoken} from "../../utils/hooks"
 
-
-export default function ExtractRecipeContainer({ loadRecipes, setRecipes, recipes }) {
+export default function ExtractRecipeContainer({
+  loadRecipes
+}) {
   const [formObject, setFormObject] = useState({});
   const [error, setError] = useState();
 
@@ -19,10 +20,8 @@ export default function ExtractRecipeContainer({ loadRecipes, setRecipes, recipe
 
   function handleFormSubmit(event) {
     const decoded = jwt_decode(localStorage.jwtToken);
-    
-    event.preventDefault();
 
-    console.log("Hi")
+    event.preventDefault();
 
     setError("Loading...");
 
@@ -39,7 +38,7 @@ export default function ExtractRecipeContainer({ loadRecipes, setRecipes, recipe
             },
           }
         )
-        .then( async (response) => {
+        .then(async (response) => {
           console.log(response.data);
 
           const {
@@ -54,7 +53,6 @@ export default function ExtractRecipeContainer({ loadRecipes, setRecipes, recipe
             extendedIngredients: [...ingredients],
           } = response.data;
 
-          
           let instructions = steps.map((i) => i.step);
           let ingredientsArray = ingredients.map((i) => i.original);
 
@@ -66,7 +64,7 @@ export default function ExtractRecipeContainer({ loadRecipes, setRecipes, recipe
             ingredients: ingredientsArray,
             user: decoded.id,
           })
-            .then(() => loadRecipes(decoded.id))
+            .then(() => checkJwtoken(loadRecipes))
             .then(() => setError(""));
         })
         .catch((err) => {
@@ -78,16 +76,14 @@ export default function ExtractRecipeContainer({ loadRecipes, setRecipes, recipe
 
   return (
     <form>
-    <Input
-      header="Extract a Recipe"
-      placeholder="Enter a URL"
-      name="url"
-      onChange={handleInputChange}
-    />
-    <Error error={error}/>
-    <div style={{display: "flex"}}>
-      
-    </div>
+      <Input
+        header="Extract a Recipe"
+        placeholder="Enter a URL"
+        name="url"
+        onChange={handleInputChange}
+      />
+      <Error error={error} />
+      <div style={{ display: "flex" }}></div>
       <Button
         disabled={!formObject.url}
         onClick={handleFormSubmit}

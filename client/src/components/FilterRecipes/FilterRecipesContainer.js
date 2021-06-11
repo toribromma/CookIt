@@ -1,41 +1,46 @@
-import React, { useContext } from "react";
-import Context from "../../utils/Context.js";
+import React, { useEffect, useState } from "react";
 import Input from "../Input/index.js";
-import jwt_decode from "jwt-decode";
+import {checkJwtoken} from "../../utils/hooks";
+import { load } from "dotenv";
 
-const FilterRecipesContainer = ({ loadRecipes, userId }) => {
-  const { value2 } = useContext(Context);
-  const [recipes, setRecipes] = value2;
+const FilterRecipesContainer = ({ loadRecipes, setRecipes, recipes }) => {
+  const [search, setSearch] = useState('');
 
-  const handleInputChange = (event) => {
-      const {value} = event.target;
-    if (value) {
-      const filteredArray = recipes.filter((recipe) => {
-        const lc = recipe.title.toLowerCase();
-        const filter = value.toString().toLowerCase();
-        return lc.includes(filter);
-        // console.log(recipe)
-      });
-      setRecipes(filteredArray);
-    } else if (localStorage.jwtToken) {
-      const decoded = jwt_decode(localStorage.jwtToken);
-      console.log("meh")
-      loadRecipes(decoded.id);
-    } else {
-      console.log("blah")
-      loadRecipes(userId);
+  useEffect(() => {
+    const filter = recipes.filter(recipe => {
+      return recipe.title.toLowerCase().includes(search.toLowerCase());
+    });
+    setRecipes(filter);
+
+    if(!search) {
+      checkJwtoken(loadRecipes);
     }
-  };
+
+  }, [search]);
 
 
-
+  // const handleInputChange = (event) => {
+  //   const { value } = event.target;
+  //   if (value ) {
+  //     const filteredArray = recipes.filter((recipe) => {
+  //       const lc = recipe.title.toLowerCase();
+  //       const filter = value.toString().toLowerCase();
+  //       return lc.includes(filter);
+  //     });
+  //     setRecipes(filteredArray);
+  //   } else {
+  //     checkJwtoken(loadRecipes);
+  //   }
+  // };
+  
 
   return (
     <Input
       header="Filter through Recipes"
       placeholder="Filter Recipes"
       name="filteredArray"
-      onChange={handleInputChange}
+      value={search}
+      onChange={e => setSearch(e.target.value)}
     />
   );
 };

@@ -1,37 +1,14 @@
-import React, { useState, useEffect } from "react";
-import Input from "../Input/index.js";
+import React, { useState } from "react";
 import Card from "./Card";
 import CardImage from "./CardImage";
 import CardHeader from "./CardHeader";
 import API from "../../utils/API";
 import ToggleContainer from "./ToggleContainer";
-import jwt_decode from "jwt-decode";
+import { checkJwtoken } from "../../utils/hooks";
 
-export default function CardContainer({
-  loadRecipes,
-  setRecipes,
-  recipes,
-  setUserId,
-  userId
-}) {
+export default function CardContainer({ loadRecipes, recipes }) {
   const [edit, setEdit] = useState(false);
   const [currentTitle, setCurrentTitle] = useState({});
-
-
-  const filterRecipesFunction = (event) => {
-    const { value } = event.target;
-
-    if (value !== "") {
-      const filteredArray = recipes.filter((recipe) => {
-        const lc = recipe.title.toLowerCase();
-        const filter = value.toString().toLowerCase();
-        return lc.includes(filter);
-        // console.log(recipe)
-      });
-
-      setRecipes(filteredArray);
-    }
-  };
 
   function handleInputChange(event) {
     const { name, value } = event.target;
@@ -43,7 +20,7 @@ export default function CardContainer({
 
     if (r === true) {
       API.deleteRecipe(id)
-        .then((res) => loadRecipes(userId))
+        .then((res) => checkJwtoken(loadRecipes))
         .catch((err) => console.log(err));
 
       console.log(id);
@@ -59,7 +36,7 @@ export default function CardContainer({
   const submitUpdate = (e) => {
     e.preventDefault();
     API.updateRecipeTitle({ id: currentTitle.id, title: currentTitle.title })
-      .then((res) => loadRecipes(userId))
+      .then((res) => checkJwtoken(loadRecipes))
       .then(setEdit(false));
   };
 
@@ -68,13 +45,6 @@ export default function CardContainer({
   } else {
     return (
       <>
-        <Input
-          header="Search Recipes"
-          placeholder="Search Recipes"
-          name="filteredArray"
-          onChange={filterRecipesFunction}
-        />
-
         <div
           style={{
             display: "flex",

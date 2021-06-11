@@ -8,31 +8,19 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import MainPage from "./pages/main";
 
-
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-  useHistory,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   const [recipes, setRecipes] = useState([]);
   const [userId, setUserId] = useState("");
 
   function loadRecipes(id) {
-    console.log(id);
     API.getRecipes(id)
       .then((res) => {
         setRecipes(res.data[0].recipes);
       })
       .catch((err) => console.log(err));
   }
-
-
 
   return (
     <Router>
@@ -59,8 +47,6 @@ function App() {
           />
         </Route>
       </Switch>
-
- 
     </Router>
   );
 }
