@@ -8,7 +8,7 @@ ReactDOM.render(
     domain="dev-5eih8jsgesnh34xg.us.auth0.com"
     clientId="4hwkIBm2gl3lrHyCd8GZDh7V0UWpXwOg"
     authorizationParams={{
-      redirect_uri: "http://localhost:3000/main"
+      redirect_uri: "https://safe-refuge-86821-87fdcaa8ddcc.herokuapp.com/main"
     }}
   >
     <App />
