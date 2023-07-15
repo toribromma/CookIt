@@ -18,7 +18,6 @@ export default function ExtractRecipeContainer() {
 
   function handleFormSubmit(event) {
 
-
     event.preventDefault();
 
     setError("Loading...");
@@ -69,8 +68,6 @@ export default function ExtractRecipeContainer() {
           API.saveRecipe(recipe)
             .then(() => setError(""));
         })
-        .then(()=>
-        API.getRecipes())
         .catch((err) => {
           console.log(err);
           setError("Unable to save");
