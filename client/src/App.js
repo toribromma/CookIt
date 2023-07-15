@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Logo from "./components/Logo/Logo";
 import logo from "./images/logo1.jpg";
@@ -18,17 +18,13 @@ function App() {
         <Logo logo={logo} alt="panda chef hat" />
       </Header>
 
-      <Switch>
-        <Route exact path="/">
-          <Login />
+      <Routes>
+        <Route exact path="/" element={<Login/>}>
         </Route>
 
-        <Route path="/main">
-          <MainPage
-
-          />
+        <Route path="/main" element={<MainPage/>}>
         </Route>
-      </Switch>
+      </Routes>
     </Router>
   );
 }
