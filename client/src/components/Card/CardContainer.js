@@ -1,14 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import CardImage from "./CardImage";
 import CardHeader from "./CardHeader";
 import API from "../../utils/API";
 import ToggleContainer from "./ToggleContainer";
-import { checkJwtoken } from "../../utils/hooks";
 
-export default function CardContainer({ loadRecipes, recipes }) {
+export default function CardContainer({user}) {
+  if(user) {
+    // console.log(user)
+  }
+  const [recipes, setRecipes] = useState([])
+
+  useEffect(()=>{
+    if(user) {
+      API.getRecipes(user.sub)
+      .then((res)=>{
+        // console.log(res.data)
+        // console.log("Hi")
+      setRecipes(res.data);
+      // console.log(recipes.length)
+      })
+      .catch((err) => console.log(err));
+
+    }
+  },[user, API.saveRecipe, recipes]   )
+
+
+
   const [edit, setEdit] = useState(false);
   const [currentTitle, setCurrentTitle] = useState({});
+
+  
 
   function handleInputChange(event) {
     const { name, value } = event.target;
@@ -20,7 +42,7 @@ export default function CardContainer({ loadRecipes, recipes }) {
 
     if (r === true) {
       API.deleteRecipe(id)
-        .then((res) => checkJwtoken(loadRecipes))
+        // .then((res) => checkJwtoken(loadRecipes))
         .catch((err) => console.log(err));
 
       console.log(id);
@@ -36,13 +58,15 @@ export default function CardContainer({ loadRecipes, recipes }) {
   const submitUpdate = (e) => {
     e.preventDefault();
     API.updateRecipeTitle({ id: currentTitle.id, title: currentTitle.title })
-      .then((res) => checkJwtoken(loadRecipes))
+      // .then((res) => checkJwtoken(loadRecipes))
       .then(setEdit(false));
   };
 
-  if (recipes === undefined) {
-    return <span>No recipes found</span>;
-  } else {
+
+  if (recipes === undefined) { 
+    return (<span>No recipes found</span>);
+  } 
+  else {
     return (
       <>
         <div
@@ -71,7 +95,7 @@ export default function CardContainer({ loadRecipes, recipes }) {
                   <CardImage alt={recipe.title} cardImage={recipe.thumbnail} />
                 )}
 
-                <CardHeader id={recipe._id} key={recipe.title}>
+                <CardHeader id={recipe.user} key={recipe.title}>
                   {recipe.title}
                   {!edit ? (
                     <span
@@ -91,7 +115,7 @@ export default function CardContainer({ loadRecipes, recipes }) {
                     ""
                   )}
                 </CardHeader>
-                {edit && currentTitle.id === recipe._id ? (
+                {edit && currentTitle.id === recipe.user ? (
                   <form onSubmit={submitUpdate}>
                     <input
                       style={{ width: "85%", margin: 10, padding: 5 }}
@@ -142,7 +166,7 @@ export default function CardContainer({ loadRecipes, recipes }) {
                   ingredients={recipe.ingredients}
                   instructions={recipe.instructions}
                   deleteRecipe={deleteRecipe}
-                  id={recipe._id}
+                  user={recipe.user}
                 />
               </Card>
             );
@@ -151,4 +175,5 @@ export default function CardContainer({ loadRecipes, recipes }) {
       </>
     );
   }
+
 }

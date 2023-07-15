@@ -1,50 +1,53 @@
-import React, { useEffect } from "react";
-import setAuthToken from "../utils/setAuthToken";
+import React, { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import API from "../utils/API";
 import ExtractRecipeContainer from "../components/ExtractRecipeContainer/ExtractRecipeContainer";
 import CardContainer from "../components/Card/CardContainer";
-import Button from "../components/Button/Button";
-import { useHistory } from "react-router-dom";
-import { checkJwtoken } from "../utils/hooks";
 import FilterRecipesContainer from "../components/FilterRecipes/FilterRecipesContainer";
+import LogoutButton from "../components/LogoutButton/LogoutButton";
+import Profile from "../components/Profile/Profile";
 
-const MainPage = ({ loadRecipes, setRecipes, recipes }) => {
-  let history = useHistory();
+const MainPage = () => {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  // if(user) {
+  //   console.log(user)
+  // }
+  // const [recipes, setRecipes] = useState([])
 
-  useEffect(() => {
-    checkJwtoken(loadRecipes);
-  }, []);
+  // useEffect(()=>{
+  //   if(user) {
+  //     API.getRecipes(user.sub)
+  //     .then((res)=>{
+  //       console.log(res.data)
+  //       console.log("Hi")
+  //     setRecipes(res.data);
+  //     console.log(recipes.length)
+  //     })
+  //     .catch((err) => console.log(err));
 
-  const Logout = () => {
-    localStorage.removeItem("jwtToken");
-    setAuthToken(false);
-    history.push("");
-  };
-
-  if (recipes === undefined) {
-    return <div>Please log back in...</div>;
-  }
-
+  //   }
+  // },[user])
   return (
     <div>
+      <Profile/>
       <ExtractRecipeContainer
-        loadRecipes={loadRecipes}
-        recipes={recipes}
+        // recipes={recipes}
+        // setRecipes={setRecipes}
+        // userId={userId}
+      /> 
+      {/* <FilterRecipesContainer
         setRecipes={setRecipes}
-      />
-      <FilterRecipesContainer
-        setRecipes={setRecipes}
         recipes={recipes}
-        loadRecipes={loadRecipes}
-      />
-      <CardContainer
-        loadRecipes={loadRecipes}
-        recipes={recipes}
-        setRecipes={setRecipes}
-      />
 
-      <Button margin="0 auto" display="flex" onClick={Logout}>
-        Log Out
-      </Button>
+      /> */}
+      <CardContainer
+
+        // recipes={recipes}
+        // setRecipes={setRecipes}
+        user={user}
+        />
+
+<LogoutButton/>
     </div>
   );
 };

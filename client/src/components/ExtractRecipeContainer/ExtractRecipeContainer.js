@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../Button/Button";
 import Error from "../Error/index";
 import Input from "../Input/index";
 import API from "../../utils/API";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
-import {checkJwtoken} from "../../utils/hooks"
+import { useAuth0 } from "@auth0/auth0-react";
 
-export default function ExtractRecipeContainer({
-  loadRecipes
-}) {
+export default function ExtractRecipeContainer() {
+  const { user, isAuthenticated, isLoading } = useAuth0();
   const [formObject, setFormObject] = useState({});
   const [error, setError] = useState();
 
@@ -19,7 +17,7 @@ export default function ExtractRecipeContainer({
   }
 
   function handleFormSubmit(event) {
-    const decoded = jwt_decode(localStorage.jwtToken);
+
 
     event.preventDefault();
 
@@ -39,7 +37,7 @@ export default function ExtractRecipeContainer({
           }
         )
         .then(async (response) => {
-          console.log(response.data);
+       
 
           const {
             sourceUrl,
@@ -53,20 +51,26 @@ export default function ExtractRecipeContainer({
             extendedIngredients: [...ingredients],
           } = response.data;
 
+          console.log(response.data);
+
           let instructions = steps.map((i) => i.step);
           let ingredientsArray = ingredients.map((i) => i.original);
 
-          API.saveRecipe({
-            title: title,
-            thumbnail: image,
-            href: sourceUrl,
-            instructions: instructions,
-            ingredients: ingredientsArray,
-            user: decoded.id,
-          })
-            .then(() => checkJwtoken(loadRecipes))
+          const recipe =  {
+              title: title,
+              thumbnail: image,
+              href: sourceUrl,
+              instructions: instructions,
+              ingredients: ingredientsArray,
+              user: user.sub
+            }
+
+          // console.log(recipe)
+          API.saveRecipe(recipe)
             .then(() => setError(""));
         })
+        .then(()=>
+        API.getRecipes())
         .catch((err) => {
           console.log(err);
           setError("Unable to save");

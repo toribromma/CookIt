@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Input from "../Input/index.js";
-import {checkJwtoken} from "../../utils/hooks";
+
 
 
 const FilterRecipesContainer = ({ loadRecipes, setRecipes, recipes }) => {
@@ -13,7 +13,7 @@ const FilterRecipesContainer = ({ loadRecipes, setRecipes, recipes }) => {
     setRecipes(filter);
 
     if(!search) {
-      checkJwtoken(loadRecipes);
+      loadRecipes();
     }
 
   }, [search]);

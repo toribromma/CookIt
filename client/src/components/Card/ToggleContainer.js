@@ -24,10 +24,10 @@ export default function ToggleContainer({
   };
 
   const clickToggleBox = () => {
-    if (toggleBox === false) {
-      setToggleBox(true);
-    } else {
+    if (toggleBox === true) {
       setToggleBox(false);
+    } else {
+      setToggleBox(true);
     }
 
     console.log("hi");
@@ -35,7 +35,7 @@ export default function ToggleContainer({
 
   return (
     <div>
-      <CardSecondHeader>
+      {/* <CardSecondHeader>
         {toggleButton ? "Ingredients" : "Instructions"}
         <button
           style={{
@@ -60,28 +60,28 @@ export default function ToggleContainer({
         <div></div>
       ) : (
         <div>
-          {toggleButton ? (
+          {toggleButton ? ( */}
             <CardList>
-              {ingredients.map((ingredient, index) => {
-                return <CardListItem key={index}>{ingredient}</CardListItem>;
+              {ingredients.map((ingredient) => {
+                return <CardListItem>{ingredient}</CardListItem>;
               })}
             </CardList>
-          ) : (
+          {/* ) : ( */}
             <CardList>
-              {instructions.map((instruction, index) => {
-                return <CardListItem key={index}>{instruction}</CardListItem>;
+              {instructions.map((instruction) => {
+                return <CardListItem>{instruction}</CardListItem>;
               })}
             </CardList>
-          )}
-          <Button
+          {/* )} */}
+          {/* <Button
             margin={"5px auto"}
             display="flex"
             onClick={() => deleteRecipe(id)}
           >
             Delete Me
-          </Button>
-        </div>
-      )}
+          </Button> */}
+        {/* </div> */}
+      {/* )} */}
     </div>
   );
   //   }

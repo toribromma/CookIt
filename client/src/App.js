@@ -1,26 +1,16 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
-import API from "./utils/API";
 import Logo from "./components/Logo/Logo";
 import logo from "./images/logo1.jpg";
 import Header from "./components/Header/Header";
-import Register from "./pages/Register";
 import Login from "./pages/Login";
 import MainPage from "./pages/main";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 
 function App() {
-  const [recipes, setRecipes] = useState([]);
-  const [userId, setUserId] = useState("");
 
-  function loadRecipes(id) {
-    API.getRecipes(id)
-      .then((res) => {
-        setRecipes(res.data[0].recipes);
-      })
-      .catch((err) => console.log(err));
-  }
 
   return (
     <Router>
@@ -30,20 +20,12 @@ function App() {
 
       <Switch>
         <Route exact path="/">
-          <Login setUserId={setUserId} />
-        </Route>
-
-        <Route path="/register">
-          <Register />
+          <Login />
         </Route>
 
         <Route path="/main">
           <MainPage
-            userId={userId}
-            setUserId={setUserId}
-            loadRecipes={loadRecipes}
-            recipes={recipes}
-            setRecipes={setRecipes}
+
           />
         </Route>
       </Switch>
