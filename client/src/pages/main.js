@@ -11,6 +11,7 @@ const MainPage = () => {
   const [recipes, setRecipes] = useState([]);
 
   async function loadRecipes() {
+    console.log(user.sub)
     const results = await API.getRecipes(user.sub)
     console.log(results.data)
     setRecipes(results.data)

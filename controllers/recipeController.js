@@ -8,8 +8,8 @@ const dotenv = require("dotenv").config(
 // Defining methods for the RecipesController
 module.exports = {
   findAll: async function(req, res) {
-    // console.log(req.body)
-    db.Recipe.find({user: { $regex: new RegExp(req.query.q, 'i')}})
+    console.log(req.query.q)
+    db.Recipe.find({user: req.query.q})
     .then(dbUser => {
       // console.log("Hi")
       // console.log(dbUser)
