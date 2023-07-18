@@ -48,8 +48,9 @@ export default function ExtractRecipeContainer({loadRecipes}) {
       <Button
         disabled={!formObject.url}
         onClick={handleFormSubmit}
-        display="flex"
-        margin="20px auto"
+        display="block"
+        margin="5px auto"
+
         // onClick={clickMe}
       >
         <div>Click here to Extract</div>

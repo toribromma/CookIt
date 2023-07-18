@@ -20,7 +20,7 @@ export default function ToggleContainer({
       setToggleButton(false);
     }
 
-    console.log("hi");
+    // console.log("hi");
   };
 
   const clickToggleBox = () => {
@@ -30,25 +30,23 @@ export default function ToggleContainer({
       setToggleBox(true);
     }
 
-    console.log("hi");
+    // console.log("hi");
   };
 
   return (
     <div>
-      {/* <CardSecondHeader>
+      <CardSecondHeader key={id}>
         {toggleButton ? "Ingredients" : "Instructions"}
-        <button
-          style={{
-            padding: 5,
-            margin: 5,
-          }}
+        <Button
+        fontSize={10}
+        margin={"10px 5px"}
           onClick={clickToggleButton}
         >
           {toggleButton ? "Instructions" : "Ingredients"}
-        </button>
+        </Button>
       </CardSecondHeader>
       {toggleBox ? (
-        <Button margin="10px auto" display="flex" onClick={clickToggleBox}>
+        <Button margin="10px auto" display="flex" justifyContent="center" onClick={clickToggleBox}>
           <i className="fas fa-expand-alt"></i>
         </Button>
       ) : (
@@ -60,29 +58,28 @@ export default function ToggleContainer({
         <div></div>
       ) : (
         <div>
-          {toggleButton ? ( */}
+          {toggleButton ? (
             <CardList>
               {ingredients.map((ingredient) => {
                 return <CardListItem>{ingredient}</CardListItem>;
               })}
             </CardList>
-          {/* ) : ( */}
+          ) : (
             <CardList>
               {instructions.map((instruction) => {
                 return <CardListItem>{instruction}</CardListItem>;
               })}
             </CardList>
-          {/* )} */}
+          )}
           <Button
             margin={"5px auto"}
-            display="flex"  
+            display="flex"
             onClick={() => deleteRecipe(id)}
           >
             Delete Me
           </Button>
-        {/* </div> */}
-      {/* )} */}
+        </div>
+      )}
     </div>
   );
-  //   }
 }

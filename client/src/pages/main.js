@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import API from "../utils/API";
 import ExtractRecipeContainer from "../components/ExtractRecipeContainer/ExtractRecipeContainer";
@@ -27,6 +27,7 @@ const MainPage = () => {
       loadRecipes={loadRecipes}
       recipes={recipes}
       setRecipes={setRecipes} />
+      
       <LogoutButton />
     </div>
   );

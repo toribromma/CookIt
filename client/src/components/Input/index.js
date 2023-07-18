@@ -17,7 +17,7 @@ const Input = (props) => {
         {...props}
         style={{
           display: "flex",
-          width: "300px",
+          maxWidthwidth: "320px",
           height: "25px",
           margin: "auto",
           borderRadius: 10,

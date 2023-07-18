@@ -3,48 +3,15 @@
   margin: 20px auto;
   border-radius: 10px;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
-  max-width: 275px;
+  width: 500px;
   min-height: fit-content;
+  max-height: 620px;
   box-sizing: border-box;
-}
-
-@media screen and (max-width: 720px) {
-  .card {
-    border: 2px black solid;
-    box-shadow: none;
-  }
-  .cardList {
-    max-height: 450px;
-  }
-}
-
-@media screen and (min-width: 460px) {
-  .card {
-    min-width: 460px;
-  }
-
-}
-
-
-
-
-
-@media screen and (max-width: 600px) { 
-  ol li {
-    width: 100%;
-  }
-}
-
-
-@media screen and (min-width: 760px) {
-  .card {
-    min-width: 600px;
-  }
 }
 
 .cardList {
   overflow: scroll;
-  max-height: 250px;
+  max-height: 150px;
   /* min-width: 375px; */
   padding: 25px;
   margin: 0px auto;
@@ -63,14 +30,50 @@ ol li {
   counter-increment: my-awesome-counter;
   display: flex;
   width: 50%;
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   margin-bottom: 0.5rem;
 }
 ol li::before {
   content: "0" counter(my-awesome-counter);
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.8rem;
   margin-right: 0.5rem;
   line-height: 1;
+}
+
+
+@media screen and (max-width: 720px) {
+  .card {
+    /* min-width: 520px; */
+
+  }
+
+}
+
+@media screen and (min-width: 375px) {
+  .card {
+    
+    min-width: 370px;
+    /* max-height: 620px; */
+  }
+
+
+}
+
+@media screen and (min-width: 280px) {
+  .card {
+    
+    min-width: 280px;
+    /* max-height: 620px; */
+  }
+
+
+}
+
+
+@media screen and (max-width: 600px) { 
+  ol li {
+    width: 100%;
+  }
 }
 
