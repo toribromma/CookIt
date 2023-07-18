@@ -12,10 +12,15 @@ const Profile = () => {
   return (
     isAuthenticated && (
       <div>
-        <img style={{textAlign: "center"}} src={user.picture} alt={user.name} />
+        <img style={{
+        display: "block",
+        marginLeft: "auto",
+        marginRight: "auto",
+        borderRadius: "50%",
+        // minWidth: 180
+      }} src={user.picture} alt={user.name} />
         <h2>{user.name}</h2>
         <p>{user.email}</p>
-        <p>{user.sub}</p>
       </div>
     )
   );

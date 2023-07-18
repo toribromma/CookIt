@@ -12,7 +12,7 @@ export default {
     return axios.delete("/api/recipes/" + id)
   },
   updateRecipeTitle: function(recipeData) {
-    return axios.put("/api/recipes/", recipeData)
+    return axios.put("/api/recipes/" + recipeData.id, recipeData.title)
   },
 
 };

@@ -5,7 +5,11 @@ const LogoutButton = () => {
   const { logout } = useAuth0();
 
   return (
-    <button onClick={() => logout({ logoutParams: { returnTo: "https://safe-refuge-86821-87fdcaa8ddcc.herokuapp.com" } })}>
+    <button onClick={() => logout({ logoutParams: 
+    { returnTo: "https://safe-refuge-86821-87fdcaa8ddcc.herokuapp.com" } })}
+    // { returnTo: "http://localhost:3000/" } })}
+  
+    >
       Log Out
     </button>
   );

@@ -73,13 +73,13 @@ export default function ToggleContainer({
               })}
             </CardList>
           {/* )} */}
-          {/* <Button
+          <Button
             margin={"5px auto"}
-            display="flex"
+            display="flex"  
             onClick={() => deleteRecipe(id)}
           >
             Delete Me
-          </Button> */}
+          </Button>
         {/* </div> */}
       {/* )} */}
     </div>

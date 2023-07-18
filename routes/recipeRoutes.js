@@ -8,11 +8,10 @@ router
   .route("/")
   .get(recipeController.findAll)
   .post(recipeController.create);
-
+  
 // Matches with "/api/posts/:id"
 router
   .route("/:id")
-
   .delete(recipeController.remove)
   .put(recipeController.update);
   

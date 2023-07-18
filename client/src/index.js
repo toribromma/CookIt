@@ -9,6 +9,7 @@ ReactDOM.render(
     clientId="4hwkIBm2gl3lrHyCd8GZDh7V0UWpXwOg"
     authorizationParams={{
       redirect_uri: "https://safe-refuge-86821-87fdcaa8ddcc.herokuapp.com/main"
+        //  redirect_uri: "http://localhost:3000/main"
     }}
   >
     <App />

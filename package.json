@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "-------------------------------------------",
   "main": "server.js",
-   "scripts": {
+  "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
@@ -184,8 +184,8 @@
     "split": "^0.3.3",
     "statuses": "^2.0.1",
     "stream-combiner": "^0.0.4",
-    "string-width": "^4.2.3",
     "string_decoder": "^1.1.1",
+    "string-width": "^4.2.3",
     "strip-ansi": "^6.0.1",
     "supports-color": "^8.1.1",
     "through": "^2.3.8",
@@ -213,6 +213,9 @@
   },
   "devDependencies": {
     "concurrently": "^4.1.0",
+    "eslint": "^8.45.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.32.2",
     "nodemon": "^1.18.7"
   },
   "keywords": [],

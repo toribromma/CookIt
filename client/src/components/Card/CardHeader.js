@@ -4,11 +4,11 @@ export default function CardHeader(props) {
   return (
     <h1
       style={{
-        height: "fit-content",
-        width: 170,
+        maxHeight: 220,
+        width: 200,
         textAlign: "center",
         margin: "auto",
-        // fontSize: 0,
+        fontSize: 20,
       }}
     >
       {props.children}
