@@ -10,7 +10,7 @@ root.render(
     domain={process.env.REACT_APP_AUTH0_DOMAIN}
     clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
     authorizationParams={{
-      redirect_uri: "https://safe-refuge-86821-87fdcaa8ddcc.herokuapp.com/main",
+      redirect_uri: "https://safe-refuge-86821-87fdcaa8ddcc.herokuapp.com/main"
       // redirect_uri: "http://localhost:3000/main",
     }}
   >
