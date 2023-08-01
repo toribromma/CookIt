@@ -38,7 +38,7 @@ function NewRecipePage(props) {
     API.saveNewRecipe(recipe).then((
     (alert.show("Success!", {type: "success"}))
 
-    )).catch(err);
+    )).catch((err) => console.log(err));
   };
 
   // if (recipe) {
