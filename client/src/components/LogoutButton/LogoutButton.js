@@ -7,7 +7,7 @@ const LogoutButton = () => {
 
   return (
     <Button onClick={() => logout({ logoutParams: 
-    { returnTo: "https://safe-refuge-86821-87fdcaa8ddcc.herokuapp.com" } })}
+    { returnTo: "https://recipeapp90-573cb14b2d02.herokuapp.com/" } })}
     // { returnTo: "http://localhost:3000/" } })}
   
     >
