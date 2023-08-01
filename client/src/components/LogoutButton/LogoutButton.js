@@ -6,10 +6,15 @@ const LogoutButton = () => {
   const { logout } = useAuth0();
 
   return (
-    <Button onClick={() => logout({ logoutParams: 
-    { returnTo: "https://recipeapp90-573cb14b2d02.herokuapp.com/" } })}
-    // { returnTo: "http://localhost:3000/" } })}
-  
+    <Button
+      onClick={() =>
+        logout({
+          logoutParams: {
+            returnTo: "https://recipeapp90-573cb14b2d02.herokuapp.com/",
+          },
+        })
+      }
+      // { returnTo: "http://localhost:3000/" } })}
     >
       Log Out
     </Button>
