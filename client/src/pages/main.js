@@ -5,31 +5,55 @@ import ExtractRecipeContainer from "../components/ExtractRecipeContainer/Extract
 import CardContainer from "../components/Card/CardContainer";
 import LogoutButton from "../components/LogoutButton/LogoutButton";
 import Profile from "../components/Profile/Profile";
+import Input from "../components/Input/index.js";
+import { redirect } from "react-router-dom";
+import SearchRecipeContainer from "../components/SearchRecipeContainer/SearchRecipeContainer";
 
 const MainPage = () => {
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   const [recipes, setRecipes] = useState([]);
+  const [search, setSearch] = useState("");
 
   async function loadRecipes() {
-    console.log(user.sub)
-    const results = await API.getRecipes(user.sub)
-    console.log(results.data)
-    setRecipes(results.data)
+    const results = await API.getRecipes(user.sub);
+    setRecipes(results.data);
   }
 
   return (
     <div>
-      <Profile />
-      <ExtractRecipeContainer
-      loadRecipes={loadRecipes}
-      user={user} />
-      <CardContainer user={user} 
-      loadRecipes={loadRecipes}
-      recipes={recipes}
-      setRecipes={setRecipes} />
+      <div style={{
+        display: "flex",
+        justifyContent: "space-around",
+        flexWrap: "wrap",
+        margin: "50px auto"
+      }}>
+      <SearchRecipeContainer style={{flex: 1}} loadRecipes={loadRecipes} user={user} />
+      <ExtractRecipeContainer style={{flex: 1}} loadRecipes={loadRecipes} user={user} />
       
+      </div>
+      <Input 
+        style={{
+          border: "2px solid black",
+          flex: 1
+        }}
+        header="Filter through Recipes"
+        placeholder="Filter Recipes"
+        name="filteredArray"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      <CardContainer
+        user={user}
+        loadRecipes={loadRecipes}
+        recipes={recipes}
+        setRecipes={setRecipes}
+        search={search}
+        setSearch={setSearch}
+      />
       <LogoutButton />
     </div>
   );
 };
+
+// };
 export default MainPage;

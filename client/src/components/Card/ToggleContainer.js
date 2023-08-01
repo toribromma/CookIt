@@ -5,7 +5,7 @@ import CardListItem from "./CardListItem";
 import Button from "../Button/Button";
 
 export default function ToggleContainer({
-  deleteRecipe,
+
   ingredients,
   instructions,
   id,
@@ -46,7 +46,7 @@ export default function ToggleContainer({
         </Button>
       </CardSecondHeader>
       {toggleBox ? (
-        <Button margin="10px auto" display="flex" justifyContent="center" onClick={clickToggleBox}>
+        <Button margin="10px auto" display="flex"  onClick={clickToggleBox}>
           <i className="fas fa-expand-alt"></i>
         </Button>
       ) : (
@@ -59,25 +59,28 @@ export default function ToggleContainer({
       ) : (
         <div>
           {toggleButton ? (
-            <CardList>
-              {ingredients.map((ingredient) => {
-                return <CardListItem>{ingredient}</CardListItem>;
+            <CardList
+            overflow={"scroll"}
+            maxHeight={150}
+            padding={25}
+            margin={"0px auto"}
+           >
+              {ingredients.map((ingredient, index) => {
+                return <CardListItem key={index}>{ingredient}</CardListItem>;
               })}
             </CardList>
           ) : (
-            <CardList>
-              {instructions.map((instruction) => {
-                return <CardListItem>{instruction}</CardListItem>;
+            <CardList
+            overflow={"scroll"}
+            maxHeight={150}
+            padding={25}
+            margin={"0px auto"}
+            >
+              {instructions.map((instruction, index) => {
+                return <CardListItem key ={index}>{instruction}</CardListItem>;
               })}
             </CardList>
           )}
-          <Button
-            margin={"5px auto"}
-            display="flex"
-            onClick={() => deleteRecipe(id)}
-          >
-            Delete Me
-          </Button>
         </div>
       )}
     </div>

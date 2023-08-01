@@ -23,8 +23,8 @@ const Input = (props) => {
           borderRadius: 10,
           padding: 20,
           border: "black 1.5px solid",
-          textAlign: "center"
-          // boxShadow: "2px 4px 4px rgba(0,0,0,0.3)"
+          textAlign: "center",  
+          boxShadow: "2px 4px 4px rgba(0,0,0,0.3)"
         }}
       ></input>
     </div>

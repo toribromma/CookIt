@@ -9,8 +9,9 @@ export default function Logo(props) {
         style={{
             maxWidth:"100px",
             height: "auto",
-            margin: 50,
-            borderRadius: "200px"
+            margin: "30px auto",
+            borderRadius: "200px",
+            gridColumnStart: 4
         }}
         ></LazyLoadImage>
     )
