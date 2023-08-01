@@ -216,8 +216,7 @@
     "eslint": "^8.45.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.32.2",
-    "nodemon": "^1.18.7",
-    "@babel/plugin-proposal-private-property-in-object"
+    "nodemon": "^1.18.7"
   },
   "keywords": [],
   "author": "",
