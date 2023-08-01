@@ -11,14 +11,14 @@ import TextArea from "../TextArea/TextArea";
 import Button from "../Button/Button";
 import ToggleContainer from "../Card/ToggleContainer";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useAlert } from 'react-alert'
+
 
 
 function NewRecipePage(props) {
   const { user } = useAuth0();
   const [recipe, setRecipe] = useState();
   const { id } = useParams();
-  const alert = useAlert()
+
 
 
   useEffect(() => {
@@ -35,10 +35,12 @@ function NewRecipePage(props) {
     // console.log(user.sub)
     recipe.user = user.sub;
     // console.log(recipe)
-    API.saveNewRecipe(recipe).then((
-    (alert.show("Success!", {type: "success"}))
+    API.saveNewRecipe(recipe)
+    // .then((
+    // (alert.show("Success!", {type: "success"}))
 
-    )).catch((err) => console.log(err));
+    // ))
+    .catch((err) => console.log(err));
   };
 
   // if (recipe) {

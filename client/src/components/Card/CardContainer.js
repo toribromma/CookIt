@@ -7,7 +7,7 @@ import ToggleContainer from "./ToggleContainer";
 import { Link } from "react-router-dom";
 import Button from "../Button/Button";
 import CardSecondHeader from "./CardSecondHeader";
-import { useAlert } from "react-alert";
+
 
 export default function CardContainer({
   user,
@@ -17,7 +17,7 @@ export default function CardContainer({
   search,
   setSearch,
 }) {
-  const alert = useAlert();
+
 
   useEffect(() => {
     if (user) {
@@ -41,7 +41,7 @@ export default function CardContainer({
 
     if (r === true) {
       API.deleteRecipe(id)
-        .then(alert.show("Success!", { type: "success" }))
+        // .then(alert.show("Success!", { type: "success" }))
         .then(loadRecipes)
         .catch((err) => console.log(err));
     }

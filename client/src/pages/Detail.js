@@ -9,15 +9,11 @@ import CardList from "../components/Card/CardList";
 import CardListItem from "../components/Card/CardListItem";
 import TextArea from "../components/TextArea/TextArea";
 import Button from "../components/Button/Button";
-import { useAlert } from 'react-alert'
+
 
 function Detail(props) {
   const [recipe, setRecipe] = useState();
-  const alert = useAlert()
-  // const [isLoading, setIsLoading] = useState(false);
-
-  // When this component mounts, grab the book with the _id of props.match.params.id
-  // e.g. localhost:3000/books/599dcb67f0f16317844583fc
+ 
   const { id } = useParams();
 
   useEffect(() => {
@@ -59,7 +55,7 @@ function Detail(props) {
     console.log(data);
 
     API.updateRecipeTitle(data)
-      .then(alert.show("Success!", {type: "success"}))
+      // .then(alert.show("Success!", {type: "success"}))
       .then(API.getRecipe(id))
       .then((res) => setRecipe(res.data));
 

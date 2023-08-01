@@ -4,14 +4,14 @@ import Error from "../Error/index";
 import Input from "../Input/index";
 import API from "../../utils/API";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useAlert } from 'react-alert'
+
 
 
 export default function ExtractRecipeContainer({loadRecipes}) {
   const { user } = useAuth0();
   const [formObject, setFormObject] = useState({});
   const [error, setError] = useState();
-  const alert = useAlert()
+
 
 
   function handleInputChange(event) {
@@ -32,7 +32,7 @@ export default function ExtractRecipeContainer({loadRecipes}) {
       API.saveRecipe(data)
         .then(() => setError(""))
         .then(() => loadRecipes())
-        .then(alert.show("Success!", {type: "success"}))
+        // .then(alert.show("Success!", {type: "success"}))
         .catch((err) => {
           console.log(err);
           setError("Unable to save");
