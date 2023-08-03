@@ -9,12 +9,15 @@ import CardList from "../components/Card/CardList";
 import CardListItem from "../components/Card/CardListItem";
 import TextArea from "../components/TextArea/TextArea";
 import Button from "../components/Button/Button";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 function Detail(props) {
   const [recipe, setRecipe] = useState();
- 
   const { id } = useParams();
+  
+  const notify = () => toast('Recipe updated!');
+ 
 
   useEffect(() => {
     API.getRecipe(id)
@@ -30,7 +33,7 @@ function Detail(props) {
     const ingredients = [];
     const instructionsList = [...document.getElementsByName("instructions")];
     const instructions = [];
-    const title = document.getElementsByName("title")[0].value
+    const title = document.getElementsByName("title")[0].value;
     const cuisine = document.getElementsByName("cuisine")[0].value;
 
     console.log(title);
@@ -55,14 +58,14 @@ function Detail(props) {
     console.log(data);
 
     API.updateRecipeTitle(data)
-      // .then(alert.show("Success!", {type: "success"}))
+      .then(notify())
       .then(API.getRecipe(id))
       .then((res) => setRecipe(res.data));
-
   };
 
   if (recipe) {
     return (
+      <div>
       <form id={recipe._id}>
         <div style={{ textAlign: "center" }} key={recipe.thumbnail}>
           {!recipe.thumbnail ? (
@@ -128,12 +131,16 @@ function Detail(props) {
           </CardList>
         </div>
         <div style={{ textAlign: "center" }}>
-          <Button margin={"20px 5px"} onClick={doSomething}>Click me to submit changes</Button>
+          <Button margin={"20px 5px"} onClick={doSomething}>
+            Click me to submit changes
+          </Button>
           <Link to={"/main"}>
             <Button margin={"20px 5px"}>Go to Main Page</Button>
           </Link>
         </div>
       </form>
+      <Toaster />
+      </div>
     );
   }
 }

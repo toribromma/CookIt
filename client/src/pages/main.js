@@ -8,6 +8,7 @@ import Profile from "../components/Profile/Profile";
 import Input from "../components/Input/index.js";
 import { redirect } from "react-router-dom";
 import SearchRecipeContainer from "../components/SearchRecipeContainer/SearchRecipeContainer";
+import recipePic from "../images/icon.jpg"
 
 const MainPage = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -27,6 +28,8 @@ const MainPage = () => {
         flexWrap: "wrap",
         margin: "50px auto"
       }}>
+
+      
       <SearchRecipeContainer style={{flex: 1}} loadRecipes={loadRecipes} user={user} />
       <ExtractRecipeContainer style={{flex: 1}} loadRecipes={loadRecipes} user={user} />
       

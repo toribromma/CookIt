@@ -6,7 +6,7 @@ export default function Header(props) {
       style={{
         backgroundColor: props.color,
         opacity: 1,
-        height: "200px",
+        height: "400px",
         width: "auto",
         borderBottom: "2px black solid",
         boxShadow: "2px 4px 4px rgba(0,0,0,0.3)",

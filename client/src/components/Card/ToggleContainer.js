@@ -61,7 +61,7 @@ export default function ToggleContainer({
           {toggleButton ? (
             <CardList
             overflow={"scroll"}
-            maxHeight={150}
+            maxHeight={200}
             padding={25}
             margin={"0px auto"}
            >

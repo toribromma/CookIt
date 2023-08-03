@@ -9,7 +9,7 @@ export default function Logo(props) {
         style={{
             maxWidth:"100px",
             height: "auto",
-            margin: "30px auto",
+            margin: "120px auto",
             borderRadius: "200px",
             gridColumnStart: 4
         }}

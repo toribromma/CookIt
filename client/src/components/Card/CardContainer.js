@@ -7,7 +7,7 @@ import ToggleContainer from "./ToggleContainer";
 import { Link } from "react-router-dom";
 import Button from "../Button/Button";
 import CardSecondHeader from "./CardSecondHeader";
-
+import toast, { Toaster } from "react-hot-toast";
 
 export default function CardContainer({
   user,
@@ -17,7 +17,7 @@ export default function CardContainer({
   search,
   setSearch,
 }) {
-
+  const notify = () => toast("Recipe has been deleted!");
 
   useEffect(() => {
     if (user) {
@@ -41,8 +41,8 @@ export default function CardContainer({
 
     if (r === true) {
       API.deleteRecipe(id)
-        // .then(alert.show("Success!", { type: "success" }))
         .then(loadRecipes)
+        .then(notify())
         .catch((err) => console.log(err));
     }
   }
@@ -122,6 +122,7 @@ export default function CardContainer({
               </Card>
             );
           })}
+          <Toaster />
         </div>
       </>
     );

@@ -1,20 +1,23 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { Auth0Provider } from '@auth0/auth0-react';
-import App from './App';
+import React from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App";
+import { Auth0Provider } from "@auth0/auth0-react";
 
-const root = createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById("root"));
 
 root.render(
-<Auth0Provider
-    domain="dev-5eih8jsgesnh34xg.us.auth0.com"
-    clientId="4hwkIBm2gl3lrHyCd8GZDh7V0UWpXwOg"
+  <Auth0Provider
+    domain={process.env.REACT_APP_AUTH0_DOMAIN}
+    clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
     authorizationParams={{
-      redirect_uri: "https://recipeapp90-573cb14b2d02.herokuapp.com/main"
+      redirect_uri: "https://recipeapp90-573cb14b2d02.herokuapp.com/"
+      // redirect_uri: "http://localhost:3000/main",
     }}
   >
-    <App />
-  </Auth0Provider>,
+
+      <App />
+
+  </Auth0Provider>
 );
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

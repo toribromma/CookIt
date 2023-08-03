@@ -3,18 +3,12 @@
   margin: 20px auto;
   border-radius: 10px;
   box-shadow: 4px 4px 4px rgba(190, 31, 31, 0.3);
-  max-width: 500px;
+  max-width: 600px;
+  min-width: 400px;
   min-height: fit-content;
-  max-height: 620px;
+  /* max-height: 620px; */
   box-sizing: border-box;
 }
-
-/* .cardList {
-  overflow: scroll;
-  max-height: 150px;
-  padding: 25px;
-  margin: 0px auto;
-} */
 
 ol {
   list-style: none;
@@ -24,35 +18,29 @@ ol {
 ol li {
   counter-increment: my-awesome-counter;
   font-size: 0.6rem;
-  margin-left: -25px;
+  /* margin-left: -25px; */
 
 }
 ol li::before {
   content: "0" counter(my-awesome-counter);
   font-weight: bold;
-  font-size: 0.8rem;
-  /* margin-right: 10px; */
-  line-height: 1;
+  font-size: 1rem;
+  margin-right: 10px;
+  line-height: 1.5;
   padding: 2px;
 }
 
 
-@media screen and (min-width: 375px) {
+@media screen and (min-width: 500px) {
   .card {
-    min-width: 370px;
+    min-width: 480px;
     /* max-height: 620px; */
   }
 }
 
-@media screen and (min-width: 280px) {
+@media screen and (max-width: 360px) {
   .card {
     min-width: 280px;
     /* max-height: 620px; */
-  }
-}
-
-@media screen and (max-width: 600px) {
-  ol li {
-    width: 100%;
   }
 }

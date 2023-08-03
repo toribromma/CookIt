@@ -10,6 +10,7 @@ import Detail from "./pages/Detail";
 import Profile from "./components/Profile/Profile";
 import NewRecipePage from "./components/SearchRecipeContainer/NewRecipePage";
 
+
 function App() {
   return (
     <Router>
@@ -22,8 +23,11 @@ function App() {
         <Route exact path="/" element={<Login />}></Route>
         <Route path="/main" element={<MainPage />}></Route>
         <Route exact path="/main/recipe/:id" element={<Detail />}></Route>
-        <Route exact path="/main/recipe/new/:id" element={<NewRecipePage />}></Route>
-
+        <Route
+          exact
+          path="/main/recipe/new/:id"
+          element={<NewRecipePage />}
+        ></Route>
       </Routes>
     </Router>
   );
