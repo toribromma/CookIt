@@ -206,6 +206,9 @@
     "yargs-parser": "^20.2.9"
   },
   "devDependencies": {
+    "@babel/core": "^7.22.10",
+    "@babel/preset-env": "^7.22.10",
+    "@babel/preset-react": "^7.22.5",
     "concurrently": "^4.1.0",
     "eslint": "^8.45.0",
     "eslint-config-google": "^0.14.0",
