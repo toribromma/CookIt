@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect } from "react";
 import Card from "./Card";
 import CardImage from "./CardImage";
 import CardHeader from "./CardHeader";
@@ -8,18 +8,24 @@ import { Link } from "react-router-dom";
 import Button from "../Button/Button";
 import CardSecondHeader from "./CardSecondHeader";
 import toast, { Toaster } from "react-hot-toast";
+import { useAuth0 } from "@auth0/auth0-react";
+import LoginButton from "../LoginButton/LoginButton";
 
 export default function CardContainer({
-  user,
   recipes,
   setRecipes,
   loadRecipes,
   search,
   setSearch,
 }) {
+  const { logout, user } = useAuth0();
+
   const notify = () => toast("Recipe has been deleted!");
 
   useEffect(() => {
+    if (!user) {
+      <LoginButton/>
+    }
     if (user) {
       API.getRecipes(user.sub)
         .then((res) => {

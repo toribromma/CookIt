@@ -17,7 +17,7 @@ const Recipes = ({ recipes }) => {
         }}
       >
         {recipes.map((recipe) => (
-          <div>
+          <div key={recipe.id}>
             <ol id={recipe.id}>
               <li>{recipe.title}</li>
               <img width={100} src={recipe.image}></img>

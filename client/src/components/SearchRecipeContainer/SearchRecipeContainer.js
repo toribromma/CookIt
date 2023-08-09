@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "../Button/Button.js";
 import Input from "../Input/index.js";
 import API from "../../utils/API.js";
 import Recipes from "./Recipes.js";
+import toast, { Toaster } from "react-hot-toast";
 
-export default function SearchRecipeContainer({ loadRecipes }) {
+
+export default function SearchRecipeContainer() {
   // const { value } = useContext(Context);
   // const [user] = value;
   const [search, setSearch] = useState({});
   // const [error, setError] = useState();
   const [recipes, setRecipes] = useState([]);
+  const notify = () =>
+  toast("Recipe has been extracted and saved in your list!");
 
   function handleInputChange(event) {
     const { name, value } = event.target;

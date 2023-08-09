@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import Button from "../Button/Button";
-import Error from "../Error/index";
 import Input from "../Input/index";
 import API from "../../utils/API";
 import { useAuth0 } from "@auth0/auth0-react";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function ExtractRecipeContainer({ loadRecipes }) {
-  const { user } = useAuth0();
+  const { user, isLoading } = useAuth0();
   const [formObject, setFormObject] = useState({});
-  const [error, setError] = useState();
-  const notify = () =>
+  const notifyGood = () =>
+    toast("Recipe has been extracted and saved in your list!");
+  const notifyBad = () =>
     toast("Recipe has been extracted and saved in your list!");
 
   function handleInputChange(event) {
@@ -21,22 +21,19 @@ export default function ExtractRecipeContainer({ loadRecipes }) {
   function handleFormSubmit(event) {
     event.preventDefault();
 
-    setError("Loading...");
-
     if (formObject.url) {
       const data = {
         url: formObject.url,
         user: user.sub,
       };
       API.saveRecipe(data)
-        .then(() => setError(""))
         .then(() => loadRecipes())
-        .then(notify())
+        .then(notifyGood())
 
         // .then(alert.show("Success!", {type: "success"}))
         .catch((err) => {
           console.log(err);
-          setError("Unable to save");
+          notifyBad();
         });
     }
   }
@@ -50,7 +47,6 @@ export default function ExtractRecipeContainer({ loadRecipes }) {
           name="url"
           onChange={handleInputChange}
         />
-        <Error error={error} />
         <div style={{ display: "flex" }}></div>
         <Button
           disabled={!formObject.url}
@@ -61,6 +57,8 @@ export default function ExtractRecipeContainer({ loadRecipes }) {
           <div>Click here to Extract</div>
         </Button>
       </form>
+      {isLoading ?? <div>
+        Loading...</div>}
       <Toaster />
     </>
   );

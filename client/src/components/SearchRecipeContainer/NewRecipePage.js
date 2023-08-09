@@ -20,26 +20,17 @@ function NewRecipePage(props) {
   const { id } = useParams();
 
 
-
   useEffect(() => {
     API.getNewRecipe(id)
       .then((res) => setRecipe(res.data))
-      //   .then((navigate("/main")))
       .catch((err) => console.log(err));
-    //   navigate("/main")
   }, []);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    // console.log(recipe)
-    // console.log(user.sub)
     recipe.user = user.sub;
-    // console.log(recipe)
-    API.saveNewRecipe(recipe)
-    // .then((
-    // (alert.show("Success!", {type: "success"}))
 
-    // ))
+    API.saveNewRecipe(recipe)
     .catch((err) => console.log(err));
   };
 

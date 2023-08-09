@@ -30,8 +30,8 @@ const MainPage = () => {
       }}>
 
       
-      <SearchRecipeContainer style={{flex: 1}} loadRecipes={loadRecipes} user={user} />
-      <ExtractRecipeContainer style={{flex: 1}} loadRecipes={loadRecipes} user={user} />
+      <SearchRecipeContainer style={{flex: 1}} loadRecipes={loadRecipes}/>
+      <ExtractRecipeContainer style={{flex: 1}} loadRecipes={loadRecipes} />
       
       </div>
       <Input 
@@ -46,7 +46,6 @@ const MainPage = () => {
         onChange={(e) => setSearch(e.target.value)}
       />
       <CardContainer
-        user={user}
         loadRecipes={loadRecipes}
         recipes={recipes}
         setRecipes={setRecipes}
