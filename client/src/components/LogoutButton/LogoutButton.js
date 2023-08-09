@@ -10,8 +10,9 @@ const LogoutButton = () => {
       onClick={() =>
         logout({
           logoutParams: {
-            // returnTo: "https://recipeapp90-573cb14b2d02.herokuapp.com/",
-            returnTo: "http://localhost:3000",
+            returnTo: "https://recipeapp90-573cb14b2d02.herokuapp.com/",
+            // returnTo: "http://localhost:3000",
+            returnTo: window.location.origin
 
           },
         })
