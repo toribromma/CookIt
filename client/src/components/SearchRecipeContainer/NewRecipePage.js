@@ -56,8 +56,8 @@ function NewRecipePage(props) {
         </Card>
         )}
         
-        <Link to={"/main"}>
-          <Button margin={"20px 5px"}>Go to Main Page</Button>
+        <Link to={"/searchRecipe"}>
+          <Button margin={"20px 5px"}>Go back</Button>
         </Link>
       </div>
     );

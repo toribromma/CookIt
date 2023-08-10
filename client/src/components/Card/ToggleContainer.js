@@ -55,13 +55,15 @@ export default function ToggleContainer({
         </Button>
       )}
       {toggleBox ? (
-        <div></div>
+        <div 
+        style={{height:300}}
+        ></div>
       ) : (
         <div>
           {toggleButton ? (
             <CardList
             overflow={"scroll"}
-            maxHeight={200}
+            maxHeight={300}
             padding={25}
             margin={"0px auto"}
            >
@@ -72,7 +74,7 @@ export default function ToggleContainer({
           ) : (
             <CardList
             overflow={"scroll"}
-            maxHeight={150}
+            maxHeight={300}
             padding={25}
             margin={"0px auto"}
             >

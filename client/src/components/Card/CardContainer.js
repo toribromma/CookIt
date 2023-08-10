@@ -56,9 +56,6 @@ export default function CardContainer({
   if (recipes.length > 0) {
     return (
       <>
-        <h1>
-          <u>List of Recipes</u>
-        </h1>
         <div
           style={{
             display: "flex",

@@ -5,7 +5,7 @@
   box-shadow: 4px 4px 4px rgba(190, 31, 31, 0.3);
   width: 500px;
   /* min-width: 400px; */
-  min-height: fit-content;
+  height: 820px;
   /* max-height: 620px; */
   box-sizing: border-box;
 }

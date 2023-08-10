@@ -5,7 +5,7 @@ export default function CardList(props) {
   return (
     <ol style={{
       overflow: props.overflow,
-      maxHeight: props.maxHeight,
+      height: props.maxHeight,
       padding: props.padding,
       margin: props.margin
     }} className="cardList">

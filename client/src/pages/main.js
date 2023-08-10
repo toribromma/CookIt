@@ -8,7 +8,7 @@ import Profile from "../components/Profile/Profile";
 import Input from "../components/Input/index.js";
 import { redirect } from "react-router-dom";
 import SearchRecipeContainer from "../components/SearchRecipeContainer/SearchRecipeContainer";
-import recipePic from "../images/icon.jpg"
+import recipePic from "../images/icon.jpg";
 
 const MainPage = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -22,22 +22,22 @@ const MainPage = () => {
 
   return (
     <div>
-      <div style={{
-        display: "flex",
-        justifyContent: "space-around",
-        flexWrap: "wrap",
-        margin: "50px auto"
-      }}>
-
-      
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-around",
+          flexWrap: "wrap",
+          margin: "50px auto",
+        }}
+      >
+        {/*       
       <SearchRecipeContainer style={{flex: 1}} loadRecipes={loadRecipes}/>
-      <ExtractRecipeContainer style={{flex: 1}} loadRecipes={loadRecipes} />
-      
+      <ExtractRecipeContainer style={{flex: 1}} loadRecipes={loadRecipes} /> */}
       </div>
-      <Input 
+      <Input
         style={{
           border: "2px solid black",
-          flex: 1
+          flex: 1,
         }}
         header="Filter through Recipes"
         placeholder="Filter Recipes"
@@ -45,6 +45,8 @@ const MainPage = () => {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
+        <h1>Recipe List</h1>
+
       <CardContainer
         loadRecipes={loadRecipes}
         recipes={recipes}

@@ -7,6 +7,7 @@ import LoginButton from "../components/LoginButton/LoginButton";
 const Login = () => {
 
   return <div>
+    
     <LoginButton/>
   </div>
 };

@@ -4,7 +4,7 @@ export default function CardHeader(props) {
   return (
     <h1
       style={{
-        maxWidth: 200,
+        maxWidth: 300,
         margin: props.margin,
         textAlign: "center",
         fontSize: 16,

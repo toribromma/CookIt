@@ -134,8 +134,8 @@ function Detail(props) {
           <Button margin={"20px 5px"} onClick={doSomething}>
             Click me to submit changes
           </Button>
-          <Link to={"/main"}>
-            <Button margin={"20px 5px"}>Go to Main Page</Button>
+          <Link to={"/searchRecipe"}>
+            <Button margin={"20px 5px"}>Go Back</Button>
           </Link>
         </div>
       </form>

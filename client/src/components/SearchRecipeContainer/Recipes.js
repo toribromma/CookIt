@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Button from "../Button/Button";
+import CardHeader from "../Card/CardHeader";
 
 const Recipes = ({ recipes }) => {
   if (!recipes) {
@@ -10,17 +11,20 @@ const Recipes = ({ recipes }) => {
     return (
       <div
         style={{
-          maxWidth: 300,
+          // maxWidth: 300,
+          justifyContent: "center",
           margin: "0 auto",
-          overflow: "scroll",
           height: 400,
+          display: "flex",
+          
         }}
       >
         {recipes.map((recipe) => (
-          <div key={recipe.id}>
+          <div 
+          key={recipe.id}>
             <ol id={recipe.id}>
-              <li>{recipe.title}</li>
-              <img width={100} src={recipe.image}></img>
+              <CardHeader>{recipe.title}</CardHeader>
+              <img width={200} style={{borderRadius: 200}} src={recipe.image}></img>
             </ol>
             <Link to={"recipe/new/" + recipe.id}>
               <Button width={100} fontSize={12} height={30}>
