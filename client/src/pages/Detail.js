@@ -24,8 +24,7 @@ function Detail(props) {
   }, []);
 
   const doSomething = (event) => {
-    // setIsLoading(true)
-    // console.log(isLoading)
+
     event.preventDefault();
     const ingredientsList = [...document.getElementsByName("ingredients")];
     const ingredients = [];
@@ -103,7 +102,7 @@ function Detail(props) {
 
             <CardHeader margin={"5px auto"}>Ingredients</CardHeader>
             <br></br>
-            <CardList margin={"0 auto"}>
+            {/* <CardList margin={"0 auto"}> */}
               {recipe.ingredients.map((ingredient, index) => {
                 return (
                   // <CardListItem key={index}>
@@ -114,10 +113,10 @@ function Detail(props) {
                   // </CardListItem>
                 );
               })}
-            </CardList>
+            {/* </CardList> */}
 
             <CardHeader margin={"5px auto"}>Instructions</CardHeader>
-            <CardList>
+            {/* <CardList margin={0}> */}
               {recipe.instructions.map((instruction, index) => {
                 return (
                   // <CardListItem key={index}>
@@ -128,13 +127,13 @@ function Detail(props) {
                   // </CardListItem>
                 );
               })}
-            </CardList>
+            {/* </CardList> */}
           </div>
           <div style={{ textAlign: "center" }}>
             <Button margin={"20px 5px"} onClick={doSomething}>
               Click me to submit changes
             </Button>
-            <Link to={"/searchRecipe"}>
+            <Link to={"/main"}>
               <Button margin={"20px 5px"}>Go Back</Button>
             </Link>
           </div>
