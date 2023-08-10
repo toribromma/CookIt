@@ -5,8 +5,6 @@ export default function CardImage(props) {
     return(
         <LazyLoadImage 
         src={props.cardImage} 
-        // srcset="small.jpg 480w, large.jpg 800w"
-        sizes="(max-width: 480px) 80vw, (max-width: 1024px) 50vw, 800px"
         placeholder={<div>No pic</div>}
         alt={props.alt}
         height={150}
@@ -14,7 +12,7 @@ export default function CardImage(props) {
         style={{
             objectFit: "cover",
             borderRadius: "50%",
-            margin: "auto",
+            margin: "10px auto",
             display: "block",
             opacity: 1,
             position: "relative",

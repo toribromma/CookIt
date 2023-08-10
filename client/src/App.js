@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-
 import "./App.css";
 import Logo from "./components/Logo/Logo";
-import logo from "./images/logo1.jpg";
 import Header from "./components/Header/Header";
 import Login from "./pages/Login";
 import MainPage from "./pages/main";
@@ -18,16 +16,15 @@ import ExtractRecipeContainer from "./components/ExtractRecipeContainer/ExtractR
 function App() {
   const { user, isAuthenticated } = useAuth0();
 
-
   return (
     <Router>
-        {user && (
-    <NavBar></NavBar>
-  )}
+      {user && <NavBar></NavBar>}
 
+      {/* {!isAuthenticated &&  */}
       <Header color={"#e63946"}>
-        <Logo logo={logo} alt="panda chef hat"></Logo>
+        <Logo width={"200px"} alt="panda chef hat"></Logo>
       </Header>
+      {/* } */}
       {/* <Profile /> */}
 
       <Routes>
@@ -38,11 +35,7 @@ function App() {
           path="/extractRecipe"
           element={<ExtractRecipeContainer />}
         ></Route>
-        <Route
-          exact
-          path="/extractRecipe/recipe/:id"
-          element={<Detail />}
-        ></Route>
+        <Route exact path="/main/recipe/:id" element={<Detail />}></Route>
         <Route
           exact
           path="/searchRecipe/recipe/new/:id"

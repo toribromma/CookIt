@@ -16,6 +16,7 @@ const Recipes = ({ recipes }) => {
           margin: "0 auto",
           height: 400,
           display: "flex",
+          flexWrap: "wrap"
           
         }}
       >

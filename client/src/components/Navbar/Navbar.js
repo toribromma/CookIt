@@ -3,6 +3,7 @@ import "./style.css"
 
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import Logo from "../Logo/Logo"
 // import { ReactComponent as Hamburger } from '../../assets/icons/hamburger.svg'
 // import { ReactComponent as Brand } from '../../assets/icons/logo.svg'
 
@@ -17,9 +18,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="container">
         <div className="logo">
-          {/* <Brand />
-           */}
-           <div>Logo</div>
+          <Logo width={"50px"}/>
         </div>
         <div className="menu-icon" onClick={handleShowNavbar}>
           <div>hamburger</div>
