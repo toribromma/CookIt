@@ -5,7 +5,7 @@ import API from "../../utils/API";
 import { useAuth0 } from "@auth0/auth0-react";
 import toast, { Toaster } from "react-hot-toast";
 
-export default function ExtractRecipeContainer({ loadRecipes }) {
+export default function ExtractRecipeContainer() {
   const { user, isLoading } = useAuth0();
   const [formObject, setFormObject] = useState({});
   const notifyGood = () =>
@@ -27,10 +27,7 @@ export default function ExtractRecipeContainer({ loadRecipes }) {
         user: user.sub,
       };
       API.saveRecipe(data)
-        .then(() => loadRecipes())
         .then(notifyGood())
-
-        // .then(alert.show("Success!", {type: "success"}))
         .catch((err) => {
           console.log(err);
           notifyBad();

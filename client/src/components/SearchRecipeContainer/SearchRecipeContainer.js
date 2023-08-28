@@ -8,7 +8,9 @@ import toast, { Toaster } from "react-hot-toast";
 export default function SearchRecipeContainer() {
   const [search, setSearch] = useState({});
   const [recipes, setRecipes] = useState([]);
-  
+  const notifyGood = () => toast("Recipe search was successful");
+  const notifyBad = () => toast("Recipe search was unsuccessful");
+
   function handleInputChange(event) {
     const { name, value } = event.target;
     setSearch({ [name]: value });
@@ -18,12 +20,15 @@ export default function SearchRecipeContainer() {
     event.preventDefault();
 
     if (search.dish) {
-      console.log(search);
       const dish = search.dish;
-      console.log(dish);
-      const results = await API.searchRecipes(dish);
-      console.log(results.data);
-      setRecipes(results.data);
+
+      try {
+        const results = await API.searchRecipes(dish);
+        setRecipes(results.data);
+        notifyGood();
+      } catch {
+        notifyBad();
+      }
     }
   }
 
@@ -51,7 +56,7 @@ export default function SearchRecipeContainer() {
           <Recipes recipes={recipes} setRecipes={setRecipes} />
         </>
       )}
+      <Toaster />
     </div>
   );
-  
 }

@@ -7,7 +7,6 @@ import Header from "./components/Header/Header";
 import Login from "./pages/Login";
 import MainPage from "./pages/main";
 import Detail from "./pages/Detail";
-import Profile from "./components/Profile/Profile";
 import NewRecipePage from "./components/SearchRecipeContainer/NewRecipePage";
 import NavBar from "./components/Navbar/Navbar";
 import SearchRecipeContainer from "./components/SearchRecipeContainer/SearchRecipeContainer";
@@ -20,13 +19,9 @@ function App() {
     <Router>
       {user && <NavBar></NavBar>}
 
-      {/* {!isAuthenticated &&  */}
       <Header color={"#e63946"}>
         <Logo width={"200px"} alt="panda chef hat"></Logo>
       </Header>
-      {/* } */}
-      {/* <Profile /> */}
-
       <Routes>
         <Route exact path="/" element={<Login />}></Route>
         <Route path="/main" element={<MainPage />}></Route>

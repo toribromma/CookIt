@@ -8,8 +8,8 @@ const dotenv = require("dotenv")
 // Defining methods for the RecipesController
 module.exports = {
   findAll: async function (req, res) {
-    console.log(req.query.q);
-    console.log("hi");
+    // console.log(req.query.q);
+    // console.log("hi");
     db.Recipe.find({ user: req.query.q })
       .then((dbUser) => {
         // console.log("Hi")
@@ -43,20 +43,22 @@ module.exports = {
       sourceUrl,
       title,
       image,
-      analyzedInstructions: [
-        {
-          steps: [...steps],
-        },
-      ],
+
       extendedIngredients: [...ingredients],
       cuisines,
     } = response.data;
 
-    console.log(response.data);
-
-    let instructions = steps.map((i) => i.step);
     let ingredientsArray = ingredients.map((i) => i.original);
     let cuisineString = cuisines.toString();
+    let instructions;
+
+    if (!response.data.analyzedInstructions[0]) {
+      instructions = [];
+    } else {
+      instructions = response.data.analyzedInstructions[0].steps.map(
+        (step) => step.step
+      );
+    }
 
     const recipe = {
       title: title,
@@ -124,7 +126,7 @@ module.exports = {
     res.json(response.data.results);
   },
   getNewRecipe: async function (req, res) {
-    console.log(req.params.id)
+    console.log(req.params.id);
     const options = {
       method: "GET",
       url: `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${req.params.id}/information`,
@@ -137,24 +139,27 @@ module.exports = {
 
     try {
       const response = await axios.request(options);
-      // console.log(response.data)
       const {
         sourceUrl,
         title,
         image,
-        analyzedInstructions: [
-          {
-            steps: [...steps],
-          },
-        ],
+
         extendedIngredients: [...ingredients],
         cuisines,
       } = response.data;
 
-      let instructions = steps.map((i) => i.step);
       let ingredientsArray = ingredients.map((i) => i.original);
       let cuisineString = cuisines.toString();
-      
+      let instructions;
+
+      if (!response.data.analyzedInstructions[0]) {
+        instructions = [];
+      } else {
+        instructions = response.data.analyzedInstructions[0].steps.map(
+          (step) => step.step
+        );
+      }
+
       const recipe = {
         title: title,
         thumbnail: image,
@@ -164,21 +169,22 @@ module.exports = {
         user: req.body.user,
         cuisine: cuisineString,
       };
-  
+
       // console.log(recipe);
-      res.json(recipe)
+      res.json(recipe);
     } catch (error) {
       console.error(error);
     }
   },
-  saveNewRecipe: async function(req, res) {
-    console.log(req.body)
+  saveNewRecipe: async function (req, res) {
+    console.log(req.body);
 
-    db.Recipe.create(req.body).then((dbUser) => {
-      res.json(dbUser);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
-  }
+    db.Recipe.create(req.body)
+      .then((dbUser) => {
+        res.json(dbUser);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
+  },
 };

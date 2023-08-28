@@ -16,18 +16,21 @@ const Recipes = ({ recipes }) => {
           margin: "0 auto",
           height: 400,
           display: "flex",
-          flexWrap: "wrap"
-          
+          flexWrap: "wrap",
         }}
       >
         {recipes.map((recipe) => (
-          <div 
-          key={recipe.id}>
+          <div key={recipe.id}>
             <ol id={recipe.id}>
               <CardHeader>{recipe.title}</CardHeader>
-              <img width={200} style={{borderRadius: 200}} src={recipe.image}></img>
+              <img
+                width={200}
+                style={{ borderRadius: 200 }}
+                src={recipe.image}
+              ></img>
             </ol>
-            <Link to={"recipe/new/" + recipe.id}>
+            <Link to={"recipe/new/" + recipe.id}
+            state={{recipes:recipes}}>
               <Button width={100} fontSize={12} height={30}>
                 Recipe Info
               </Button>
