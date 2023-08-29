@@ -35,7 +35,7 @@ function NewRecipePage(props) {
       .then(notifyGood())
       .catch((err) => {
         console.log(err);
-        notifyBad
+        notifyBad;
       });
   };
 
@@ -62,36 +62,34 @@ function NewRecipePage(props) {
       )}
 
       {recipes && <h1>Other Related Recipes</h1>}
-
-      {recipes &&
-        recipes
-          .filter((recipe) => recipe.id != id)
-          .map((recipe) => (
-            <div style={{ display: "inline-block" }} key={recipe.id}>
-              <ol id={recipe.id}>
-                <CardHeader>{recipe.title}</CardHeader>
-                <img
-                  width={200}
-                  style={{ borderRadius: 200 }}
-                  src={recipe.image}
-                ></img>
-              </ol>
-              <Link
-                to={"/searchRecipe/recipe/new/" + recipe.id}
-                state={{ recipes: recipes }}
-              >
-                <Button width={100} fontSize={12} height={30}>
-                  Recipe Info
-                </Button>
-              </Link>
-            </div>
-          ))}
+      <div style={{margin: "0 auto"}}>
+        {recipes &&
+          recipes
+            .filter((recipe) => recipe.id != id)
+            .map((recipe) => (
+              <div style={{ display: "inline-block" }} key={recipe.id}>
+                <ol id={recipe.id}>
+                  <CardHeader>{recipe.title}</CardHeader>
+                  <img
+                    width={200}
+                    style={{ borderRadius: 200 }}
+                    src={recipe.image}
+                  ></img>
+                </ol>
+                <Link
+                  to={"/searchRecipe/recipe/new/" + recipe.id}
+                  state={{ recipes: recipes }}
+                >
+                  <Button>Recipe Info</Button>
+                </Link>
+              </div>
+            ))}
+      </div>
 
       <Link to={"/searchRecipe"}>
         <Button margin={"20px 5px"}>Go back</Button>
       </Link>
       <Toaster />
-
     </div>
   );
   // }

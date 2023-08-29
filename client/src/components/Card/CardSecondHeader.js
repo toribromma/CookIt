@@ -5,10 +5,10 @@ export default function CardSecondHeader(props) {
         <h2
         style={{
             maxHeight: 220,
-            width: 200,
+            width: 320,
             textAlign: "center",
-            margin: "auto",
-            fontSize: 14,
+            margin: "20px auto",
+            fontSize: 26,
           }}
         >
             {props.children}

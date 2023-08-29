@@ -29,7 +29,9 @@ const MainPage = () => {
         style={{
           border: "2px solid black",
           flex: 1,
+         
         }}
+        margin="40px auto"
         header="Filter through Recipes"
         placeholder="Filter Recipes"
         name="filteredArray"

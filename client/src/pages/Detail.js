@@ -62,7 +62,7 @@ function Detail(props) {
 
   if (recipe) {
     return (
-      <div>
+      <div style={{width: 960, margin: "0 auto"}}>
         <form id={recipe._id}>
           <div style={{ textAlign: "center" }} key={recipe.thumbnail}>
             {!recipe.thumbnail ? (

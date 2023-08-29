@@ -1,12 +1,12 @@
 .card {
+  display: relative;
   border: rgba(20, 16, 3, 0.4) solid 2px;
   margin: 20px auto;
   border-radius: 10px;
-  box-shadow: 4px 4px 4px rgba(190, 31, 31, 0.3);
-  width: 500px;
-  /* min-width: 400px; */
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+  width: 700px;
   height: fit-content;
-  /* max-height: 620px; */
   box-sizing: border-box;
 }
 
@@ -17,9 +17,8 @@ ol {
 }
 ol li {
   counter-increment: my-awesome-counter;
-  font-size: 0.6rem;
+  font-size: 1.4rem;
   /* margin-left: -25px; */
-
 }
 ol li::before {
   content: "0" counter(my-awesome-counter);
@@ -30,11 +29,10 @@ ol li::before {
   padding: 2px;
 }
 
-
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 800px) {
   .card {
-    width: 90%
-    /* max-height: 620px; */
+    width: 90%;
+    height: fit-content;
   }
 }
 

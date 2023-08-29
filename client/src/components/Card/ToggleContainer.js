@@ -35,22 +35,20 @@ export default function ToggleContainer({
 
   return (
     <div>
-      <CardSecondHeader key={id}>
-        {toggleButton ? "Ingredients" : "Instructions"}
+
         <Button
         fontSize={10}
-        margin={"10px 5px"}
+        margin={"10px auto"}
           onClick={clickToggleButton}
         >
-          {toggleButton ? "Instructions" : "Ingredients"}
+          {toggleButton ? "Ingredients" : "Instructions"}
         </Button>
-      </CardSecondHeader>
       {toggleBox ? (
-        <Button margin="10px auto" display="flex"  onClick={clickToggleBox}>
+        <Button margin="10px auto" onClick={clickToggleBox}>
           <i className="fas fa-expand-alt"></i>
         </Button>
       ) : (
-        <Button margin="10px auto" display="flex" onClick={clickToggleBox}>
+        <Button margin="10px auto" onClick={clickToggleBox}>
           <i className="far fa-times-circle"></i>
         </Button>
       )}

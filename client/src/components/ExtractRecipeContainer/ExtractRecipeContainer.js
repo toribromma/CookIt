@@ -43,6 +43,7 @@ export default function ExtractRecipeContainer() {
           placeholder="Enter a URL"
           name="url"
           onChange={handleInputChange}
+          margin= "40px auto"
         />
         <div style={{ display: "flex" }}></div>
         <Button

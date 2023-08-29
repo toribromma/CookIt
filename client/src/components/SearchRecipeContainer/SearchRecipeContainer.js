@@ -40,12 +40,13 @@ export default function SearchRecipeContainer() {
           placeholder="Enter name of dish"
           name="dish"
           onChange={handleInputChange}
+          margin="40px auto"
         />
         <Button
           disabled={!search.dish}
           onClick={handleFormSubmit}
           display="block"
-          margin="5px auto"
+          margin="40px auto"
         >
           <div>Click here to Search for Recipes</div>
         </Button>

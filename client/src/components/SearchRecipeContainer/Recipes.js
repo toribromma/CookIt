@@ -31,7 +31,7 @@ const Recipes = ({ recipes }) => {
             </ol>
             <Link to={"recipe/new/" + recipe.id}
             state={{recipes:recipes}}>
-              <Button width={100} fontSize={12} height={30}>
+              <Button>
                 Recipe Info
               </Button>
             </Link>

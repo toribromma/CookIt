@@ -113,11 +113,10 @@ export default function CardContainer({
                   id={recipe._id}
                 />
                 <Link to={"recipe/" + recipe._id}>
-                  <Button>Edit Mode</Button>
+                  <Button margin="0 auto">Edit Mode</Button>
                 </Link>
                 <Button
                   margin={"5px auto"}
-                  display="flex"
                   onClick={() => deleteRecipe(recipe._id)}
                 >
                   Delete Me
