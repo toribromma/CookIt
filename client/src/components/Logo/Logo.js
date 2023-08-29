@@ -1,10 +1,10 @@
 import React from "react"
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 import logo from "../../images/logo.jpg";
 
 export default function Logo(props) {
     return(
-        <LazyLoadImage 
+        <img 
         src={logo} 
         alt={props.alt}
         style={{
@@ -13,6 +13,6 @@ export default function Logo(props) {
             margin: "30px auto",
             borderRadius: "200px",
         }}
-        ></LazyLoadImage>
+        ></img>
     )
 }
