@@ -1,9 +1,9 @@
 import React from "react"
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 
 export default function CardImage(props) {
     return(
-        <LazyLoadImage 
+        <img 
         src={props.cardImage} 
         placeholder={<div>No pic</div>}
         alt={props.alt}
@@ -18,6 +18,6 @@ export default function CardImage(props) {
             position: "relative",
             top: -5,
         }}
-        ></LazyLoadImage>
+        ></img>
     )
 }
