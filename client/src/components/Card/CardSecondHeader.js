@@ -5,7 +5,7 @@ export default function CardSecondHeader(props) {
         <h2
         style={{
             maxHeight: 220,
-            width: 320,
+            maxWidth: 250,
             textAlign: "center",
             margin: "20px auto",
             fontSize: 26,
