@@ -9,6 +9,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Button from "../Button/Button";
 import ToggleContainer from "../Card/ToggleContainer";
 import { useAuth0 } from "@auth0/auth0-react";
+import Badge from "../Badge/Badge";
 
 function NewRecipePage(props) {
   const { user } = useAuth0();
@@ -49,7 +50,12 @@ function NewRecipePage(props) {
           )}
           <CardHeader margin={"5px auto"}>{recipe.title}</CardHeader>
           {recipe.cuisine && (
-            <CardSecondHeader>Cuisine Types: {recipe.cuisine}</CardSecondHeader>
+            <div>
+              <CardSecondHeader>Cuisine Types: </CardSecondHeader>
+              {recipe.cuisine.split(",").map((cuisine) => (
+                <Badge class={"cuisineBadge"} cuisine={cuisine}/>
+              ))}
+            </div>
           )}
           <ToggleContainer
             ingredients={recipe.ingredients}
@@ -62,7 +68,7 @@ function NewRecipePage(props) {
       )}
 
       {recipes && <h1>Other Related Recipes</h1>}
-      <div style={{margin: "0 auto"}}>
+      <div style={{ margin: "0 auto" }}>
         {recipes &&
           recipes
             .filter((recipe) => recipe.id != id)

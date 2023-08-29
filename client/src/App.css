@@ -41,26 +41,3 @@ label {
   padding: 10px;
   display: block;
 }
-
-/* ===== Scrollbar CSS ===== */
-  /* Firefox */
-  * {
-    scrollbar-width: auto;
-    scrollbar-color: #c21e1e #fff;
-    box-sizing: border-box;
-  }
-
-  /* Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
-    width: 12px;
-  }
-
-  *::-webkit-scrollbar-track {
-    background: #9f94da;
-  }
-
-  *::-webkit-scrollbar-thumb {
-    background-color: #c21e1e;
-    border-radius: 20px;
-    border: 1px dotted #ffffff;
-  }

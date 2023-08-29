@@ -5,7 +5,7 @@ export default function Button(props) {
   return (
     <button className="button" id="button"
       style={{
-        margin: props.margin,
+        // margin: props.margin,
         width: props.width,
         height: props.height,
         float: props.float,

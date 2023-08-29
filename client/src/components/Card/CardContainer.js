@@ -10,6 +10,7 @@ import CardSecondHeader from "./CardSecondHeader";
 import toast, { Toaster } from "react-hot-toast";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "../LoginButton/LoginButton";
+import Badge from "../Badge/Badge";
 
 export default function CardContainer({
   recipes,
@@ -24,7 +25,7 @@ export default function CardContainer({
 
   useEffect(() => {
     if (!user) {
-      <LoginButton/>
+      <LoginButton />;
     }
     if (user) {
       API.getRecipes(user.sub)
@@ -88,9 +89,9 @@ export default function CardContainer({
                 </CardHeader>
                 {recipe.cuisine ? (
                   <CardSecondHeader>
-                    {/* {recipe.cuisine.map((cuisine) => { */}
-                    Cuisine Types: {recipe.cuisine}
-                    {/* })} */}
+                    {recipe.cuisine.split(",").map((cuisine) => (
+                      <Badge class={"cuisineBadge"} cuisine={cuisine} />
+                    ))}
                   </CardSecondHeader>
                 ) : (
                   <CardSecondHeader>Cuisine type not found</CardSecondHeader>
