@@ -14,7 +14,7 @@
   },
   "type":"module",
   "dependencies": {
-    "node-fetch": "*".
+    "node-fetch": "*",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/polyfill": "^7.12.1",
     "abbrev": "^1.1.1",
