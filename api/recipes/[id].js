@@ -1,32 +1,36 @@
 import connectDB from "../../config/db.js";
 import Recipe from "../../models/Recipe.js";
 
+connectDB();
+
 export default async function handler(req, res) {
-  await connectDB();
+  const { id } = req.query;
 
-  const { method } = req;
-
-  switch (method) {
-    case "GET":
-      try {
-        const recipes = await Recipe.find({});
-        res.status(200).json(recipes);
-      } catch (err) {
-        res.status(500).json({ error: err.message });
-      }
-      break;
-
-    case "POST":
-      try {
-        const recipe = await Recipe.create(req.body);
-        res.status(201).json(recipe);
-      } catch (err) {
-        res.status(400).json({ error: err.message });
-      }
-      break;
-
-    default:
-      res.setHeader("Allow", ["GET", "POST"]);
-      res.status(405).end(`Method ${method} Not Allowed`);
+  if (req.method === 'GET') {
+    try {
+      const recipe = await Recipe.findById(id);
+      if (!recipe) return res.status(404).json({ message: "Recipe not found" });
+      res.status(200).json(recipe);
+    } catch (error) {
+      res.status(500).json({ message: "Server error", error });
+    }
+  } else if (req.method === 'PUT') {
+    try {
+      const updatedRecipe = await Recipe.findByIdAndUpdate(id, req.body, { new: true });
+      if (!updatedRecipe) return res.status(404).json({ message: "Recipe not found" });
+      res.status(200).json(updatedRecipe);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid data", error });
+    }
+  } else if (req.method === 'DELETE') {
+    try {
+      const deletedRecipe = await Recipe.findByIdAndDelete(id);
+      if (!deletedRecipe) return res.status(404).json({ message: "Recipe not found" });
+      res.status(200).json(deletedRecipe);
+    } catch (error) {
+      res.status(500).json({ message: "Server error", error });
+    }
+  } else {
+    res.status(405).json({ message: "Method not allowed" });
   }
 }
