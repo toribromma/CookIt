@@ -1,7 +1,7 @@
 const API_BASE = "/api/recipes";
 
 export async function searchRecipes(query) {
-  const res = await fetch(`${API_BASE}/search?q=${encodeURIComponent(query)}`);
+  const res = await fetch("/api/recipes/search?q=Spaghetti");
   if (!res.ok) throw new Error("Failed to search recipes");
   return res.json();
 }
