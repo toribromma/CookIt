@@ -1,38 +1,24 @@
-const express = require("express");
-const path = require("path");
-const dotenv = require("dotenv").config();
-const connectDB = require("./config/db");
-const PORT = process.env.PORT || 3001;
+import express from "express";
+import recipeController from "../controllers/recipeController.js";
 
-connectDB();
+const router = express.Router();
 
-const app = express();
+router.route("/")
+  .get(recipeController.findAll)
+  .post(recipeController.create);
 
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+router.route("/:id")
+  .get(recipeController.findById)
+  .put(recipeController.update)
+  .delete(recipeController.remove);
 
-// ✅ Serve favicon and other static files during development
-app.use(express.static(path.join(__dirname, "client", "public")));
+router.route("/search/:id")
+  .get(recipeController.searchRecipes);
 
-// ✅ API Routes
-app.use("/api/recipes", require("./routes/recipes"));
+router.route("/new/search/:id")
+  .get(recipeController.getNewRecipe);
 
-// ✅ Serve React build (production)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client", "build")));
+router.route("/new")
+  .post(recipeController.saveNewRecipe);
 
-  // Handle React routing, return all requests to index.html
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-  });
-}
-
-// ✅ Optional: Explicit favicon handler (safeguard)
-app.get("/favicon.ico", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "public", "favicon.ico"));
-});
-
-app.listen(PORT, () => {
-  console.log(`🌎 ==> API server now on port ${PORT}!`);
-});
+export default router;
