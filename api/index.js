@@ -1,26 +1,32 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import connectDB from "../config/db.js"; // your mongoose connection
-import recipesRouter from "../routes/recipes.js"; // convert to ESM
+import connectDB from "../../config/db.js";
+import Recipe from "../../models/Recipe.js";
 
-dotenv.config();
-connectDB();
+export default async function handler(req, res) {
+  await connectDB();
 
-const app = express();
+  const { method } = req;
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+  switch (method) {
+    case "GET":
+      try {
+        const recipes = await Recipe.find({});
+        res.status(200).json(recipes);
+      } catch (err) {
+        res.status(500).json({ error: err.message });
+      }
+      break;
 
-// API routes
-app.use("/api/recipes", recipesRouter);
+    case "POST":
+      try {
+        const recipe = await Recipe.create(req.body);
+        res.status(201).json(recipe);
+      } catch (err) {
+        res.status(400).json({ error: err.message });
+      }
+      break;
 
-// Root fallback (optional)
-app.get("/", (req, res) => {
-  res.json({ message: "API is running" });
-});
-
-// Export app for Vercel serverless
-export default app;
+    default:
+      res.setHeader("Allow", ["GET", "POST"]);
+      res.status(405).end(`Method ${method} Not Allowed`);
+  }
+}
