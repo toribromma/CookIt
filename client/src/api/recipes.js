@@ -1,26 +1,17 @@
-const API_BASE = "https://cook-it-eight.vercel.app/api/recipes";
-// Search recipes via Spoonacular
+const API_BASE = "/api/recipes";
+
 export async function searchRecipes(query) {
   const res = await fetch(`${API_BASE}/search?q=${encodeURIComponent(query)}`);
   if (!res.ok) throw new Error("Failed to search recipes");
   return res.json();
 }
 
-// Get recipe details
-export async function getRecipeDetails(id) {
-  const res = await fetch(`${API_BASE}/${id}`);
-  if (!res.ok) throw new Error("Failed to get recipe details");
-  return res.json();
-}
-
-// Get all saved recipes
 export async function getSavedRecipes() {
   const res = await fetch(`${API_BASE}/saved`);
-  if (!res.ok) throw new Error("Failed to get saved recipes");
+  if (!res.ok) throw new Error("Failed to fetch saved recipes");
   return res.json();
 }
 
-// Save a recipe
 export async function saveRecipe(recipe) {
   const res = await fetch(`${API_BASE}/saved`, {
     method: "POST",
@@ -31,11 +22,8 @@ export async function saveRecipe(recipe) {
   return res.json();
 }
 
-// Delete a recipe by ID
 export async function deleteRecipe(id) {
-  const res = await fetch(`${API_BASE}/${id}`, {
-    method: "DELETE",
-  });
+  const res = await fetch(`${API_BASE}/saved?id=${id}`, { method: "DELETE" });
   if (!res.ok) throw new Error("Failed to delete recipe");
   return res.json();
 }
