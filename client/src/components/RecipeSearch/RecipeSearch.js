@@ -13,11 +13,18 @@ export default function RecipeSearch() {
 
     try {
       const results = await searchRecipes(query);
-      setSearchResults(results);
+      setSearchResults(results); // could be object or array
     } catch (err) {
       console.log(err);
     }
   }
+
+  // ✅ Make sure we always have an array to map over
+  const recipesArray = Array.isArray(searchResults)
+    ? searchResults
+    : searchResults
+    ? [searchResults]
+    : [];
 
   return (
     <div>
@@ -30,8 +37,8 @@ export default function RecipeSearch() {
         <button type="submit">Search</button>
       </form>
       <div>
-        {searchResults.map((recipe) => (
-          <RecipeCard key={recipe.id} recipe={recipe} />
+        {recipesArray.map((recipe, index) => (
+          <RecipeCard key={index} recipe={recipe} />
         ))}
       </div>
     </div>
