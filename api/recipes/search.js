@@ -1,45 +1,52 @@
 import fetch from "node-fetch";
 
-const HUGGINGFACE_API_KEY = process.env.HF_API_KEY;
-const MODEL = "google/flan-t5-small";
-
 export default async function handler(req, res) {
-  const { q } = req.query;
-  if (!q) return res.status(400).json({ error: "Missing query parameter 'q'" });
-
-  if (!HUGGINGFACE_API_KEY) {
-    return res.status(500).json({ error: "HF_API_KEY environment variable not set" });
+  if (req.method !== "GET") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const prompt = `Create a detailed recipe for: ${q}. Include title, ingredients (as an array), and instructions (as an array).`;
+  const query = req.query.q;
+  if (!query) {
+    return res.status(400).json({ error: "Missing query parameter" });
+  }
+
+  const HUGGINGFACE_API_KEY = process.env.HF_API_KEY;
 
   try {
-    const response = await fetch(`https://api-inference.huggingface.co/models/${MODEL}`, {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${HUGGINGFACE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ inputs: prompt }),
-    });
-
-    const text = await response.text(); // Get raw response
+    // Hugging Face Inference API
+    const response = await fetch(
+      "https://api-inference.huggingface.co/models/gpt2", // or another recipe-capable model
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${HUGGINGFACE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          inputs: `Generate a recipe for ${query} including title, ingredients (as list), and instructions (as list)`,
+        }),
+      }
+    );
 
     if (!response.ok) {
-      return res.status(500).json({ error: "Hugging Face API error", details: text });
+      const errorText = await response.text();
+      return res
+        .status(response.status)
+        .json({ error: "Hugging Face API error", details: errorText });
     }
 
-    let recipe = {};
-    try {
-      // Try parsing JSON
-      recipe = JSON.parse(text);
-    } catch {
-      recipe = { title: q, ingredients: [], instructions: [], raw: text };
-    }
+    const data = await response.json();
 
-    res.status(200).json(recipe);
+    // Hugging Face text models return an array of objects with 'generated_text'
+    const text = data[0]?.generated_text || "";
+
+    // Optional: parse text into a structured recipe object
+    // For simplicity, we return it as raw text; you can improve parsing later
+    const recipe = { query, generated: text };
+
+    return res.status(200).json(recipe);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Internal server error", details: err.message });
+    return res.status(500).json({ error: "Server error", details: err.message });
   }
 }
