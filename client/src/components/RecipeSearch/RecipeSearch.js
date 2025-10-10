@@ -15,7 +15,7 @@ export default function RecipeSearch() {
       const results = await searchRecipes(query);
       setSearchResults(results);
     } catch (err) {
-      console.error(err);
+      console.log(err);
     }
   }
 
