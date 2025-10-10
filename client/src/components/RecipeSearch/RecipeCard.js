@@ -1,26 +1,48 @@
-import { useContext } from "react";
-import { saveRecipe } from "../../api/recipes";
-import { RecipeContext } from "../../contexts/RecipeContext";
+import React from "react";
 
 export default function RecipeCard({ recipe }) {
-  const { savedRecipes, setSavedRecipes } = useContext(RecipeContext);
-
-  const isSaved = savedRecipes.some((r) => r.id === recipe.id);
-
-  async function handleSave() {
-    try {
-      const saved = await saveRecipe(recipe);
-      setSavedRecipes([...savedRecipes, saved]);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   return (
-    <div>
-      <h3>{recipe.title}</h3>
-      <img src={recipe.image} alt={recipe.title} width="200" />
-      {!isSaved && <button onClick={handleSave}>Save Recipe</button>}
+    <div
+      className="recipe-card"
+      style={{
+        border: "1px solid #ccc",
+        borderRadius: "8px",
+        padding: "1rem",
+        marginBottom: "1rem",
+        backgroundColor: "#fafafa",
+      }}
+    >
+      <h2>{recipe.title}</h2>
+      <p>
+        <strong>Cuisine:</strong> {recipe.cuisine} | <strong>Servings:</strong>{" "}
+        {recipe.servings}
+      </p>
+      <p>
+        <strong>Prep Time:</strong> {recipe.prep_time} | <strong>Cook Time:</strong>{" "}
+        {recipe.cook_time}
+      </p>
+
+      {recipe.ingredients && recipe.ingredients.length > 0 && (
+        <>
+          <h3>Ingredients:</h3>
+          <ul>
+            {recipe.ingredients.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        </>
+      )}
+
+      {recipe.instructions && recipe.instructions.length > 0 && (
+        <>
+          <h3>Instructions:</h3>
+          <ol>
+            {recipe.instructions.map((step, index) => (
+              <li key={index}>{step}</li>
+            ))}
+          </ol>
+        </>
+      )}
     </div>
   );
 }
