@@ -23,7 +23,7 @@ export default async function handler(req, res) {
         messages: [
           {
             role: "user",
-            content: `Create a detailed recipe for: ${query}. Include title, ingredients, instructions, and cuisine.`,
+            content: `Create 3 detailed recipe for: ${query}. Include title, ingredients, instructions, and cuisine in an array of recipes`,
           },
         ],
       }),
