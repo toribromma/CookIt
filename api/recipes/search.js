@@ -1,46 +1,62 @@
+// /api/recipes/search.js
 import fetch from "node-fetch";
-
-const SPOONACULAR_API_KEY = process.env.SPOONACULAR_KEY;
 
 export default async function handler(req, res) {
   const { q } = req.query;
-  if (!q) return res.status(400).json({ error: "Missing query" });
+
+  if (!q) {
+    return res.status(400).json({ error: "Query parameter 'q' is required" });
+  }
 
   try {
-    // Step 1: search for recipes
-    const searchResponse = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?query=${encodeURIComponent(
-        q
-      )}&number=10&apiKey=${SPOONACULAR_API_KEY}`
+    const prompt = `
+Generate 3 unique, creative recipes based on the query "${q}".
+For each recipe include:
+- title
+- ingredients (list)
+- instructions (list)
+- cuisine type
+Return JSON in this structure:
+[
+  {
+    "title": "",
+    "ingredients": [],
+    "instructions": [],
+    "cuisine": ""
+  }
+]
+`;
+
+    const response = await fetch(
+      "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ inputs: prompt }),
+      }
     );
-    if (!searchResponse.ok) throw new Error("Search failed");
-    const searchData = await searchResponse.json();
 
-    // Step 2: get details for each result
-    const detailedRecipes = await Promise.all(
-      searchData.results.map(async (recipe) => {
-        const detailsRes = await fetch(
-          `https://api.spoonacular.com/recipes/${recipe.id}/information?apiKey=${SPOONACULAR_API_KEY}`
-        );
-        const details = await detailsRes.json();
+    const data = await response.json();
 
-        return {
-          spoonacularId: recipe.id,
-          title: details.title,
-          thumbnail: details.image,
-          href: details.sourceUrl,
-          ingredients:
-            details.extendedIngredients?.map((i) => i.original) || [],
-          instructions:
-            details.analyzedInstructions?.[0]?.steps?.map((s) => s.step) || [],
-          cuisine: details.cuisines?.[0] || "Unknown",
-        };
-      })
-    );
+    // Extract and parse JSON from model output
+    let textOutput = data?.[0]?.generated_text || data?.generated_text || "";
 
-    res.status(200).json(detailedRecipes);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: err.message });
+    // Try to parse the JSON portion
+    let recipes;
+    try {
+      const jsonStart = textOutput.indexOf("[");
+      const jsonEnd = textOutput.lastIndexOf("]");
+      recipes = JSON.parse(textOutput.slice(jsonStart, jsonEnd + 1));
+    } catch (err) {
+      recipes = [{ title: "Parsing error", details: textOutput }];
+    }
+
+    return res.status(200).json(recipes);
+  } catch (error) {
+    console.error("Hugging Face API error:", error);
+    return res.status(500).json({ error: "Failed to generate recipes" });
   }
 }
