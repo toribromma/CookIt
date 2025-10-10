@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv").config();
-const connectDB = require("./config/db");
+const connectDB = require("./config/connection");
 const PORT = process.env.PORT || 3001;
 
 connectDB();
@@ -18,12 +18,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // API routes
-app.use('/api/recipes', require('./routes/recipeRoutes'));
-
-// ✅ Explicit favicon handler
-app.get("/favicon.ico", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "public", "favicon.ico"));
-});
+app.use('/api/recipes', require('./routes/recipes'));
 
 // React routing fallback
 app.get("*", function(req, res) {
