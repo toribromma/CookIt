@@ -1,44 +1,47 @@
+// api/recipes/search.js
 import fetch from "node-fetch";
 
+const HUGGINGFACE_API_KEY = process.env.HF_API_KEY; // Add this in Vercel Environment Variables
+const MODEL = "google/flan-t5-small"; // Example text generation model
+
 export default async function handler(req, res) {
-  const { q } = req.query;
-
-  if (!q) {
-    return res.status(400).json({ error: "Missing search query" });
-  }
-
   try {
-    const response = await fetch("https://api-inference.huggingface.co/models/gpt2", {
+    const { q } = req.query;
+    if (!q) return res.status(400).json({ error: "Missing query parameter 'q'" });
+
+    // Prompt for the LLM
+    const prompt = `Create a detailed recipe for: ${q}. Include title, ingredients (as an array), and instructions (as an array).`;
+
+    const response = await fetch(`https://api-inference.huggingface.co/models/${MODEL}`, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${process.env.HF_API_KEY}`,
-        "Content-Type": "application/json"
+        "Authorization": `Bearer ${HUGGINGFACE_API_KEY}`,
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        inputs: `Generate a recipe for ${q} including title, ingredients, and instructions.`,
-        parameters: { max_new_tokens: 250 }
-      })
+      body: JSON.stringify({ inputs: prompt }),
     });
+
+    if (!response.ok) {
+      const text = await response.text();
+      return res.status(500).json({ error: "Hugging Face API error", details: text });
+    }
 
     const data = await response.json();
 
-    if (!Array.isArray(data) || !data[0]?.generated_text) {
-      return res.status(500).json({ error: "Invalid Hugging Face response", data });
+    // Hugging Face returns an array with generated text
+    const generatedText = data?.[0]?.generated_text || "";
+
+    // Attempt to parse JSON from the LLM output
+    let recipe = {};
+    try {
+      recipe = JSON.parse(generatedText);
+    } catch {
+      recipe = { title: q, ingredients: [], instructions: [], raw: generatedText };
     }
 
-    // For simplicity, parse out text
-    const text = data[0].generated_text;
-
-    res.status(200).json({
-      title: q,
-      ingredients: ["Ingredient 1", "Ingredient 2"], // placeholder
-      instructions: [text],
-      thumbnail: "",
-      href: "",
-      cuisine: "Generated"
-    });
-  } catch (error) {
-    console.error("Error generating recipe:", error);
-    res.status(500).json({ error: "Failed to generate recipe" });
+    res.status(200).json(recipe);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error", details: err.message });
   }
 }
