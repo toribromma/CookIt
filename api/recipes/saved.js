@@ -1,25 +1,42 @@
-import connectDB from "../../config/db.js";
-import Recipe from "../../models/Recipe.js";
-
-connectDB();
+import dbConnect from "@/lib/dbConnect";
+import Recipe from "@/models/Recipe";
 
 export default async function handler(req, res) {
-  if (req.method === "GET") {
-    try {
-      const recipes = await Recipe.find();
-      res.status(200).json(recipes);
-    } catch (err) {
-      res.status(500).json({ error: "Failed to get saved recipes" });
-    }
-  } else if (req.method === "POST") {
-    try {
-      const newRecipe = await Recipe.create(req.body);
-      res.status(201).json(newRecipe);
-    } catch (err) {
-      res.status(500).json({ error: "Failed to save recipe" });
-    }
-  } else {
-    res.setHeader("Allow", ["GET", "POST"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+  await dbConnect();
+
+  const { method } = req;
+
+  switch (method) {
+    case "GET":
+      try {
+        const recipes = await Recipe.find({});
+        res.status(200).json(recipes);
+      } catch (err) {
+        res.status(500).json({ error: "Failed to load saved recipes" });
+      }
+      break;
+
+    case "POST":
+      try {
+        const recipe = await Recipe.create(req.body);
+        res.status(201).json(recipe);
+      } catch (err) {
+        res.status(400).json({ error: "Failed to save recipe" });
+      }
+      break;
+
+    case "DELETE":
+      try {
+        const { id } = req.query;
+        await Recipe.findByIdAndDelete(id);
+        res.status(204).end();
+      } catch (err) {
+        res.status(400).json({ error: "Failed to delete recipe" });
+      }
+      break;
+
+    default:
+      res.setHeader("Allow", ["GET", "POST", "DELETE"]);
+      res.status(405).end(`Method ${method} Not Allowed`);
   }
 }
