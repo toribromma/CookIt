@@ -1,8 +1,8 @@
-import dbConnect from "@/lib/dbConnect";
-import Recipe from "@/models/Recipe";
+import connectDB from "../../config/db.js";
+import Recipe from "../../models/Recipe.js";
 
 export default async function handler(req, res) {
-  await dbConnect();
+  await connectDB();
   const { method } = req;
 
   switch (method) {
