@@ -1,25 +1,29 @@
-import fetch from "node-fetch";
+import connectDB from "../../config/db.js";
+import Recipe from "../../models/Recipe.js";
+
+connectDB();
 
 export default async function handler(req, res) {
   const { id } = req.query;
 
-  if (req.method !== "GET") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
-
-  if (!id) return res.status(400).json({ error: "Missing recipe ID" });
-
-  try {
-    const SPOONACULAR_API_KEY = process.env.SPOONACULAR_API_KEY;
-
-    const response = await fetch(
-      `https://api.spoonacular.com/recipes/${id}/information?apiKey=${SPOONACULAR_API_KEY}`
-    );
-    const data = await response.json();
-
-    res.status(200).json(data);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to fetch recipe details" });
+  if (req.method === "GET") {
+    try {
+      const recipe = await Recipe.findById(id);
+      if (!recipe) return res.status(404).json({ error: "Recipe not found" });
+      res.status(200).json(recipe);
+    } catch (err) {
+      res.status(500).json({ error: "Failed to get recipe" });
+    }
+  } else if (req.method === "DELETE") {
+    try {
+      const deleted = await Recipe.findByIdAndDelete(id);
+      if (!deleted) return res.status(404).json({ error: "Recipe not found" });
+      res.status(200).json({ message: "Recipe deleted" });
+    } catch (err) {
+      res.status(500).json({ error: "Failed to delete recipe" });
+    }
+  } else {
+    res.setHeader("Allow", ["GET", "DELETE"]);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
