@@ -1,16 +1,16 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import mongoose from "mongoose";
 
-const recipeSchema = new Schema({
+const recipeSchema = new mongoose.Schema({
   title: { type: String, required: false },
-  thumbnail: {type: String, required: false},
-  href: {type: String, required: false},
-  ingredients: { type: Array, required: false },
-  instructions: {type: Array, required: false},
-  user: {type: String, required: false},
-  cuisine: {type: String, required: false}
+  thumbnail: { type: String, required: false },
+  href: { type: String, required: false },
+  ingredients: { type: [String], required: false },
+  instructions: { type: [String], required: false },
+  user: { type: String, required: false },
+  cuisine: { type: String, required: false },
 });
 
-const Recipe = mongoose.model("Recipe", recipeSchema);
+// Reuse model if it exists (important for serverless)
+const Recipe = mongoose.models.Recipe || mongoose.model("Recipe", recipeSchema);
 
-module.exports = Recipe;
+export default Recipe;
