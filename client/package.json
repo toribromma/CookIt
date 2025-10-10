@@ -4,6 +4,7 @@
   "proxy": "http://localhost:3001/",
   "description": "",
   "main": "index.js",
+  "homepage": ".",
   "dependencies": {
     "@auth0/auth0-react": "^2.2.0",
     "abab": "^2.0.6",
