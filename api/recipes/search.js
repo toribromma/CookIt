@@ -1,7 +1,7 @@
 // api/recipes/search.js
 import fetch from "node-fetch";
 
-const HF_TOKEN = "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";
+const HF_TOKEN = process.env.HF_API_KEY;
 
 export default async function handler(req, res) {
   if (req.method !== "GET") {
