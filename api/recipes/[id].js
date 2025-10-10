@@ -1,36 +1,25 @@
-import connectDB from "../../config/db.js";
-import Recipe from "../../models/Recipe.js";
-
-connectDB();
+import fetch from "node-fetch";
 
 export default async function handler(req, res) {
   const { id } = req.query;
 
-  if (req.method === 'GET') {
-    try {
-      const recipe = await Recipe.findById(id);
-      if (!recipe) return res.status(404).json({ message: "Recipe not found" });
-      res.status(200).json(recipe);
-    } catch (error) {
-      res.status(500).json({ message: "Server error", error });
-    }
-  } else if (req.method === 'PUT') {
-    try {
-      const updatedRecipe = await Recipe.findByIdAndUpdate(id, req.body, { new: true });
-      if (!updatedRecipe) return res.status(404).json({ message: "Recipe not found" });
-      res.status(200).json(updatedRecipe);
-    } catch (error) {
-      res.status(400).json({ message: "Invalid data", error });
-    }
-  } else if (req.method === 'DELETE') {
-    try {
-      const deletedRecipe = await Recipe.findByIdAndDelete(id);
-      if (!deletedRecipe) return res.status(404).json({ message: "Recipe not found" });
-      res.status(200).json(deletedRecipe);
-    } catch (error) {
-      res.status(500).json({ message: "Server error", error });
-    }
-  } else {
-    res.status(405).json({ message: "Method not allowed" });
+  if (req.method !== "GET") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  if (!id) return res.status(400).json({ error: "Missing recipe ID" });
+
+  try {
+    const SPOONACULAR_API_KEY = process.env.SPOONACULAR_API_KEY;
+
+    const response = await fetch(
+      `https://api.spoonacular.com/recipes/${id}/information?apiKey=${SPOONACULAR_API_KEY}`
+    );
+    const data = await response.json();
+
+    res.status(200).json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch recipe details" });
   }
 }
