@@ -4,12 +4,11 @@
     {
       "src": "package.json",
       "use": "@vercel/static-build",
-      "config": {
-        "distDir": "client/build"
-      }
+      "config": { "distDir": "client/build" }
     }
   ],
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1" },       // serverless functions
+    { "src": "/(.*)", "dest": "/index.html" }       // everything else to React
   ]
 }
