@@ -1,190 +1,183 @@
-const db = require("../models");
-const axios = require("axios");
-const dotenv = require("dotenv")
-  .config
-  // {path: "../.env"}
-  ();
+// /api/recipesController.js (or in lib/controllers/recipesController.js if you’re using routes)
 
-// Defining methods for the RecipesController
-module.exports = {
-  findAll: async function (req, res) {
-    // console.log(req.query.q);
-    // console.log("hi");
-    db.Recipe.find({ user: req.query.q })
-      .then((dbUser) => {
-        // console.log("Hi")
-        // console.log(dbUser)
-        res.json(dbUser);
-      })
-      .catch((err) => {
-        res.json(err);
-      });
-  },
-  findById: function (req, res) {
-    db.Recipe.findById(req.params.id)
-      .then((dbModel) => res.json(dbModel))
-      .catch((err) => res.status(422).json(err));
-  },
-  create: async function (req, res) {
-    console.log(req.body);
+import axios from "axios";
+import dotenv from "dotenv";
+import db from "../models/index.js"; // Ensure your models/index.js exports a default object
 
-    const response = await axios.get(
-      `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/extract?url=${req.body.url}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "X-RapidApi-Host":
-            "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-          "X-RapidApi-Key": process.env.API_KEY,
-        },
-      }
-    );
-    const {
-      sourceUrl,
-      title,
-      image,
+dotenv.config();
 
-      extendedIngredients: [...ingredients],
-      cuisines,
-    } = response.data;
+// Helper: handle async/await errors gracefully
+const handleError = (res, err) => {
+  console.error(err);
+  res.status(500).json({ error: err.message || "Internal Server Error" });
+};
 
-    let ingredientsArray = ingredients.map((i) => i.original);
-    let cuisineString = cuisines.toString();
-    let instructions;
-
-    if (!response.data.analyzedInstructions[0]) {
-      instructions = [];
-    } else {
-      instructions = response.data.analyzedInstructions[0].steps.map(
-        (step) => step.step
-      );
-    }
-
-    const recipe = {
-      title: title,
-      thumbnail: image,
-      href: sourceUrl,
-      instructions: instructions,
-      ingredients: ingredientsArray,
-      user: req.body.user,
-      cuisine: cuisineString,
-    };
-
-    console.log(recipe);
-
-    db.Recipe.create(recipe)
-      // .then(({ _id}) => db.Users.findOneAndUpdate({_id:req.body.user}, { $push: { recipes: _id } }, { new: true }))
-      .then((dbUser) => {
-        res.json(dbUser);
-      })
-      .catch((err) => {
-        res.json(err);
-      });
-  },
-  update: function (req, res) {
-    db.Recipe.findOneAndUpdate(
-      { _id: req.params.id },
-      {
-        title: req.body.params.q,
-        ingredients: req.body.params.r,
-        instructions: req.body.params.s,
-        cuisine: req.body.params.t,
-      }
-    )
-      .then((dbModel) => res.json(dbModel))
-      .catch((err) => res.status(422).json(err));
-  },
-  remove: function (req, res) {
-    db.Recipe.findById({ _id: req.params.id })
-      .then((dbModel) => dbModel.remove())
-      .then((dbModel) => res.json(dbModel))
-      .catch((err) => res.status(422).json(err));
-  },
-  searchRecipes: async function (req, res) {
-    console.log("hi");
-    console.log(req.params.id);
-
-    const response = await axios.get(
-      `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch`,
-
-      {
-        params: {
-          query: req.params.id,
-          number: 5,
-        },
-        headers: {
-          "Content-Type": "application/json",
-          "X-RapidApi-Host":
-            "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-          "X-RapidApi-Key": process.env.API_KEY,
-        },
-      }
-    );
-
-    console.log(response.data.results);
-
-    res.json(response.data.results);
-  },
-  getNewRecipe: async function (req, res) {
-    console.log(req.params.id);
-    const options = {
-      method: "GET",
-      url: `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${req.params.id}/information`,
-      headers: {
-        "X-RapidAPI-Key": process.env.API_KEY,
-        "X-RapidAPI-Host":
-          "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-      },
-    };
-
+// Controller object
+const RecipesController = {
+  async findAll(req, res) {
     try {
-      const response = await axios.request(options);
+      const recipes = await db.Recipe.find({ user: req.query.q });
+      res.status(200).json(recipes);
+    } catch (err) {
+      handleError(res, err);
+    }
+  },
+
+  async findById(req, res) {
+    try {
+      const recipe = await db.Recipe.findById(req.params.id);
+      res.status(200).json(recipe);
+    } catch (err) {
+      handleError(res, err);
+    }
+  },
+
+  async create(req, res) {
+    try {
+      const { url, user } = req.body;
+
+      const response = await axios.get(
+        `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/extract`,
+        {
+          params: { url },
+          headers: {
+            "X-RapidAPI-Key": process.env.API_KEY,
+            "X-RapidAPI-Host":
+              "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+          },
+        }
+      );
+
       const {
         sourceUrl,
         title,
         image,
-
-        extendedIngredients: [...ingredients],
+        extendedIngredients,
         cuisines,
+        analyzedInstructions,
       } = response.data;
 
-      let ingredientsArray = ingredients.map((i) => i.original);
-      let cuisineString = cuisines.toString();
-      let instructions;
-
-      if (!response.data.analyzedInstructions[0]) {
-        instructions = [];
-      } else {
-        instructions = response.data.analyzedInstructions[0].steps.map(
-          (step) => step.step
-        );
-      }
+      const ingredientsArray = extendedIngredients.map((i) => i.original);
+      const cuisineString = cuisines.join(", ");
+      const instructions =
+        analyzedInstructions?.[0]?.steps?.map((s) => s.step) || [];
 
       const recipe = {
-        title: title,
+        title,
         thumbnail: image,
         href: sourceUrl,
-        instructions: instructions,
         ingredients: ingredientsArray,
-        user: req.body.user,
+        instructions,
+        user,
         cuisine: cuisineString,
       };
 
-      // console.log(recipe);
-      res.json(recipe);
-    } catch (error) {
-      console.error(error);
+      const newRecipe = await db.Recipe.create(recipe);
+      res.status(201).json(newRecipe);
+    } catch (err) {
+      handleError(res, err);
     }
   },
-  saveNewRecipe: async function (req, res) {
-    console.log(req.body);
 
-    db.Recipe.create(req.body)
-      .then((dbUser) => {
-        res.json(dbUser);
-      })
-      .catch((err) => {
-        res.json(err);
-      });
+  async update(req, res) {
+    try {
+      const { q, r, s, t } = req.body.params;
+      const updated = await db.Recipe.findByIdAndUpdate(
+        req.params.id,
+        {
+          title: q,
+          ingredients: r,
+          instructions: s,
+          cuisine: t,
+        },
+        { new: true }
+      );
+      res.status(200).json(updated);
+    } catch (err) {
+      handleError(res, err);
+    }
+  },
+
+  async remove(req, res) {
+    try {
+      const deleted = await db.Recipe.findByIdAndDelete(req.params.id);
+      res.status(200).json(deleted);
+    } catch (err) {
+      handleError(res, err);
+    }
+  },
+
+  async searchRecipes(req, res) {
+    try {
+      const response = await axios.get(
+        `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch`,
+        {
+          params: { query: req.params.id, number: 5 },
+          headers: {
+            "X-RapidAPI-Key": process.env.API_KEY,
+            "X-RapidAPI-Host":
+              "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+          },
+        }
+      );
+
+      res.status(200).json(response.data.results);
+    } catch (err) {
+      handleError(res, err);
+    }
+  },
+
+  async getNewRecipe(req, res) {
+    try {
+      const response = await axios.get(
+        `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${req.params.id}/information`,
+        {
+          headers: {
+            "X-RapidAPI-Key": process.env.API_KEY,
+            "X-RapidAPI-Host":
+              "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+          },
+        }
+      );
+
+      const {
+        sourceUrl,
+        title,
+        image,
+        extendedIngredients,
+        cuisines,
+        analyzedInstructions,
+      } = response.data;
+
+      const ingredientsArray = extendedIngredients.map((i) => i.original);
+      const cuisineString = cuisines.join(", ");
+      const instructions =
+        analyzedInstructions?.[0]?.steps?.map((s) => s.step) || [];
+
+      const recipe = {
+        title,
+        thumbnail: image,
+        href: sourceUrl,
+        ingredients: ingredientsArray,
+        instructions,
+        cuisine: cuisineString,
+      };
+
+      res.status(200).json(recipe);
+    } catch (err) {
+      handleError(res, err);
+    }
+  },
+
+  async saveNewRecipe(req, res) {
+    try {
+      const newRecipe = await db.Recipe.create(req.body);
+      res.status(201).json(newRecipe);
+    } catch (err) {
+      handleError(res, err);
+    }
   },
 };
+
+export default RecipesController;
+
