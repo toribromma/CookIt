@@ -1,5 +1,4 @@
-const API_BASE = "/api/recipes";
-
+const API_BASE = "https://cook-it-eight.vercel.app/api/recipes";
 // Search recipes via Spoonacular
 export async function searchRecipes(query) {
   const res = await fetch(`${API_BASE}/search?q=${encodeURIComponent(query)}`);
