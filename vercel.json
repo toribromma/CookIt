@@ -8,7 +8,7 @@
     }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },       // serverless functions
-    { "src": "/(.*)", "dest": "/index.html" }       // everything else to React
+    { "src": "/api/(.*)", "dest": "/api/$1" },    
+    { "src": "/(.*)", "dest": "/index.html" }       
   ]
 }
