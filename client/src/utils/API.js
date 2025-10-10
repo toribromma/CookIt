@@ -1,36 +1,60 @@
-import axios from "axios";
+const API_URL = "/api/recipes";
 
 export default {
-  // Gets all Recipes
-  getRecipes: function (query, ) {
-    return axios.get("/api/recipes", { params: { q: query } });
+  getRecipes: async (query) => {
+    const res = await fetch(`${API_URL}?q=${encodeURIComponent(query || "")}`);
+    return res.json();
   },
-  getRecipe: function (id) {
-    return axios.get("/api/recipes/" + id);
+
+  getRecipe: async (id) => {
+    const res = await fetch(`${API_URL}/${id}`);
+    return res.json();
   },
-  saveRecipe: function (recipeData) {
-    return axios.post("/api/recipes", recipeData);
-  },
-  deleteRecipe: function (id) {
-    return axios.delete("/api/recipes/" + id);
-  },
-  updateRecipeTitle: function (recipeData) {
-    return axios.put("/api/recipes/" + recipeData.id, {
-      params: {
-        q: recipeData.title,
-        r: recipeData.ingredients,
-        s: recipeData.instructions,
-        t: recipeData.cuisine,
-      },
+
+  saveRecipe: async (recipeData) => {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(recipeData),
     });
+    return res.json();
   },
-  searchRecipes: function (id) {
-    return axios.get("/api/recipes/search/" + id );
+
+  deleteRecipe: async (id) => {
+    const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+    return res.json();
   },
-  getNewRecipe: function(id) {
-    return axios.get("/api/recipes/new/search/" + id);
+
+  updateRecipeTitle: async (recipeData) => {
+    const res = await fetch(`${API_URL}/${recipeData.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: recipeData.title,
+        ingredients: recipeData.ingredients,
+        instructions: recipeData.instructions,
+        cuisine: recipeData.cuisine,
+      }),
+    });
+    return res.json();
   },
-  saveNewRecipe:function(recipeData) {
-    return axios.post("/api/recipes/new", recipeData)
-  }
+
+  searchRecipes: async (id) => {
+    const res = await fetch(`${API_URL}/search/${id}`);
+    return res.json();
+  },
+
+  getNewRecipe: async (id) => {
+    const res = await fetch(`${API_URL}/new/search/${id}`);
+    return res.json();
+  },
+
+  saveNewRecipe: async (recipeData) => {
+    const res = await fetch(`${API_URL}/new`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(recipeData),
+    });
+    return res.json();
+  },
 };
