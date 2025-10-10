@@ -7,14 +7,16 @@ export default async function handler(req, res) {
   if (!q) return res.status(400).json({ error: "Missing query" });
 
   try {
-    // Step 1: search
+    // Step 1: search for recipes
     const searchResponse = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?query=${encodeURIComponent(q)}&number=10&apiKey=${SPOONACULAR_API_KEY}`
+      `https://api.spoonacular.com/recipes/complexSearch?query=${encodeURIComponent(
+        q
+      )}&number=10&apiKey=${SPOONACULAR_API_KEY}`
     );
     if (!searchResponse.ok) throw new Error("Search failed");
     const searchData = await searchResponse.json();
 
-    // Step 2: get detailed info for each recipe
+    // Step 2: get details for each result
     const detailedRecipes = await Promise.all(
       searchData.results.map(async (recipe) => {
         const detailsRes = await fetch(
@@ -23,11 +25,14 @@ export default async function handler(req, res) {
         const details = await detailsRes.json();
 
         return {
+          spoonacularId: recipe.id,
           title: details.title,
           thumbnail: details.image,
           href: details.sourceUrl,
-          ingredients: details.extendedIngredients?.map(i => i.original) || [],
-          instructions: details.analyzedInstructions?.[0]?.steps?.map(s => s.step) || [],
+          ingredients:
+            details.extendedIngredients?.map((i) => i.original) || [],
+          instructions:
+            details.analyzedInstructions?.[0]?.steps?.map((s) => s.step) || [],
           cuisine: details.cuisines?.[0] || "Unknown",
         };
       })
