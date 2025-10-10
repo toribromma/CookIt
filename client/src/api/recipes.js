@@ -1,7 +1,9 @@
 const API_BASE = "/api/recipes";
 
 export async function searchRecipes(query) {
+  console.log(query);
   const res = await fetch("/api/recipes/search?q=Spaghetti");
+  console.log(res);
   if (!res.ok) throw new Error("Failed to search recipes");
   return res.json();
 }
