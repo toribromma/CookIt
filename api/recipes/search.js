@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   const { q } = req.query;
   if (!q) return res.status(400).json({ error: "Missing query parameter 'q'" });
 
-  if (!HUGGINGFACE_API_KEY) {
+  if (!HF_API_KEY) {
     return res.status(500).json({ error: "HF_API_KEY environment variable not set" });
   }
 
