@@ -26,7 +26,8 @@ export default function SearchRecipeContainer() {
         const results = await API.searchRecipes(dish);
         setRecipes(results.data);
         notifyGood();
-      } catch {
+      } catch(err) {
+        console.error(err);
         notifyBad();
       }
     }
