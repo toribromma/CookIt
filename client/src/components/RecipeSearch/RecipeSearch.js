@@ -7,17 +7,19 @@ export default function RecipeSearch() {
   const [query, setQuery] = useState("");
   const { searchResults, setSearchResults } = useContext(RecipeContext);
 
-  async function handleSearch(e) {
-    e.preventDefault();
-    if (!query) return;
+async function handleSearch(e) {
+  e.preventDefault();
+  if (!query) return;
 
-    try {
-      const results = await searchRecipes(query);
-      setSearchResults(results); // could be object or array
-    } catch (err) {
-      console.log(err);
-    }
+  try {
+    const results = await searchRecipes(query);
+    // Extract the recipes array from the backend response
+    setSearchResults(results.recipes || []);
+  } catch (err) {
+    console.log(err);
   }
+}
+
 
   // ✅ Make sure we always have an array to map over
   const recipesArray = Array.isArray(searchResults)
