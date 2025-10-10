@@ -12,7 +12,7 @@ export default function RecipeCard({ recipe }) {
       const saved = await saveRecipe(recipe);
       setSavedRecipes([...savedRecipes, saved]);
     } catch (err) {
-      console.error(err);
+      console.log(err);
     }
   }
 
