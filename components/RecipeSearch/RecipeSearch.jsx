@@ -94,7 +94,7 @@ export default function RecipeSearch() {
         />
         <button
           type="submit"
-          className="bg-accentGold text-white px-4 rounded hover:bg-accentRose transition"
+          className="bg-accentGold px-4 roundedtransition"
         >
           Search
         </button>
