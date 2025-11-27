@@ -1,0 +1,133 @@
+"use client";
+
+import { useState } from "react";
+import { useApp } from "../providers/AppProvider";
+
+export default function AuthPanel() {
+  const { user, hydrated, authError, signIn, signUp, signOut, sendReset, setLoading, loading } =
+    useApp();
+  const [mode, setMode] = useState("signin");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [status, setStatus] = useState("");
+
+  if (!hydrated) return null;
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setStatus("");
+    setLoading(true);
+    try {
+      if (mode === "signin") {
+        await signIn(email, password);
+        setStatus("Signed in.");
+      } else if (mode === "signup") {
+        await signUp(email, password);
+        setStatus("Account created. Check email if confirmation is required.");
+      } else if (mode === "reset") {
+        await sendReset(email);
+        setStatus("Password reset email sent.");
+      }
+    } catch (err) {
+      setStatus(err?.message || "Auth error");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <section className="card" style={{ marginTop: 12 }}>
+      <div className="flex items-center justify-between gap-3 flex-wrap">
+        <div>
+          <p className="text-sm" style={{ color: "var(--muted)" }}>
+            Sign in to save recipes and build your shopping list.
+          </p>
+          {user ? (
+            <p className="font-semibold mt-1 text-sm">{user.email}</p>
+          ) : (
+            <p className="text-xs" style={{ color: "var(--muted)" }}>
+              Email/password with reset support via Supabase.
+            </p>
+          )}
+        </div>
+        {user && (
+          <button
+            onClick={signOut}
+            className="text-sm px-3 py-2 rounded-md"
+            style={{ background: "rgba(255,0,0,0.1)", color: "#b91c1c" }}
+          >
+            Log out
+          </button>
+        )}
+      </div>
+
+      {!user && (
+        <div className="mt-4">
+          <div className="flex gap-2 text-sm mb-3 flex-wrap">
+            {[
+              ["signin", "Sign in"],
+              ["signup", "Sign up"],
+              ["reset", "Reset password"],
+            ].map(([value, label]) => (
+              <button
+                key={value}
+                onClick={() => {
+                  setMode(value);
+                  setStatus("");
+                }}
+                className="px-3 py-1 rounded-md border"
+                style={{
+                  borderColor: value === mode ? "var(--accent)" : "var(--border)",
+                  background: value === mode ? "var(--accent)" : "transparent",
+                  color: value === mode ? "#000" : "var(--text)",
+                }}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-md">
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              className="border rounded-md px-3 py-2 text-sm"
+              style={{ borderColor: "var(--border)", background: "var(--card)", color: "var(--text)" }}
+            />
+            {mode !== "reset" && (
+              <input
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                className="border rounded-md px-3 py-2 text-sm"
+                style={{
+                  borderColor: "var(--border)",
+                  background: "var(--card)",
+                  color: "var(--text)",
+                }}
+              />
+            )}
+            <button
+              type="submit"
+              disabled={loading}
+              className="text-sm px-4 py-2 rounded-md text-white"
+              style={{ background: "var(--accent)" }}
+            >
+              {mode === "signin" ? "Sign in" : mode === "signup" ? "Create account" : "Send reset email"}
+            </button>
+          </form>
+          {(status || authError) && (
+            <p className="mt-2 text-sm" style={{ color: "#b91c1c" }}>
+              {status || authError}
+            </p>
+          )}
+        </div>
+      )}
+    </section>
+  );
+}

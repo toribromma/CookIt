@@ -1,16 +1,14 @@
-import https from "https";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 const HF_TOKEN = process.env.HF_API_KEY;
 const cache = global.recipeCache ?? new Map();
 global.recipeCache = cache;
 
-const agent =
-  process.env.ALLOW_INSECURE_HTTPS === "1"
-    ? new https.Agent({ rejectUnauthorized: false })
-    : undefined;
+// In production (e.g., Vercel) we expect valid TLS; no insecure overrides.
+const agent = undefined;
 
 export async function GET(req) {
   const url = new URL(req.url);
