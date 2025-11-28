@@ -1,16 +1,18 @@
-# CookIt – deterministic recipes with Supabase auth
+# Meal Muse — deterministic recipes with Supabase auth
 
-Live: https://cook-it-eight.vercel.app/
+Live: https://cook-it-eight.vercel.app/  _(URL unchanged; UI/metadata now say Meal Muse)_
 
 This app lets you search deterministic recipes (Hugging Face), save favorites, and build a shopping list backed by Supabase auth and tables.
 
 ## Features
-- Email/password auth (Supabase GoTrue), password reset flow via `/reset`
+- Email/password auth (Supabase GoTrue), password reset via `/reset`, password update with confirmation, and client-side validation
 - Deterministic recipe generation via Hugging Face `chat/completions`
 - Filters: meal type, cuisine, diet
 - Save/unsave recipes per user (Supabase `saved_recipes`)
-- Shopping list per user with check/unclick + from-recipe tagging (Supabase `shopping_list_items`)
-- Light/dark-friendly theming
+- Shopping list per user with check/uncheck + from-recipe tagging (`shopping_list_items`)
+- Aggregated shopping list merges identical ingredients, shows per-recipe contributions, and supports removing whole recipe batches (even multiple instances of the same recipe)
+- Saved recipes expand to show ingredients and instructions
+- Loading skeletons during recipe search for smoother UX
 
 ## Stack
 - Next.js (app router, Node runtime)
@@ -69,14 +71,14 @@ This app lets you search deterministic recipes (Hugging Face), save favorites, a
 - Dark mode contrast: theme is set in `app/globals.css`; adjust CSS variables if needed.
 
 ## Scripts
-- `npm run dev` – start dev server (localhost:3000)
-- `npm run build` – production build
-- `npm run start` – start production build
-- `npm run lint` – lint code
+- `npm run dev` — start dev server (localhost:3000)
+- `npm run build` — production build
+- `npm run start` — start production build
+- `npm run lint` — lint code
 
 ## Project structure (key paths)
-- `app/` – Next app router pages and API routes
-- `app/api/recipes/search/route.js` – Hugging Face recipe search
-- `components/` – auth, search, saved, shopping, providers
-- `src/lib/supabaseClient.js` – Supabase client setup
-- `supabase/schema.sql` – database schema + RLS
+- `app/` — Next app router pages and API routes
+- `app/api/recipes/search/route.js` — Hugging Face recipe search
+- `components/` — auth, search, saved, shopping, providers
+- `src/lib/supabaseClient.js` — Supabase client setup
+- `supabase/schema.sql` — database schema + RLS

@@ -86,35 +86,22 @@ export default function RecipeSearch() {
           </p>
         )}
 
-        {!user && (
-          <p className="text-sm" style={{ color: "var(--muted)" }}>
-            Sign in to save recipes and add ingredients to your shopping list.
-          </p>
-        )}
-
-        <div className="relative min-h-[120px]">
-          {loading ? (
-            <div className="absolute inset-0 flex items-center justify-center rounded-md"
-              style={{ background: "rgba(0,0,0,0.04)" }}>
-              <div className="flex items-center gap-2 text-sm" style={{ color: "var(--muted)" }}>
-                <span className="w-4 h-4 border-2 border-[var(--border)] border-t-[var(--text)] rounded-full animate-spin" />
-                Searching recipes...
-              </div>
-            </div>
-          ) : null}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 opacity-100">
-            {results.map((recipe) => (
-              <RecipeCard
-                key={recipe.id}
-                recipe={recipe}
-                isSaved={isSaved(recipe.id)}
-                onSave={() => (user ? saveRecipe(recipe) : setError("Please sign in to save recipes."))}
-                onAdd={() =>
-                  user ? addIngredientsToList(recipe) : setError("Please sign in to build your list.")
-                }
-              />
-            ))}
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 opacity-100">
+          {loading
+            ? Array.from({ length: 4 }).map((_, idx) => <SkeletonCard key={idx} />)
+            : results.map((recipe) => (
+                <RecipeCard
+                  key={recipe.id}
+                  recipe={recipe}
+                  isSaved={isSaved(recipe.id)}
+                  onSave={() =>
+                    user ? saveRecipe(recipe) : setError("Please sign in to save recipes.")
+                  }
+                  onAdd={() =>
+                    user ? addIngredientsToList(recipe) : setError("Please sign in to build your list.")
+                  }
+                />
+              ))}
         </div>
       </div>
     </section>
@@ -140,5 +127,32 @@ function Select({ label, value, onChange, options }) {
         ))}
       </select>
     </label>
+  );
+}
+
+function SkeletonCard() {
+  return (
+    <div className="card flex flex-col gap-3">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex-1 space-y-2">
+          <div className="skeleton h-4 w-2/3" />
+          <div className="skeleton h-3 w-1/3" />
+          <div className="flex gap-2">
+            <div className="skeleton h-4 w-16 rounded-full" />
+            <div className="skeleton h-4 w-16 rounded-full" />
+          </div>
+        </div>
+        <div className="skeleton h-6 w-12 rounded-full" />
+      </div>
+      <div className="space-y-2">
+        <div className="skeleton h-3 w-full" />
+        <div className="skeleton h-3 w-5/6" />
+        <div className="skeleton h-3 w-2/3" />
+      </div>
+      <div className="flex gap-2">
+        <div className="skeleton h-8 w-24 rounded-md" />
+        <div className="skeleton h-8 w-28 rounded-md" />
+      </div>
+    </div>
   );
 }

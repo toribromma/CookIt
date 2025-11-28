@@ -89,14 +89,24 @@ export default function AppProvider({ children }) {
         text: item.text,
         recipeId: item.recipe_id,
         recipeTitle: item.recipe_title,
+        recipeInstanceId: item.recipe_instance_id,
+        recipeInstanceLabel: item.recipe_instance_label,
         checked: item.checked,
       }))
     );
   }
 
+  const sanitize = (value) => value?.trim();
+  const containsBadChars = (value) => /[<>]/.test(value || "");
+
   async function signIn(email, password) {
     setAuthError("");
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const safeEmail = sanitize(email);
+    if (!safeEmail || containsBadChars(safeEmail) || containsBadChars(password)) {
+      setAuthError("Invalid credentials.");
+      throw new Error("Invalid credentials.");
+    }
+    const { error } = await supabase.auth.signInWithPassword({ email: safeEmail, password });
     if (error) {
       setAuthError(error.message);
       throw error;
@@ -105,7 +115,12 @@ export default function AppProvider({ children }) {
 
   async function signUp(email, password) {
     setAuthError("");
-    const { error } = await supabase.auth.signUp({ email, password });
+    const safeEmail = sanitize(email);
+    if (!safeEmail || containsBadChars(safeEmail) || containsBadChars(password)) {
+      setAuthError("Invalid credentials.");
+      throw new Error("Invalid credentials.");
+    }
+    const { error } = await supabase.auth.signUp({ email: safeEmail, password });
     if (error) {
       setAuthError(error.message);
       throw error;
@@ -118,9 +133,27 @@ export default function AppProvider({ children }) {
 
   async function sendReset(email) {
     setAuthError("");
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    const safeEmail = sanitize(email);
+    if (!safeEmail || containsBadChars(safeEmail)) {
+      setAuthError("Invalid email.");
+      throw new Error("Invalid email.");
+    }
+    const { error } = await supabase.auth.resetPasswordForEmail(safeEmail, {
       redirectTo: `${window.location.origin}/reset`,
     });
+    if (error) {
+      setAuthError(error.message);
+      throw error;
+    }
+  }
+
+  async function changePassword(newPassword) {
+    setAuthError("");
+    if (containsBadChars(newPassword)) {
+      setAuthError("Invalid password.");
+      throw new Error("Invalid password.");
+    }
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
     if (error) {
       setAuthError(error.message);
       throw error;
@@ -171,10 +204,22 @@ export default function AppProvider({ children }) {
 
   async function addIngredientsToList(recipe) {
     if (!user?.id || !Array.isArray(recipe.ingredients)) return;
+    const instanceId =
+      typeof crypto !== "undefined" && crypto.randomUUID
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.random()}`;
+    const existingInstances = new Set(
+      shoppingList.filter((item) => item.recipeId === recipe.id).map((item) => item.recipeInstanceId || item.id)
+    );
+    const instanceNumber = existingInstances.size + 1;
+    const instanceLabel = `${recipe.title} #${instanceNumber}`;
+
     const rows = recipe.ingredients.map((text) => ({
       user_id: user.id,
       recipe_id: recipe.id,
       recipe_title: recipe.title,
+      recipe_instance_id: instanceId,
+      recipe_instance_label: instanceLabel,
       text,
       checked: false,
     }));
@@ -216,6 +261,23 @@ export default function AppProvider({ children }) {
     setShoppingList((prev) => prev.filter((item) => item.id !== id));
   }
 
+  async function removeRecipeInstanceFromShoppingList(recipeId, recipeInstanceId) {
+    if (!user?.id) return;
+    const { error } = await supabase
+      .from("shopping_list_items")
+      .delete()
+      .eq("user_id", user.id)
+      .eq("recipe_id", recipeId)
+      .eq("recipe_instance_id", recipeInstanceId);
+    if (error) {
+      console.error("Delete recipe instance items error", error);
+      return;
+    }
+    setShoppingList((prev) =>
+      prev.filter((item) => item.recipeId !== recipeId || item.recipeInstanceId !== recipeInstanceId)
+    );
+  }
+
   async function removeRecipeFromShoppingList(recipeId) {
     if (!user?.id) return;
     const { error } = await supabase
@@ -242,6 +304,7 @@ export default function AppProvider({ children }) {
       signUp,
       signOut,
       sendReset,
+      changePassword,
       savedRecipes,
       saveRecipe,
       removeSavedRecipe,
@@ -249,6 +312,7 @@ export default function AppProvider({ children }) {
       addIngredientsToList,
       toggleItem,
       removeItem,
+      removeRecipeInstanceFromShoppingList,
       removeRecipeFromShoppingList,
     }),
     [

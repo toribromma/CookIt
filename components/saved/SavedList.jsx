@@ -9,7 +9,6 @@ export default function SavedList() {
     savedRecipes,
     removeSavedRecipe,
     addIngredientsToList,
-    removeRecipeFromShoppingList,
   } = useApp();
   const [expandedId, setExpandedId] = useState(null);
 
@@ -102,13 +101,6 @@ export default function SavedList() {
                     style={{ background: "var(--accent-2)", color: "#0b2b20" }}
                   >
                     Add ingredients to list
-                  </button>
-                  <button
-                    onClick={() => removeRecipeFromShoppingList(r.id)}
-                    className="text-xs px-3 py-1 rounded-md"
-                    style={{ background: "rgba(185,28,28,0.1)", color: "#7f1d1d" }}
-                  >
-                    Remove dish from list
                   </button>
                 </div>
               </div>

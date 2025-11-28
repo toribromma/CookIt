@@ -32,6 +32,8 @@ create table if not exists public.shopping_list_items (
   user_id uuid not null references auth.users on delete cascade,
   recipe_id text,
   recipe_title text,
+  recipe_instance_id text,
+  recipe_instance_label text,
   text text not null,
   checked boolean default false,
   created_at timestamptz default timezone('utc', now())
