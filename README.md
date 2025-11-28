@@ -1,6 +1,6 @@
 # Meal Muse — deterministic recipes with Supabase auth
 
-Live: https://cook-it-eight.vercel.app/  _(URL unchanged; UI/metadata now say Meal Muse)_
+Live: https://meal-muse-8888.vercel.app/
 
 This app lets you search deterministic recipes (Hugging Face), save favorites, and build a shopping list backed by Supabase auth and tables.
 
