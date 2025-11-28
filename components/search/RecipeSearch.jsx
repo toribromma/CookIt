@@ -42,6 +42,7 @@ export default function RecipeSearch() {
       }
       const data = await res.json();
       setResults(data.recipes || []);
+      setQuery("");
     } catch (err) {
       setError(err?.message || "Search failed");
     } finally {
@@ -91,18 +92,29 @@ export default function RecipeSearch() {
           </p>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {results.map((recipe) => (
-            <RecipeCard
-              key={recipe.id}
-              recipe={recipe}
-              isSaved={isSaved(recipe.id)}
-              onSave={() => (user ? saveRecipe(recipe) : setError("Please sign in to save recipes."))}
-              onAdd={() =>
-                user ? addIngredientsToList(recipe) : setError("Please sign in to build your list.")
-              }
-            />
-          ))}
+        <div className="relative min-h-[120px]">
+          {loading ? (
+            <div className="absolute inset-0 flex items-center justify-center rounded-md"
+              style={{ background: "rgba(0,0,0,0.04)" }}>
+              <div className="flex items-center gap-2 text-sm" style={{ color: "var(--muted)" }}>
+                <span className="w-4 h-4 border-2 border-[var(--border)] border-t-[var(--text)] rounded-full animate-spin" />
+                Searching recipes...
+              </div>
+            </div>
+          ) : null}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 opacity-100">
+            {results.map((recipe) => (
+              <RecipeCard
+                key={recipe.id}
+                recipe={recipe}
+                isSaved={isSaved(recipe.id)}
+                onSave={() => (user ? saveRecipe(recipe) : setError("Please sign in to save recipes."))}
+                onAdd={() =>
+                  user ? addIngredientsToList(recipe) : setError("Please sign in to build your list.")
+                }
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -216,6 +216,20 @@ export default function AppProvider({ children }) {
     setShoppingList((prev) => prev.filter((item) => item.id !== id));
   }
 
+  async function removeRecipeFromShoppingList(recipeId) {
+    if (!user?.id) return;
+    const { error } = await supabase
+      .from("shopping_list_items")
+      .delete()
+      .eq("user_id", user.id)
+      .eq("recipe_id", recipeId);
+    if (error) {
+      console.error("Delete recipe items error", error);
+      return;
+    }
+    setShoppingList((prev) => prev.filter((item) => item.recipeId !== recipeId));
+  }
+
   const value = useMemo(
     () => ({
       hydrated,
@@ -235,6 +249,7 @@ export default function AppProvider({ children }) {
       addIngredientsToList,
       toggleItem,
       removeItem,
+      removeRecipeFromShoppingList,
     }),
     [
       hydrated,
